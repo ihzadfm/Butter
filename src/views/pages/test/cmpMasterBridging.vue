@@ -29,7 +29,7 @@
         </div>
         <div class="modal-body">
           <pre>{{ budgetData }}</pre>
-          
+
           <!-- Wizards Row -->
           <div class="row">
             <div class="col-md-12">
@@ -155,19 +155,18 @@
                 :disabled="
                   $root.flagButtonLoading ||
                   todo.brandcode == null ||
-    todo.brandcode == '' ||
-    todo.kodebeban == null ||
-    todo.kodebeban == '' ||
-    todo.itemcode == null ||
-    todo.itemcode == '' ||
-    todo.mtgcode == null ||
-    todo.mtgcode == '' ||
-    todo.parentcode == null ||
-    todo.parentcode == '' ||
-    todo.itemname == null ||
-    todo.itemname == ''
+                  todo.brandcode == '' ||
+                  todo.kodebeban == null ||
+                  todo.kodebeban == '' ||
+                  todo.itemcode == null ||
+                  todo.itemcode == '' ||
+                  todo.mtgcode == null ||
+                  todo.mtgcode == '' ||
+                  todo.parentcode == null ||
+                  todo.parentcode == '' ||
+                  todo.itemname == null ||
+                  todo.itemname == ''
                 "
-               
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -182,22 +181,20 @@
                 type="button"
                 class="btn btn-sm btn-primary pull-left"
                 :disabled="
-                $root.flagButtonLoading ||
-                todo.brandcode == null ||
-    todo.brandcode == '' ||
-    todo.kodebeban == null ||
-    todo.kodebeban == '' ||
-    todo.itemcode == null ||
-    todo.itemcode == '' ||
-    todo.mtgcode == null ||
-    todo.mtgcode == '' ||
-    todo.parentcode == null ||
-    todo.parentcode == '' ||
-    todo.itemname == null ||
-    todo.itemname == ''
-
+                  $root.flagButtonLoading ||
+                  todo.brandcode == null ||
+                  todo.brandcode == '' ||
+                  todo.kodebeban == null ||
+                  todo.kodebeban == '' ||
+                  todo.itemcode == null ||
+                  todo.itemcode == '' ||
+                  todo.mtgcode == null ||
+                  todo.mtgcode == '' ||
+                  todo.parentcode == null ||
+                  todo.parentcode == '' ||
+                  todo.itemname == null ||
+                  todo.itemname == ''
                 "
-
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -235,49 +232,64 @@
         <!-- <pre>{{ csv}}</pre> -->
 
         <div v-if="csv != null">
-            <strong>{{ csv.length }} </strong> data<br />
-          </div>
+          <strong>{{ csv.length }} </strong> data<br />
+        </div>
 
-          <!-- <pre> -->
-        <vue-csv-import
-        v-model="csv"
-        :fields="dataImportCsv"
-    >
-        <vue-csv-toggle-headers></vue-csv-toggle-headers>
-        <vue-csv-errors></vue-csv-errors>
-        <vue-csv-input></vue-csv-input>
-        <vue-csv-table-map
-          :auto-match="true"
-          :table-attributes="{
-            id: 'csv-table',
-            class: 'table table-bordered table-hover',
-          }"
-        ></vue-csv-table-map>
-    </vue-csv-import>
-    <!-- </pre> -->
-    <br />
+        <!-- <pre> -->
+        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+          <vue-csv-toggle-headers></vue-csv-toggle-headers>
+          <vue-csv-errors></vue-csv-errors>
+          <vue-csv-input></vue-csv-input>
+          <vue-csv-table-map
+            :auto-match="true"
+            :table-attributes="{
+              id: 'csv-table',
+              class: 'table table-bordered table-hover',
+            }"
+          ></vue-csv-table-map>
+        </vue-csv-import>
+        <!-- </pre> -->
+        <br />
 
-    <button 
-    v-if="csv != null"
-    @click="saveTodoBulky()" 
-    type="button"
-    class="btn btn-sm btn-primary pull-left"
-    >
-    SAVE DATA BULKY
-    </button>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    
-        <!-- <button
+        <button
+          v-if="csv != null"
+          @click="saveTodoBulky()"
+          type="button"
+          class="btn btn-sm btn-primary pull-left"
+        >
+          SAVE DATA BULKY
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <download-excel
+          class="button"
+          :data="json_data"
+          :fields="json_fields"
+          :worksheet="nama_sheetnya"
+          :name="nama_excelnya"
+          :before-generate="startDownload"
+          :before-finish="finishDownload"
+        >
+          <button
+            class="btn btn-sm btn-success pull-left"
+            @click="download_excel_xyz()"
+          >
+            Export Excel
+          </button>
+        </download-excel>
+
+        <button
+          <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
         >
           ADD DATA
-        </button> -->
+        </button>
 
         <!------------------------>
         <div id="wrapper2"></div>
@@ -300,14 +312,11 @@ import { idID } from "gridjs/l10n";
 import loadingBar from "@/assets/img/Moving_train.gif";
 
 import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
+import JsonExcel from "vue-json-excel3";
 
 export default {
   components: {
-    // CmpSelect2,
-    // LoadingX,
-    // CmpInputText,
-    // CmpInputText,
+    downloadExcel: JsonExcel,
   },
   data() {
     return {
@@ -318,56 +327,84 @@ export default {
       // grid2: new Grid(),
       errorField: {
         brandcode: false,
-kodebeban: false,
-itemcode: false,
-mtgcode: false,
-parentcode: false,
-itemname: false,
+        kodebeban: false,
+        itemcode: false,
+        mtgcode: false,
+        parentcode: false,
+        itemname: false,
+      },
 
-        },
+      userid: 0,
+      status_table: false,
 
-        userid: 0,
-        status_table: false,
+      modal: false,
 
-        modal: false,
-
-        todo: {
-          brandcode: "",
-          kodebeban: "",
-          itemcode: "",
-          mtgcode: "",
-          parentcode: "",
-          itemname: "",
-
-          },
+      todo: {
+        brandcode: "",
+        kodebeban: "",
+        itemcode: "",
+        mtgcode: "",
+        parentcode: "",
+        itemname: "",
+      },
       flagButtonAdd: true,
       csv: null,
       dataImportCsv: {
         brandcode: {
-    label: "brandcode",
-    required: true,
-},
-kodebeban: {
-    label: "kodebeban",
-    required: true,
-},
-itemcode: {
-    label: "itemcode",
-    required: true,
-},
-mtgcode: {
-    label: "mtgcode",
-    required: true,
-},
-parentcode: {
-    label: "parentcode",
-    required: true,
-},
-itemname: {
-    label: "itemname",
-    required: true,
-},
-      }
+          label: "brandcode",
+          required: true,
+        },
+        kodebeban: {
+          label: "kodebeban",
+          required: true,
+        },
+        itemcode: {
+          label: "itemcode",
+          required: true,
+        },
+        mtgcode: {
+          label: "mtgcode",
+          required: true,
+        },
+        parentcode: {
+          label: "parentcode",
+          required: true,
+        },
+        itemname: {
+          label: "itemname",
+          required: true,
+        },
+      },
+      data_x_tabel: [],
+
+      data_x_excel: [],
+
+      json_meta: [
+        [
+          {
+            key: "charset",
+
+            value: "utf-8",
+          },
+        ],
+      ],
+
+      json_data: [],
+
+      json_fields: {
+        brandcode: "brandcode",
+        kodebeban: "kodebeban",
+        itemcode: "itemcode",
+        mtgcode: "mtgcode",
+        parentcode: "parentcode",
+        itemname: "itemname",
+      },
+
+      nama_Worksheet: "Sheet Master Bridging",
+
+      nama_excelnya: "",
+
+      nama_sheetnya: "",
     };
   },
   async mounted() {
@@ -376,6 +413,157 @@ itemname: {
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
+    padTo2Digits(num) {
+      return num.toString().padStart(2, "0");
+    },
+
+    formatDate(date) {
+      return (
+        [
+          date.getFullYear(),
+
+          this.padTo2Digits(date.getMonth() + 1),
+
+          this.padTo2Digits(date.getDate()),
+        ].join("-") +
+        " " +
+        [
+          this.padTo2Digits(date.getHours()),
+
+          this.padTo2Digits(date.getMinutes()),
+
+          this.padTo2Digits(date.getSeconds()),
+        ].join(":")
+      );
+    },
+
+    async getDataExportExcel() {
+      var mythis = this;
+
+      mythis.$root.presentLoading();
+
+      var nn = 0;
+
+      var count = 1;
+
+      var limitx = 100;
+
+      var offsetx = 0;
+
+      var baris = 0;
+
+      var nomor_x = 1;
+
+      var br_pdf = 0;
+
+      var br_flag = 0;
+
+      var br_string = "";
+
+      var html = "";
+
+      var baris_excel = 0;
+
+      // mythis.json_data = [];
+
+      mythis.data_x_excel = [];
+
+      while (count > 0) {
+        offsetx = limitx * nn;
+
+        const reqData = await axios({
+          method: "get",
+
+          url:
+            mythis.$root.apiHost +
+            "api/bridgingbudgetbrand?offset=" +
+            offsetx +
+            "&limit=" +
+            limitx,
+        });
+
+        console.log(reqData);
+
+        const resData = reqData.data;
+
+        console.log(resData.results.length);
+
+        if (resData.results.length == 0) {
+          count = 0;
+        }
+
+        Object.keys(resData.results).forEach(function (key) {
+          const countries_x = {
+            nomor: nomor_x,
+            brandcode: "'" + resData.results[key].brandcode,
+            kodebeban: resData.results[key].kodebeban,
+            itemcode: resData.results[key].itemcode,
+            mtgcode: resData.results[key].mtgcode,
+            parentcode: resData.results[key].parentcode,
+            itemname: resData.results[key].itemname,
+          };
+
+          mythis.data_x_excel[baris_excel] = countries_x;
+
+          br_pdf++;
+
+          baris_excel++;
+
+          nomor_x++;
+
+          ////////////////////////////////////////////////////////
+
+          ////////////////////////////////////////////////////////
+        });
+
+        nn = nn + 1;
+
+        if (resData.count < resData.nomorBaris) {
+          count = 0;
+        }
+
+        if (nn >= 100) {
+          count = 0;
+        }
+      }
+
+      baris_excel++;
+
+      //Penutup Excel
+
+      baris_excel++;
+
+      var countries_x = {
+        nomor: "",
+
+        nama: "Print Date",
+
+        nik: mythis.formatDate(new Date()),
+      };
+
+      mythis.data_x_excel[baris_excel] = countries_x;
+
+      mythis.json_data = mythis.data_x_excel;
+
+      mythis.flagDownloadXLS = 1;
+
+      var a = new Date().toLocaleString("en-GB");
+
+      mythis.nama_excelnya = "MASTER_BRIDGING_" + a + ".xls";
+
+      mythis.nama_sheetnya = mythis.nama_excelnya;
+
+      mythis.$root.stopLoading();
+    },
+
+    download_excel_xyz() {},
+
+    async startDownload() {
+      await this.getDataExportExcel();
+    },
+
+    finishDownload() {},
+
     mySelectEvent() {
       this.todo.roles = this.tmp.cboRoles.code;
     },
@@ -398,7 +586,7 @@ itemname: {
       this.getTable();
       //////////////////////////////
     },
-    
+
     saveTodoBulky() {
       var mythis = this;
 
@@ -477,13 +665,13 @@ itemname: {
               }
             });
         }
-      })
+      });
     },
     saveTodo() {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master User",
+        title: "Create Master Bridging",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -509,13 +697,12 @@ itemname: {
               url,
               {
                 brandcode: mythis.todo.brandcode,
-kodebeban: mythis.todo.kodebeban,
-itemcode: mythis.todo.itemcode,
-mtgcode: mythis.todo.mtgcode,
-parentcode: mythis.todo.parentcode,
-itemname: mythis.todo.itemname,
-                userid: mythis.userid
-
+                kodebeban: mythis.todo.kodebeban,
+                itemcode: mythis.todo.itemcode,
+                mtgcode: mythis.todo.mtgcode,
+                parentcode: mythis.todo.parentcode,
+                itemname: mythis.todo.itemname,
+                userid: mythis.userid,
               },
               config
             )
@@ -605,11 +792,11 @@ itemname: mythis.todo.itemname,
           { name: "ID", hidden: true },
           "No",
           "BRAND CODE",
-"KODE BEBAN",
-"ITEM CODE",
-"MTG CODE",
-"PARENT CODE",
-"ITEM NAME",
+          "KODE BEBAN",
+          "ITEM CODE",
+          "MTG CODE",
+          "PARENT CODE",
+          "ITEM NAME",
 
           {
             name: "Action",
@@ -655,12 +842,11 @@ itemname: mythis.todo.itemname,
               card.id,
               data.nomorBaris++ + 1,
               html(`<span class="pull-left">${card.brandcode}</span>`),
-html(`<span class="pull-left">${card.kodebeban}</span>`),
-html(`<span class="pull-left">${card.itemcode}</span>`),
-html(`<span class="pull-left">${card.mtgcode}</span>`),
-html(`<span class="pull-left">${card.parentcode}</span>`),
-html(`<span class="pull-left">${card.itemname}</span>`),
-
+              html(`<span class="pull-left">${card.kodebeban}</span>`),
+              html(`<span class="pull-left">${card.itemcode}</span>`),
+              html(`<span class="pull-left">${card.mtgcode}</span>`),
+              html(`<span class="pull-left">${card.parentcode}</span>`),
+              html(`<span class="pull-left">${card.itemname}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -696,11 +882,11 @@ html(`<span class="pull-left">${card.itemname}</span>`),
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-          // const AuthStr = "bearer " + localStorage.getItem("token");
-          // const config = {
-          //   headers: {
-          //     Authorization: AuthStr,
-          //   },
+            // const AuthStr = "bearer " + localStorage.getItem("token");
+            // const config = {
+            //   headers: {
+            //     Authorization: AuthStr,
+            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
@@ -727,23 +913,23 @@ html(`<span class="pull-left">${card.itemname}</span>`),
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
       // const AuthStr = "bearer " + localStorage.getItem("token");
-      
+
       //   headers: {
       //     Authorization: AuthStr,
       //   },
       // };
-      const config = ""
+      const config = "";
       axios
         .put(
           mythis.$root.apiHost + "api/bridgingbudgetbrand/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
-kodebeban: mythis.todo.kodebeban,
-itemcode: mythis.todo.itemcode,
-mtgcode: mythis.todo.mtgcode,
-parentcode: mythis.todo.parentcode,
-itemname: mythis.todo.itemname,
-            userid: mythis.userid
+            kodebeban: mythis.todo.kodebeban,
+            itemcode: mythis.todo.itemcode,
+            mtgcode: mythis.todo.mtgcode,
+            parentcode: mythis.todo.parentcode,
+            itemname: mythis.todo.itemname,
+            userid: mythis.userid,
           },
           config
         )
@@ -808,11 +994,11 @@ itemname: mythis.todo.itemname,
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.brandcode = res.data.data.brandcode;
-mythis.todo.kodebeban = res.data.data.kodebeban;
-mythis.todo.itemcode = res.data.data.itemcode;
-mythis.todo.mtgcode = res.data.data.mtgcode;
-mythis.todo.parentcode = res.data.data.parentcode;
-mythis.todo.itemname = res.data.data.itemname;
+          mythis.todo.kodebeban = res.data.data.kodebeban;
+          mythis.todo.itemcode = res.data.data.itemcode;
+          mythis.todo.mtgcode = res.data.data.mtgcode;
+          mythis.todo.parentcode = res.data.data.parentcode;
+          mythis.todo.itemname = res.data.data.itemname;
 
           document.getElementById("inputA").focus(); // sets the focus on the input
 

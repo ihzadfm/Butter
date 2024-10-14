@@ -29,7 +29,7 @@
         </div>
         <div class="modal-body">
           <pre>{{ budgetData }}</pre>
-          
+
           <!-- Wizards Row -->
           <div class="row">
             <div class="col-md-12">
@@ -89,7 +89,7 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="example-nf-email">Target</label>
+                  <label for="example-nf-email">target</label>
                   <CmpInputText
                     type="text"
                     placeholder="target"
@@ -125,7 +125,9 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="example-nf-email">Month of Production (MOP)</label>
+                  <label for="example-nf-email"
+                    >Month of Production (MOP)</label
+                  >
                   <CmpInputText
                     type="text"
                     placeholder="mop"
@@ -155,22 +157,19 @@
                   $root.flagButtonLoading ||
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
-todo.itemcode == null ||
-todo.itemcode == '' ||
-todo.itemname == null ||
-todo.itemname == '' ||
-todo.target == null ||
-todo.target == '' ||
-todo.yop == null ||
-todo.yop == '' ||
-todo.mop == null ||
-todo.mop == '' ||
-todo.distcode == null ||
-todo.distcode == ''
-
-
+                  todo.itemcode == null ||
+                  todo.itemcode == '' ||
+                  todo.itemname == null ||
+                  todo.itemname == '' ||
+                  todo.target == null ||
+                  todo.target == '' ||
+                  todo.yop == null ||
+                  todo.yop == '' ||
+                  todo.mop == null ||
+                  todo.mop == '' ||
+                  todo.distcode == null ||
+                  todo.distcode == ''
                 "
-               
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -185,24 +184,22 @@ todo.distcode == ''
                 type="button"
                 class="btn btn-sm btn-primary pull-left"
                 :disabled="
-                $root.flagButtonLoading ||
-                todo.brandcode == null ||
-                todo.brandcode == '' ||
-todo.itemcode == null ||
-todo.itemcode == '' ||
-todo.itemname == null ||
-todo.itemname == '' ||
-todo.target == null ||
-todo.target == '' ||
-todo.yop == null ||
-todo.yop == '' ||
-todo.mop == null ||
-todo.mop == '' ||
-todo.distcode == null ||
-todo.distcode == ''
-
+                  $root.flagButtonLoading ||
+                  todo.brandcode == null ||
+                  todo.brandcode == '' ||
+                  todo.itemcode == null ||
+                  todo.itemcode == '' ||
+                  todo.itemname == null ||
+                  todo.itemname == '' ||
+                  todo.target == null ||
+                  todo.target == '' ||
+                  todo.yop == null ||
+                  todo.yop == '' ||
+                  todo.mop == null ||
+                  todo.mop == '' ||
+                  todo.distcode == null ||
+                  todo.distcode == ''
                 "
-
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -240,49 +237,63 @@ todo.distcode == ''
         <!-- <pre>{{ csv}}</pre> -->
 
         <div v-if="csv != null">
-            <strong>{{ csv.length }} </strong> data<br />
-          </div>
+          <strong>{{ csv.length }} </strong> data<br />
+        </div>
 
-          <!-- <pre> -->
-        <vue-csv-import
-        v-model="csv"
-        :fields="dataImportCsv"
-    >
-        <vue-csv-toggle-headers></vue-csv-toggle-headers>
-        <vue-csv-errors></vue-csv-errors>
-        <vue-csv-input></vue-csv-input>
-        <vue-csv-table-map
-          :auto-match="true"
-          :table-attributes="{
-            id: 'csv-table',
-            class: 'table table-bordered table-hover',
-          }"
-        ></vue-csv-table-map>
-    </vue-csv-import>
-    <!-- </pre> -->
-    <br />
+        <!-- <pre> -->
+        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+          <vue-csv-toggle-headers></vue-csv-toggle-headers>
+          <vue-csv-errors></vue-csv-errors>
+          <vue-csv-input></vue-csv-input>
+          <vue-csv-table-map
+            :auto-match="true"
+            :table-attributes="{
+              id: 'csv-table',
+              class: 'table table-bordered table-hover',
+            }"
+          ></vue-csv-table-map>
+        </vue-csv-import>
+        <!-- </pre> -->
+        <br />
 
-    <button 
-    v-if="csv != null"
-    @click="saveTodoBulky()" 
-    type="button"
-    class="btn btn-sm btn-primary pull-left"
-    >
-    SAVE DATA BULKY
-    </button>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    
-        <!-- <button
+        <button
+          v-if="csv != null"
+          @click="saveTodoBulky()"
+          type="button"
+          class="btn btn-sm btn-primary pull-left"
+        >
+          SAVE DATA BULKY
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <download-excel
+          class="button"
+          :data="json_data"
+          :fields="json_fields"
+          :worksheet="nama_sheetnya"
+          :name="nama_excelnya"
+          :before-generate="startDownload"
+          :before-finish="finishDownload"
+        >
+          <button
+            class="btn btn-sm btn-success pull-left"
+            @click="download_excel_xyz()"
+          >
+            Export Excel
+          </button>
+        </download-excel>
+
+        <button
+          <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
         >
           ADD DATA
-        </button> -->
+        </button>
 
         <!------------------------>
         <div id="wrapper2"></div>
@@ -306,13 +317,11 @@ import loadingBar from "@/assets/img/Moving_train.gif";
 
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import JsonExcel from "vue-json-excel3";
 
 export default {
   components: {
-    // CmpSelect2,
-    // LoadingX,
-    // CmpInputText,
-    // CmpInputText,
+    downloadExcel: JsonExcel,
   },
   data() {
     return {
@@ -323,63 +332,91 @@ export default {
       // grid2: new Grid(),
       errorField: {
         BrandCode: false,
-ItemCode: false,
-ItemName: false,
-Target: false,
-Yop: false,
-Mop: false,
-distcode: false,
+        ItemCode: false,
+        ItemName: false,
+        target: false,
+        Yop: false,
+        Mop: false,
+        distcode: false,
+      },
 
-        },
+      userid: 0,
+      status_table: false,
 
-        userid: 0,
-        status_table: false,
+      modal: false,
 
-        modal: false,
-
-        todo: {
-          brandcode: "",
-itemcode: "",
-itemname: "",
-target: "",
-yop: "",
-mop: "",
-distcode: "",
-
-
-          },
+      todo: {
+        brandcode: "",
+        itemcode: "",
+        itemname: "",
+        target: "",
+        yop: "",
+        mop: "",
+        distcode: "",
+      },
       flagButtonAdd: true,
       csv: null,
       dataImportCsv: {
         brandcode: {
-    label: "brandcode",
-    required: true,
-},
-itemcode: {
-    label: "itemcode",
-    required: true,
-},
-itemname: {
-    label: "itemname",
-    required: true,
-},
-target: {
-    label: "target",
-    required: true,
-},
-yop: {
-    label: "yop",
-    required: true,
-},
-mop: {
-    label: "mop",
-    required: true,
-},
-distcode: {
-    label: "distcode",
-    required: true,
-},
-      }
+          label: "brandcode",
+          required: true,
+        },
+        itemcode: {
+          label: "itemcode",
+          required: true,
+        },
+        itemname: {
+          label: "itemname",
+          required: true,
+        },
+        target: {
+          label: "target",
+          required: true,
+        },
+        yop: {
+          label: "yop",
+          required: true,
+        },
+        mop: {
+          label: "mop",
+          required: true,
+        },
+        distcode: {
+          label: "distcode",
+          required: true,
+        },
+      },
+      data_x_tabel: [],
+
+      data_x_excel: [],
+
+      json_meta: [
+        [
+          {
+            key: "charset",
+
+            value: "utf-8",
+          },
+        ],
+      ],
+
+      json_data: [],
+
+      json_fields: {
+        brandcode: "brandcode",
+        itemcode: "itemcode",
+        itemname: "itemname",
+        target: "target",
+        yop: "yop", // Year of Production
+        mop: "mop", // Month of Production
+        distcode: "distcode",
+      },
+
+      nama_Worksheet: "Sheet Master target",
+
+      nama_excelnya: "",
+
+      nama_sheetnya: "",
     };
   },
   async mounted() {
@@ -388,6 +425,158 @@ distcode: {
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
+    padTo2Digits(num) {
+      return num.toString().padStart(2, "0");
+    },
+
+    formatDate(date) {
+      return (
+        [
+          date.getFullYear(),
+
+          this.padTo2Digits(date.getMonth() + 1),
+
+          this.padTo2Digits(date.getDate()),
+        ].join("-") +
+        " " +
+        [
+          this.padTo2Digits(date.getHours()),
+
+          this.padTo2Digits(date.getMinutes()),
+
+          this.padTo2Digits(date.getSeconds()),
+        ].join(":")
+      );
+    },
+
+    async getDataExportExcel() {
+      var mythis = this;
+
+      mythis.$root.presentLoading();
+
+      var nn = 0;
+
+      var count = 1;
+
+      var limitx = 100;
+
+      var offsetx = 0;
+
+      var baris = 0;
+
+      var nomor_x = 1;
+
+      var br_pdf = 0;
+
+      var br_flag = 0;
+
+      var br_string = "";
+
+      var html = "";
+
+      var baris_excel = 0;
+
+      // mythis.json_data = [];
+
+      mythis.data_x_excel = [];
+
+      while (count > 0) {
+        offsetx = limitx * nn;
+
+        const reqData = await axios({
+          method: "get",
+
+          url:
+            mythis.$root.apiHost +
+            "api/targetpenjualan?offset=" +
+            offsetx +
+            "&limit=" +
+            limitx,
+        });
+
+        console.log(reqData);
+
+        const resData = reqData.data;
+
+        console.log(resData.results.length);
+
+        if (resData.results.length == 0) {
+          count = 0;
+        }
+
+        Object.keys(resData.results).forEach(function (key) {
+          const countries_x = {
+            nomor: nomor_x,
+
+            brandcode: "'" + resData.results[key].brandcode,
+            itemcode: resData.results[key].itemcode,
+            itemname: resData.results[key].itemname,
+            target: resData.results[key].target,
+            yop: resData.results[key].yop,
+            mop: resData.results[key].mop,
+            distcode: resData.results[key].distcode,
+          };
+
+          mythis.data_x_excel[baris_excel] = countries_x;
+
+          br_pdf++;
+
+          baris_excel++;
+
+          nomor_x++;
+
+          ////////////////////////////////////////////////////////
+
+          ////////////////////////////////////////////////////////
+        });
+
+        nn = nn + 1;
+
+        if (resData.count < resData.nomorBaris) {
+          count = 0;
+        }
+
+        if (nn >= 100) {
+          count = 0;
+        }
+      }
+
+      baris_excel++;
+
+      //Penutup Excel
+
+      baris_excel++;
+
+      var countries_x = {
+        nomor: "",
+
+        nama: "Print Date",
+
+        nik: mythis.formatDate(new Date()),
+      };
+
+      mythis.data_x_excel[baris_excel] = countries_x;
+
+      mythis.json_data = mythis.data_x_excel;
+
+      mythis.flagDownloadXLS = 1;
+
+      var a = new Date().toLocaleString("en-GB");
+
+      mythis.nama_excelnya = "MASTER_TARGET_" + a + ".xls";
+
+      mythis.nama_sheetnya = mythis.nama_excelnya;
+
+      mythis.$root.stopLoading();
+    },
+
+    download_excel_xyz() {},
+
+    async startDownload() {
+      await this.getDataExportExcel();
+    },
+
+    finishDownload() {},
     mySelectEvent() {
       this.todo.roles = this.tmp.cboRoles.code;
     },
@@ -410,12 +599,12 @@ distcode: {
       this.getTable();
       //////////////////////////////
     },
-    
+
     saveTodoBulky() {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master Target Bulky",
+        title: "Create Master target Bulky",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -489,7 +678,7 @@ distcode: {
               }
             });
         }
-      })
+      });
     },
     saveTodo() {
       var mythis = this;
@@ -521,14 +710,13 @@ distcode: {
               url,
               {
                 brandcode: mythis.todo.brandcode,
-itemcode: mythis.todo.itemcode,
-itemname: mythis.todo.itemname,
-target: mythis.todo.target,
-yop: mythis.todo.yop,
-mop: mythis.todo.mop,
-distcode: mythis.todo.distcode,
-                userid: mythis.userid
-
+                itemcode: mythis.todo.itemcode,
+                itemname: mythis.todo.itemname,
+                target: mythis.todo.target,
+                yop: mythis.todo.yop,
+                mop: mythis.todo.mop,
+                distcode: mythis.todo.distcode,
+                userid: mythis.userid,
               },
               config
             )
@@ -618,12 +806,12 @@ distcode: mythis.todo.distcode,
           { name: "ID", hidden: true },
           "No",
           "YOP",
-"MOP",
+          "MOP",
           "BRAND CODE",
           "DISTCODE",
-"ITEM NAME",
-"ITEM CODE",
-"Target",
+          "ITEM NAME",
+          "TARGET",
+          "ITEM CODE",
 
           {
             name: "Action",
@@ -669,15 +857,12 @@ distcode: mythis.todo.distcode,
               card.id,
               data.nomorBaris++ + 1,
               html(`<span class="pull-left">${card.yop}</span>`),
-html(`<span class="pull-left">${card.mop}</span>`),
+              html(`<span class="pull-left">${card.mop}</span>`),
               html(`<span class="pull-left">${card.brandcode}</span>`),
-html(`<span class="pull-left">${card.itemcode}</span>`),
-html(`<span class="pull-left">${card.itemname}</span>`),
-html(`<span class="pull-left">${card.target}</span>`),
-html(`<span class="pull-left">${card.distcode}</span>`),
-
-
-
+              html(`<span class="pull-left">${card.itemcode}</span>`),
+              html(`<span class="pull-left">${card.itemname}</span>`),
+              html(`<span class="pull-left">${card.target}</span>`),
+              html(`<span class="pull-left">${card.distcode}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -713,21 +898,18 @@ html(`<span class="pull-left">${card.distcode}</span>`),
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-          // const AuthStr = "bearer " + localStorage.getItem("token");
-          // const config = {
-          //   headers: {
-          //     Authorization: AuthStr,
-          //   },
+            // const AuthStr = "bearer " + localStorage.getItem("token");
+            // const config = {
+            //   headers: {
+            //     Authorization: AuthStr,
+            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
             },
           };
           axios
-            .delete(
-              mythis.$root.apiHost + `api/targetpenjualan/${id}`,
-              config
-            )
+            .delete(mythis.$root.apiHost + `api/targetpenjualan/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -744,25 +926,25 @@ html(`<span class="pull-left">${card.distcode}</span>`),
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
       // const AuthStr = "bearer " + localStorage.getItem("token");
-      
+
       //   headers: {
       //     Authorization: AuthStr,
       //   },
       // };
-      const config = ""
+      const config = "";
       axios
         .put(
           mythis.$root.apiHost + "api/targetpenjualan/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
-itemcode: mythis.todo.itemcode,
-itemname: mythis.todo.itemname,
-target: mythis.todo.target,
-yop: mythis.todo.yop,
-mop: mythis.todo.mop,
-distcode: mythis.todo.distcode,
+            itemcode: mythis.todo.itemcode,
+            itemname: mythis.todo.itemname,
+            target: mythis.todo.target,
+            yop: mythis.todo.yop,
+            mop: mythis.todo.mop,
+            distcode: mythis.todo.distcode,
 
-            userid: mythis.userid
+            userid: mythis.userid,
           },
           config
         )
@@ -827,13 +1009,12 @@ distcode: mythis.todo.distcode,
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.brandcode = res.data.data.brandcode;
-mythis.todo.itemcode = res.data.data.itemcode;
-mythis.todo.itemname = res.data.data.itemname;
-mythis.todo.target = res.data.data.target;
-mythis.todo.yop = res.data.data.yop;
-mythis.todo.mop = res.data.data.mop;
-mythis.todo.distcode = res.data.data.distcode;
-
+          mythis.todo.itemcode = res.data.data.itemcode;
+          mythis.todo.itemname = res.data.data.itemname;
+          mythis.todo.target = res.data.data.target;
+          mythis.todo.yop = res.data.data.yop;
+          mythis.todo.mop = res.data.data.mop;
+          mythis.todo.distcode = res.data.data.distcode;
 
           document.getElementById("inputA").focus(); // sets the focus on the input
 

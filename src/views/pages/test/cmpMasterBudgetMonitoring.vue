@@ -29,7 +29,7 @@
         </div>
         <div class="modal-body">
           <pre>{{ budgetData }}</pre>
-          
+
           <!-- Wizards Row -->
           <div class="row">
             <div class="col-md-12">
@@ -138,450 +138,448 @@
                 </div>
               </div>
               <div class="col-md-6">
+                <div class="form-group">
+                  <label for="example-nf-email">Total Final</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="total final"
+                    v-model="todo.totalfinal"
+                    :class="
+                      errorField.totalfinal
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
               <div class="form-group">
-                <label for="example-nf-email">Total Final</label>
+                <label for="example-nf-email">Total</label>
                 <CmpInputText
                   type="text"
-                  placeholder="total final"
-                  v-model="todo.totalfinal"
+                  placeholder="total"
+                  v-model="todo.total"
                   :class="
-                    errorField.totalfinal
+                    errorField.total
                       ? 'form-control input-lg input-error'
                       : 'form-control input-lg'
                   "
                 />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-<div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Total</label>
-      <CmpInputText
-        type="text"
-        placeholder="total"
-        v-model="todo.total"
-        :class="
-          errorField.total
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-</div>
 
-<!-- Monthly Fields (Jan - Dec) -->
-<div class="row">
-  <div class="col-md-12">
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">January</label>
-        <CmpInputText
-          type="text"
-          placeholder="January"
-          v-model="todo.jan"
-          :class="
-            errorField.jan
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">February</label>
-        <CmpInputText
-          type="text"
-          placeholder="February"
-          v-model="todo.feb"
-          :class="
-            errorField.feb
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">March</label>
-        <CmpInputText
-          type="text"
-          placeholder="March"
-          v-model="todo.mar"
-          :class="
-            errorField.mar
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">April</label>
-        <CmpInputText
-          type="text"
-          placeholder="April"
-          v-model="todo.apr"
-          :class="
-            errorField.apr
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-  </div>
-  <div class="col-md-12">
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">May</label>
-        <CmpInputText
-          type="text"
-          placeholder="May"
-          v-model="todo.mei"
-          :class="
-            errorField.mei
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">June</label>
-        <CmpInputText
-          type="text"
-          placeholder="June"
-          v-model="todo.jun"
-          :class="
-            errorField.jun
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">July</label>
-        <CmpInputText
-          type="text"
-          placeholder="July"
-          v-model="todo.jul"
-          :class="
-            errorField.jul
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">August</label>
-        <CmpInputText
-          type="text"
-          placeholder="August"
-          v-model="todo.ags"
-          :class="
-            errorField.ags
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-  </div>
-  <div class="col-md-12">
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">September</label>
-        <CmpInputText
-          type="text"
-          placeholder="September"
-          v-model="todo.sep"
-          :class="
-            errorField.sep
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">October</label>
-        <CmpInputText
-          type="text"
-          placeholder="October"
-          v-model="todo.okt"
-          :class="
-            errorField.okt
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">November</label>
-        <CmpInputText
-          type="text"
-          placeholder="November"
-          v-model="todo.nop"
-          :class="
-            errorField.nop
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="example-nf-email">December</label>
-        <CmpInputText
-          type="text"
-          placeholder="December"
-          v-model="todo.des"
-          :class="
-            errorField.des
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-  </div>
-</div>
+          <!-- Monthly Fields (Jan - Dec) -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">January</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="January"
+                    v-model="todo.jan"
+                    :class="
+                      errorField.jan
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">February</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="February"
+                    v-model="todo.feb"
+                    :class="
+                      errorField.feb
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">March</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="March"
+                    v-model="todo.mar"
+                    :class="
+                      errorField.mar
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">April</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="April"
+                    v-model="todo.apr"
+                    :class="
+                      errorField.apr
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">May</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="May"
+                    v-model="todo.mei"
+                    :class="
+                      errorField.mei
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">June</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="June"
+                    v-model="todo.jun"
+                    :class="
+                      errorField.jun
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">July</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="July"
+                    v-model="todo.jul"
+                    :class="
+                      errorField.jul
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">August</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="August"
+                    v-model="todo.ags"
+                    :class="
+                      errorField.ags
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">September</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="September"
+                    v-model="todo.sep"
+                    :class="
+                      errorField.sep
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">October</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="October"
+                    v-model="todo.okt"
+                    :class="
+                      errorField.okt
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">November</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="November"
+                    v-model="todo.nop"
+                    :class="
+                      errorField.nop
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="example-nf-email">December</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="December"
+                    v-model="todo.des"
+                    :class="
+                      errorField.des
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
 
-<!-- Realization fields (n1 - n12) and Total Realization -->
-<!-- Realization fields (n1 - n12) and Total Realization -->
-<div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 1</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 1"
-        v-model="todo.realizationn1"
-        :class="
-          errorField.realizationn1
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 2</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 2"
-        v-model="todo.realizationn2"
-        :class="
-          errorField.realizationn2
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 3</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 3"
-        v-model="todo.realizationn3"
-        :class="
-          errorField.realizationn3
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 4</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 4"
-        v-model="todo.realizationn4"
-        :class="
-          errorField.realizationn4
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 5</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 5"
-        v-model="todo.realizationn5"
-        :class="
-          errorField.realizationn5
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 6</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 6"
-        v-model="todo.realizationn6"
-        :class="
-          errorField.realizationn6
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 7</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 7"
-        v-model="todo.realizationn7"
-        :class="
-          errorField.realizationn7
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 8</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 8"
-        v-model="todo.realizationn8"
-        :class="
-          errorField.realizationn8
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 9</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 9"
-        v-model="todo.realizationn9"
-        :class="
-          errorField.realizationn9
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 10</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 10"
-        v-model="todo.realizationn10"
-        :class="
-          errorField.realizationn10
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 11</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 11"
-        v-model="todo.realizationn11"
-        :class="
-          errorField.realizationn11
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Realization 12</label>
-      <CmpInputText
-        type="text"
-        placeholder="realization 12"
-        v-model="todo.realizationn12"
-        :class="
-          errorField.realizationn12
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <!-- Repeat for realizationn3 to realizationn12 -->
-  <!-- ... -->
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Total Realization</label>
-      <CmpInputText
-        type="text"
-        placeholder="total realization"
-        v-model="todo.totalrealization"
-        :class="
-          errorField.totalrealization
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="example-nf-email">Year</label>
-      <CmpInputText
-        type="text"
-        placeholder="year"
-        v-model="todo.year"
-        :class="
-          errorField.year
-            ? 'form-control input-lg input-error'
-            : 'form-control input-lg'
-        "
-      />
-    </div>
-  </div>
-</div>
+          <!-- Realization fields (n1 - n12) and Total Realization -->
+          <!-- Realization fields (n1 - n12) and Total Realization -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 1</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 1"
+                  v-model="todo.realizationn1"
+                  :class="
+                    errorField.realizationn1
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 2</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 2"
+                  v-model="todo.realizationn2"
+                  :class="
+                    errorField.realizationn2
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 3</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 3"
+                  v-model="todo.realizationn3"
+                  :class="
+                    errorField.realizationn3
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 4</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 4"
+                  v-model="todo.realizationn4"
+                  :class="
+                    errorField.realizationn4
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 5</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 5"
+                  v-model="todo.realizationn5"
+                  :class="
+                    errorField.realizationn5
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 6</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 6"
+                  v-model="todo.realizationn6"
+                  :class="
+                    errorField.realizationn6
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 7</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 7"
+                  v-model="todo.realizationn7"
+                  :class="
+                    errorField.realizationn7
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 8</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 8"
+                  v-model="todo.realizationn8"
+                  :class="
+                    errorField.realizationn8
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 9</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 9"
+                  v-model="todo.realizationn9"
+                  :class="
+                    errorField.realizationn9
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 10</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 10"
+                  v-model="todo.realizationn10"
+                  :class="
+                    errorField.realizationn10
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 11</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 11"
+                  v-model="todo.realizationn11"
+                  :class="
+                    errorField.realizationn11
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Realization 12</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="realization 12"
+                  v-model="todo.realizationn12"
+                  :class="
+                    errorField.realizationn12
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <!-- Repeat for realizationn3 to realizationn12 -->
+            <!-- ... -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Total Realization</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="total realization"
+                  v-model="todo.totalrealization"
+                  :class="
+                    errorField.totalrealization
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-nf-email">Year</label>
+                <CmpInputText
+                  type="text"
+                  placeholder="year"
+                  v-model="todo.year"
+                  :class="
+                    errorField.year
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
+                />
+              </div>
+            </div>
+          </div>
           <!-- END Wizards Row -->
-
         </div>
-
 
         <div class="modal-footer">
           <div class="form-group form-actions">
@@ -633,36 +631,35 @@
                   todo.NOP == '' ||
                   todo.DES == null ||
                   todo.DES == '' ||
-todo.RealizationN1 == null ||
-todo.RealizationN1 == '' ||
-todo.RealizationN2 == null ||
-todo.RealizationN2 == '' ||
-todo.RealizationN3 == null ||
-todo.RealizationN3 == '' ||
-todo.RealizationN4 == null ||
-todo.RealizationN4 == '' ||
-todo.RealizationN5 == null ||
-todo.RealizationN5 == '' ||
-todo.RealizationN6 == null ||
-todo.RealizationN6 == '' ||
-todo.RealizationN7 == null ||
-todo.RealizationN7 == '' ||
-todo.RealizationN8 == null ||
-todo.RealizationN8 == '' ||
-todo.RealizationN9 == null ||
-todo.RealizationN9 == '' ||
-todo.RealizationN10 == null ||
-todo.RealizationN10 == '' ||
-todo.RealizationN11 == null ||
-todo.RealizationN11 == '' ||
-todo.RealizationN12 == null ||
-todo.RealizationN12 == '' ||
-todo.TotalRealization == null ||
-todo.TotalRealization == '' ||
-todo.Year == null ||
-todo.Year == ''
+                  todo.RealizationN1 == null ||
+                  todo.RealizationN1 == '' ||
+                  todo.RealizationN2 == null ||
+                  todo.RealizationN2 == '' ||
+                  todo.RealizationN3 == null ||
+                  todo.RealizationN3 == '' ||
+                  todo.RealizationN4 == null ||
+                  todo.RealizationN4 == '' ||
+                  todo.RealizationN5 == null ||
+                  todo.RealizationN5 == '' ||
+                  todo.RealizationN6 == null ||
+                  todo.RealizationN6 == '' ||
+                  todo.RealizationN7 == null ||
+                  todo.RealizationN7 == '' ||
+                  todo.RealizationN8 == null ||
+                  todo.RealizationN8 == '' ||
+                  todo.RealizationN9 == null ||
+                  todo.RealizationN9 == '' ||
+                  todo.RealizationN10 == null ||
+                  todo.RealizationN10 == '' ||
+                  todo.RealizationN11 == null ||
+                  todo.RealizationN11 == '' ||
+                  todo.RealizationN12 == null ||
+                  todo.RealizationN12 == '' ||
+                  todo.TotalRealization == null ||
+                  todo.TotalRealization == '' ||
+                  todo.Year == null ||
+                  todo.Year == ''
                 "
-               
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -679,75 +676,74 @@ todo.Year == ''
                 :disabled="
                   $root.flagButtonLoading ||
                   todo.kodebeban == null ||
-todo.kodebeban == '' ||
-todo.kodedivisi == null ||
-todo.kodedivisi == '' ||
-todo.expense == null ||
-todo.expense == '' ||
-todo.expensegroup == null ||
-todo.expensegroup == '' ||
-todo.groupbeban == null ||
-todo.groupbeban == '' ||
-todo.groupcostcenter == null ||
-todo.groupcostcenter == '' ||
-todo.totalfinal == null ||
-todo.totalfinal == '' ||
-todo.total == null ||
-todo.total == '' ||
-todo.jan == null ||
-todo.jan == '' ||
-todo.feb == null ||
-todo.feb == '' ||
-todo.mar == null ||
-todo.mar == '' ||
-todo.apr == null ||
-todo.apr == '' ||
-todo.mei == null ||
-todo.mei == '' ||
-todo.jun == null ||
-todo.jun == '' ||
-todo.jul == null ||
-todo.jul == '' ||
-todo.ags == null ||
-todo.ags == '' ||
-todo.sep == null ||
-todo.sep == '' ||
-todo.okt == null ||
-todo.okt == '' ||
-todo.nop == null ||
-todo.nop == '' ||
-todo.des == null ||
-todo.des == '' ||
-todo.realizationn1 == null ||
-todo.realizationn1 == '' ||
-todo.realizationn2 == null ||
-todo.realizationn2 == '' ||
-todo.realizationn3 == null ||
-todo.realizationn3 == '' ||
-todo.realizationn4 == null ||
-todo.realizationn4 == '' ||
-todo.realizationn5 == null ||
-todo.realizationn5 == '' ||
-todo.realizationn6 == null ||
-todo.realizationn6 == '' ||
-todo.realizationn7 == null ||
-todo.realizationn7 == '' ||
-todo.realizationn8 == null ||
-todo.realizationn8 == '' ||
-todo.realizationn9 == null ||
-todo.realizationn9 == '' ||
-todo.realizationn10 == null ||
-todo.realizationn10 == '' ||
-todo.realizationn11 == null ||
-todo.realizationn11 == '' ||
-todo.realizationn12 == null ||
-todo.realizationn12 == '' ||
-todo.totalrealization == null ||
-todo.totalrealization == '' ||
-todo.year == null ||
-todo.year == ''
+                  todo.kodebeban == '' ||
+                  todo.kodedivisi == null ||
+                  todo.kodedivisi == '' ||
+                  todo.expense == null ||
+                  todo.expense == '' ||
+                  todo.expensegroup == null ||
+                  todo.expensegroup == '' ||
+                  todo.groupbeban == null ||
+                  todo.groupbeban == '' ||
+                  todo.groupcostcenter == null ||
+                  todo.groupcostcenter == '' ||
+                  todo.totalfinal == null ||
+                  todo.totalfinal == '' ||
+                  todo.total == null ||
+                  todo.total == '' ||
+                  todo.jan == null ||
+                  todo.jan == '' ||
+                  todo.feb == null ||
+                  todo.feb == '' ||
+                  todo.mar == null ||
+                  todo.mar == '' ||
+                  todo.apr == null ||
+                  todo.apr == '' ||
+                  todo.mei == null ||
+                  todo.mei == '' ||
+                  todo.jun == null ||
+                  todo.jun == '' ||
+                  todo.jul == null ||
+                  todo.jul == '' ||
+                  todo.ags == null ||
+                  todo.ags == '' ||
+                  todo.sep == null ||
+                  todo.sep == '' ||
+                  todo.okt == null ||
+                  todo.okt == '' ||
+                  todo.nop == null ||
+                  todo.nop == '' ||
+                  todo.des == null ||
+                  todo.des == '' ||
+                  todo.realizationn1 == null ||
+                  todo.realizationn1 == '' ||
+                  todo.realizationn2 == null ||
+                  todo.realizationn2 == '' ||
+                  todo.realizationn3 == null ||
+                  todo.realizationn3 == '' ||
+                  todo.realizationn4 == null ||
+                  todo.realizationn4 == '' ||
+                  todo.realizationn5 == null ||
+                  todo.realizationn5 == '' ||
+                  todo.realizationn6 == null ||
+                  todo.realizationn6 == '' ||
+                  todo.realizationn7 == null ||
+                  todo.realizationn7 == '' ||
+                  todo.realizationn8 == null ||
+                  todo.realizationn8 == '' ||
+                  todo.realizationn9 == null ||
+                  todo.realizationn9 == '' ||
+                  todo.realizationn10 == null ||
+                  todo.realizationn10 == '' ||
+                  todo.realizationn11 == null ||
+                  todo.realizationn11 == '' ||
+                  todo.realizationn12 == null ||
+                  todo.realizationn12 == '' ||
+                  todo.totalrealization == null ||
+                  todo.totalrealization == '' ||
+                  todo.year == null ||
+                  todo.year == ''
                 "
-
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -785,49 +781,62 @@ todo.year == ''
         <!-- <pre>{{ csv}}</pre> -->
 
         <div v-if="csv != null">
-            <strong>{{ csv.length }} </strong> data<br />
-          </div>
+          <strong>{{ csv.length }} </strong> data<br />
+        </div>
 
-          <!-- <pre> -->
-        <vue-csv-import
-        v-model="csv"
-        :fields="dataImportCsv"
-    >
-        <vue-csv-toggle-headers></vue-csv-toggle-headers>
-        <vue-csv-errors></vue-csv-errors>
-        <vue-csv-input></vue-csv-input>
-        <vue-csv-table-map
-          :auto-match="true"
-          :table-attributes="{
-            id: 'csv-table',
-            class: 'table table-bordered table-hover',
-          }"
-        ></vue-csv-table-map>
-    </vue-csv-import>
-    <!-- </pre> -->
-    <br />
+        <!-- <pre> -->
+        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+          <vue-csv-toggle-headers></vue-csv-toggle-headers>
+          <vue-csv-errors></vue-csv-errors>
+          <vue-csv-input></vue-csv-input>
+          <vue-csv-table-map
+            :auto-match="true"
+            :table-attributes="{
+              id: 'csv-table',
+              class: 'table table-bordered table-hover',
+            }"
+          ></vue-csv-table-map>
+        </vue-csv-import>
+        <!-- </pre> -->
+        <br />
 
-    <button 
-    v-if="csv != null"
-    @click="saveTodoBulky()" 
-    type="button"
-    class="btn btn-sm btn-primary pull-left"
-    >
-    SAVE DATA BULKY
-    </button>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    
-        <!-- <button
+        <button
+          v-if="csv != null"
+          @click="saveTodoBulky()"
+          type="button"
+          class="btn btn-sm btn-primary pull-left"
+        >
+          SAVE DATA BULKY
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <download-excel
+          class="button"
+          :data="json_data"
+          :fields="json_fields"
+          :worksheet="nama_sheetnya"
+          :name="nama_excelnya"
+          :before-generate="startDownload"
+          :before-finish="finishDownload"
+        >
+          <button
+            class="btn btn-sm btn-success pull-left"
+            @click="download_excel_xyz()"
+          >
+            Export Excel
+          </button>
+        </download-excel>
+        <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
         >
           ADD DATA
-        </button> -->
+        </button>
 
         <!------------------------>
         <div id="wrapper2"></div>
@@ -852,8 +861,11 @@ import loadingBar from "@/assets/img/Moving_train.gif";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
+import JsonExcel from "vue-json-excel3";
+
 export default {
   components: {
+    downloadExcel: JsonExcel,
     // CmpSelect2,
     // LoadingX,
     // CmpInputText,
@@ -902,194 +914,177 @@ export default {
         RealizationN12: false,
         TotalRealization: false,
         Year: false,
-        },
+      },
 
-        userid: 0,
-        status_table: false,
+      userid: 0,
+      status_table: false,
 
-        modal: false,
+      modal: false,
 
-        todo: {
-          kodebeban: "",
-kodedivisi: "",
-expense: "",
-expensegroup: "",
-groupbeban: "",
-groupcostcenter: "",
-costcenter: "",
-totalfinal: "",
-total: "",
-jan: "",
-feb: "",
-mar: "",
-apr: "",
-mei: "",
-jun: "",
-jul: "",
-ags: "",
-sep: "",
-okt: "",
-nop: "",
-des: "",
-realizationn1: "",
-realizationn2: "",
-realizationn3: "",
-realizationn4: "",
-realizationn5: "",
-realizationn6: "",
-realizationn7: "",
-realizationn8: "",
-realizationn9: "",
-realizationn10: "",
-realizationn11: "",
-realizationn12: "",
-totalrealization: "",
-year: "",
-          },
+      todo: {
+        kodebeban: "",
+        kodedivisi: "",
+        expense: "",
+        expensegroup: "",
+        groupbeban: "",
+        groupcostcenter: "",
+        costcenter: "",
+        totalfinal: "",
+        total: "",
+        jan: "",
+        feb: "",
+        mar: "",
+        apr: "",
+        mei: "",
+        jun: "",
+        jul: "",
+        ags: "",
+        sep: "",
+        okt: "",
+        nop: "",
+        des: "",
+        realizationn1: "",
+        realizationn2: "",
+        realizationn3: "",
+        realizationn4: "",
+        realizationn5: "",
+        realizationn6: "",
+        realizationn7: "",
+        realizationn8: "",
+        realizationn9: "",
+        realizationn10: "",
+        realizationn11: "",
+        realizationn12: "",
+        totalrealization: "",
+        year: "",
+      },
       flagButtonAdd: true,
       csv: null,
       dataImportCsv: {
         kodebeban: {
-    label: "kodebeban",
-    required: true,
-},
-kodedivisi: {
-    label: "kodedivisi",
-    required: true, 
-},
-expense: {
-    label: "expense",
-    required: true,
-},  
-expensegroup: {
-    label: "expensegroup",
-    required: true,
-},
-groupbeban: {
-    label: "groupbeban",
-    required: true,
-},
-groupcostcenter: {
-    label: "groupcostcenter",
-    required: true,
-},
-costcenter: {
-    label: "costcenter",
-    required: true,
-},
-totalfinal: {
-    label: "totalfinal",
-    required: true,
-},
-total: {
-    label: "total",
-    required: true,
-},
-jan: {
-    label: "jan",
-    required: true,
-},
-feb: {
-    label: "feb",
-    required: true,
-},
-mar: {
-    label: "mar",
-    required: true,
-},
-apr: {
-    label: "apr",
-    required: true,
-},
-mei: {
-    label: "mei",
-    required: true,
-},
-jun: {
-    label: "jun",
-    required: true,
-},
-jul: {
-    label: "jul",
-    required: true,
-},
-ags: {
-    label: "ags",
-    required: true,
-},
-sep: {
-    label: "sep",
-    required: true,
-},
-okt: {
-    label: "okt",
-    required: true,
-},
-nop: {
-    label: "nop",
-    required: true,
-},
-des: {
-    label: "des",
-    required: true,
-},
-realizationn1: {
-    label: "realizationn1",
-    required: true,
-},
-realizationn2: {
-    label: "realizationn2",
-    required: true,
-},
-realizationn3: {
-    label: "realizationn3",
-    required: true,
-},
-realizationn4: {
-    label: "realizationn4",
-    required: true,
-},
-realizationn5: {
-    label: "realizationn5",
-    required: true,
-},
-realizationn6: {
-    label: "realizationn6",
-    required: true,
-},
-realizationn7: {
-    label: "realizationn7",
-    required: true,
-},
-realizationn8: {
-    label: "realizationn8",
-    required: true,
-},
-realizationn9: {
-    label: "realizationn9",
-    required: true,
-},
-realizationn10: {
-    label: "realizationn10",
-    required: true,
-},
-realizationn11: {
-    label: "realizationn11",
-    required: true,
-},
-realizationn12: {
-    label: "realizationn12",
-    required: true,
-},
-totalrealization: {
-    label: "totalrealization",
-    required: true,
-},
-year: {
-    label: "year",
-    required: true,
-},
-      }
+          label: "kodebeban",
+          required: true,
+        },
+        kodedivisi: {
+          label: "kodedivisi",
+          required: true,
+        },
+        expense: {
+          label: "expense",
+          required: true,
+        },
+        expensegroup: {
+          label: "expensegroup",
+          required: true,
+        },
+        groupbeban: {
+          label: "groupbeban",
+          required: true,
+        },
+        groupcostcenter: {
+          label: "groupcostcenter",
+          required: true,
+        },
+        costcenter: {
+          label: "costcenter",
+          required: true,
+        },
+        totalfinal: {
+          label: "totalfinal",
+          required: true,
+        },
+        total: {
+          label: "total",
+          required: true,
+        },
+        jan: {
+          label: "jan",
+          required: true,
+        },
+        feb: {
+          label: "feb",
+          required: true,
+        },
+        mar: {
+          label: "mar",
+          required: true,
+        },
+        apr: {
+          label: "apr",
+          required: true,
+        },
+        mei: {
+          label: "mei",
+          required: true,
+        },
+        jun: {
+          label: "jun",
+          required: true,
+        },
+        jul: {
+          label: "jul",
+          required: true,
+        },
+        ags: {
+          label: "ags",
+          required: true,
+        },
+        sep: {
+          label: "sep",
+          required: true,
+        },
+      },
+      data_x_tabel: [],
+      data_x_excel: [],
+      json_meta: [
+        [
+          {
+            key: "charset",
+            value: "utf-8",
+          },
+        ],
+      ],
+      json_data: [],
+      json_fields: {
+        kodebeban: "kodebeban",
+        kodedivisi: "kodedivisi",
+        expense: "expense",
+        expensegroup: "expensegroup",
+        groupbeban: "groupbeban",
+        groupcostcenter: "groupcostcenter",
+        costcenter: "costcenter",
+        totalfinal: "totalfinal",
+        total: "total",
+        jan: "jan",
+        feb: "feb",
+        mar: "mar",
+        apr: "apr",
+        mei: "mei",
+        jun: "jun",
+        jul: "jul",
+        ags: "ags",
+        sep: "sep",
+        okt: "okt",
+        nop: "nop",
+        des: "des",
+        realizationn1: "realizationn1",
+        realizationn2: "realizationn2",
+        realizationn3: "realizationn3",
+        realizationn4: "realizationn4",
+        realizationn5: "realizationn5",
+        realizationn6: "realizationn6",
+        realizationn7: "realizationn7",
+        realizationn8: "realizationn8",
+        realizationn9: "realizationn9",
+        realizationn10: "realizationn10",
+        realizationn11: "realizationn11",
+        realizationn12: "realizationn12",
+        totalrealization: "totalrealization",
+        year: "year",
+      },
+      nama_Worksheet: "Sheet Master Budget",
+      nama_excelnya: "",
+      nama_sheetnya: "",
     };
   },
   async mounted() {
@@ -1098,6 +1093,224 @@ year: {
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
+    padTo2Digits(num) {
+      return num.toString().padStart(2, "0");
+    },
+
+    formatDate(date) {
+      return (
+        [
+          date.getFullYear(),
+          this.padTo2Digits(date.getMonth() + 1),
+          this.padTo2Digits(date.getDate()),
+        ].join("-") +
+        " " +
+        [
+          this.padTo2Digits(date.getHours()),
+          this.padTo2Digits(date.getMinutes()),
+          this.padTo2Digits(date.getSeconds()),
+        ].join(":")
+      );
+    },
+
+    async getDataExportExcel() {
+      var mythis = this;
+
+      mythis.$root.presentLoading();
+
+      var nn = 0;
+
+      var count = 1;
+
+      var limitx = 100;
+
+      var offsetx = 0;
+
+      var baris = 0;
+
+      var nomor_x = 1;
+
+      var br_pdf = 0;
+
+      var br_flag = 0;
+
+      var br_string = "";
+
+      var html = "";
+
+      var baris_excel = 0;
+
+      // mythis.json_data = [];
+
+      mythis.data_x_excel = [];
+
+      while (count > 0) {
+        offsetx = limitx * nn;
+
+        const reqData = await axios({
+          method: "get",
+
+          url:
+            mythis.$root.apiHost +
+            "api/BudgetMonitoring?offset=" +
+            offsetx +
+            "&limit=" +
+            limitx,
+        });
+
+        console.log(reqData);
+
+        const resData = reqData.data;
+
+        console.log(resData.results.length);
+
+        if (resData.results.length == 0) {
+          count = 0;
+        }
+
+        Object.keys(resData.results).forEach(function (key) {
+          const countries_x = {
+            nomor: nomor_x,
+            kodebeban: resData.results[key].kodebeban
+              ? resData.results[key].kodebeban
+              : "",
+            kodedivisi: resData.results[key].kodedivisi
+              ? resData.results[key].kodedivisi
+              : "",
+            expense: resData.results[key].expense
+              ? resData.results[key].expense
+              : "",
+            expensegroup: resData.results[key].expensegroup
+              ? resData.results[key].expensegroup
+              : "",
+            groupbeban: resData.results[key].groupbeban
+              ? resData.results[key].groupbeban
+              : "",
+            groupcostcenter: resData.results[key].groupcostcenter
+              ? resData.results[key].groupcostcenter
+              : "",
+            costcenter: resData.results[key].costcenter
+              ? resData.results[key].costcenter
+              : "",
+            totalfinal: resData.results[key].totalfinal
+              ? resData.results[key].totalfinal
+              : "",
+            total: resData.results[key].total ? resData.results[key].total : "",
+            jan: resData.results[key].jan ? resData.results[key].jan : "",
+            feb: resData.results[key].feb ? resData.results[key].feb : "",
+            mar: resData.results[key].mar ? resData.results[key].mar : "",
+            apr: resData.results[key].apr ? resData.results[key].apr : "",
+            mei: resData.results[key].mei ? resData.results[key].mei : "",
+            jun: resData.results[key].jun ? resData.results[key].jun : "",
+            jul: resData.results[key].jul ? resData.results[key].jul : "",
+            ags: resData.results[key].ags ? resData.results[key].ags : "",
+            sep: resData.results[key].sep ? resData.results[key].sep : "",
+            okt: resData.results[key].okt ? resData.results[key].okt : "",
+            nop: resData.results[key].nop ? resData.results[key].nop : "",
+            des: resData.results[key].des ? resData.results[key].des : "",
+            realizationn1: resData.results[key].realizationn1
+              ? resData.results[key].realizationn1
+              : "",
+            realizationn2: resData.results[key].realizationn2
+              ? resData.results[key].realizationn2
+              : "",
+            realizationn3: resData.results[key].realizationn3
+              ? resData.results[key].realizationn3
+              : "",
+            realizationn4: resData.results[key].realizationn4
+              ? resData.results[key].realizationn4
+              : "",
+            realizationn5: resData.results[key].realizationn5
+              ? resData.results[key].realizationn5
+              : "",
+            realizationn6: resData.results[key].realizationn6
+              ? resData.results[key].realizationn6
+              : "",
+            realizationn7: resData.results[key].realizationn7
+              ? resData.results[key].realizationn7
+              : "",
+            realizationn8: resData.results[key].realizationn8
+              ? resData.results[key].realizationn8
+              : "",
+            realizationn9: resData.results[key].realizationn9
+              ? resData.results[key].realizationn9
+              : "",
+            realizationn10: resData.results[key].realizationn10
+              ? resData.results[key].realizationn10
+              : "",
+            realizationn11: resData.results[key].realizationn11
+              ? resData.results[key].realizationn11
+              : "",
+            realizationn12: resData.results[key].realizationn12
+              ? resData.results[key].realizationn12
+              : "",
+            totalrealization: resData.results[key].totalrealization
+              ? resData.results[key].totalrealization
+              : "",
+            year: resData.results[key].year ? resData.results[key].year : "",
+          };
+
+          mythis.data_x_excel[baris_excel] = countries_x;
+
+          br_pdf++;
+
+          baris_excel++;
+
+          nomor_x++;
+
+          ////////////////////////////////////////////////////////
+
+          ////////////////////////////////////////////////////////
+        });
+
+        nn = nn + 1;
+
+        if (resData.count < resData.nomorBaris) {
+          count = 0;
+        }
+
+        if (nn >= 100) {
+          count = 0;
+        }
+      }
+
+      baris_excel++;
+
+      //Penutup Excel
+
+      baris_excel++;
+
+      var countries_x = {
+        nomor: "",
+
+        nama: "Print Date",
+
+        nik: mythis.formatDate(new Date()),
+      };
+
+      mythis.data_x_excel[baris_excel] = countries_x;
+
+      mythis.json_data = mythis.data_x_excel;
+
+      mythis.flagDownloadXLS = 1;
+
+      var a = new Date().toLocaleString("en-GB");
+
+      mythis.nama_excelnya = "MASTER_BUDGET_" + a + ".xls";
+
+      mythis.nama_sheetnya = mythis.nama_excelnya;
+
+      mythis.$root.stopLoading();
+    },
+
+    download_excel_xyz() {},
+
+    async startDownload() {
+      await this.getDataExportExcel();
+    },
+
+    finishDownload() {},
+
     mySelectEvent() {
       this.todo.roles = this.tmp.cboRoles.code;
     },
@@ -1120,7 +1333,7 @@ year: {
       this.getTable();
       //////////////////////////////
     },
-    
+
     saveTodoBulky() {
       var mythis = this;
 
@@ -1199,13 +1412,13 @@ year: {
               }
             });
         }
-      })
+      });
     },
     saveTodo() {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master User",
+        title: "Create Master BUDGET",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -1264,8 +1477,7 @@ year: {
                 RealizationN12: mythis.todo.RealizationN12,
                 TotalRealization: mythis.todo.TotalRealization,
                 Year: mythis.todo.Year,
-                userid: mythis.userid
-
+                userid: mythis.userid,
               },
               config
             )
@@ -1355,21 +1567,39 @@ year: {
           { name: "ID", hidden: true },
           "No",
           "KODE BEBAN",
-"KODE DIVISI",
-"EXPENSE",
-"EXPENSE GROUP",
-"GROUP BEBAN",
-"GROUP COST CENTER",
-"TOTAL FINAL",
-"TOTAL",
-'JAN', 'FEB', 'MAR', 'APR', 'MEI',
-'JUN', 'JUL', 'AGS', 'SEP', 'OKT',
-'NOP', 'DES',
-'REALIZATION N1', 'REALIZATION N2', 'REALIZATION N3', 'REALIZATION N4',
-'REALIZATION N5', 'REALIZATION N6', 'REALIZATION N7', 'REALIZATION N8',
-'REALIZATION N9', 'REALIZATION N10', 'REALIZATION N11', 'REALIZATION N12',
-'TOTAL REALIZATION',
-'YEAR',
+          "KODE DIVISI",
+          "EXPENSE",
+          "EXPENSE GROUP",
+          "GROUP BEBAN",
+          "GROUP COST CENTER",
+          "TOTAL FINAL",
+          "TOTAL",
+          "JAN",
+          "FEB",
+          "MAR",
+          "APR",
+          "MEI",
+          "JUN",
+          "JUL",
+          "AGS",
+          "SEP",
+          "OKT",
+          "NOP",
+          "DES",
+          "REALIZATION N1",
+          "REALIZATION N2",
+          "REALIZATION N3",
+          "REALIZATION N4",
+          "REALIZATION N5",
+          "REALIZATION N6",
+          "REALIZATION N7",
+          "REALIZATION N8",
+          "REALIZATION N9",
+          "REALIZATION N10",
+          "REALIZATION N11",
+          "REALIZATION N12",
+          "TOTAL REALIZATION",
+          "YEAR",
 
           {
             name: "Action",
@@ -1446,7 +1676,7 @@ year: {
               html(`<span class="pull-left">${card.realizationn11}</span>`),
               html(`<span class="pull-left">${card.realizationn12}</span>`),
               html(`<span class="pull-left">${card.totalrealization}</span>`),
-              html(`<span class="pull-left">${card.year}</span>`)
+              html(`<span class="pull-left">${card.year}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -1482,21 +1712,18 @@ year: {
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-          // const AuthStr = "bearer " + localStorage.getItem("token");
-          // const config = {
-          //   headers: {
-          //     Authorization: AuthStr,
-          //   },
+            // const AuthStr = "bearer " + localStorage.getItem("token");
+            // const config = {
+            //   headers: {
+            //     Authorization: AuthStr,
+            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
             },
           };
           axios
-            .delete(
-              mythis.$root.apiHost + `api/BudgetMonitoring/${id}`,
-              config
-            )
+            .delete(mythis.$root.apiHost + `api/BudgetMonitoring/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -1513,52 +1740,52 @@ year: {
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
       // const AuthStr = "bearer " + localStorage.getItem("token");
-      
+
       //   headers: {
       //     Authorization: AuthStr,
       //   },
       // };
-      const config = ""
+      const config = "";
       axios
         .put(
           mythis.$root.apiHost + "api/BudgetMonitoring/" + mythis.todo.id,
           {
             kodebeban: mythis.todo.kodebeban,
-kodedivisi: mythis.todo.kodedivisi,
-expense: mythis.todo.expense,
-expensegroup: mythis.todo.expensegroup,
-groupbeban: mythis.todo.groupbeban,
-groupcostcenter: mythis.todo.groupcostcenter,
-totalfinal: mythis.todo.totalfinal,
-total: mythis.todo.total,
-jan: mythis.todo.jan,
-feb: mythis.todo.feb,
-mar: mythis.todo.mar,
-apr: mythis.todo.apr,
-mei: mythis.todo.mei,
-jun: mythis.todo.jun,
-jul: mythis.todo.jul,
-ags: mythis.todo.ags,
-sep: mythis.todo.sep,
-okt: mythis.todo.okt,
-nop: mythis.todo.nop,
-des: mythis.todo.des,
-realizationn1: mythis.todo.realizationn1,
-realizationn2: mythis.todo.realizationn2,
-realizationn3: mythis.todo.realizationn3,
-realizationn4: mythis.todo.realizationn4,
-realizationn5: mythis.todo.realizationn5,
-realizationn6: mythis.todo.realizationn6,
-realizationn7: mythis.todo.realizationn7,
-realizationn8: mythis.todo.realizationn8,
-realizationn9: mythis.todo.realizationn9,
-realizationn10: mythis.todo.realizationn10,
-realizationn11: mythis.todo.realizationn11,
-realizationn12: mythis.todo.realizationn12,
-totalrealization: mythis.todo.totalrealization,
-year: mythis.todo.year,
+            kodedivisi: mythis.todo.kodedivisi,
+            expense: mythis.todo.expense,
+            expensegroup: mythis.todo.expensegroup,
+            groupbeban: mythis.todo.groupbeban,
+            groupcostcenter: mythis.todo.groupcostcenter,
+            totalfinal: mythis.todo.totalfinal,
+            total: mythis.todo.total,
+            jan: mythis.todo.jan,
+            feb: mythis.todo.feb,
+            mar: mythis.todo.mar,
+            apr: mythis.todo.apr,
+            mei: mythis.todo.mei,
+            jun: mythis.todo.jun,
+            jul: mythis.todo.jul,
+            ags: mythis.todo.ags,
+            sep: mythis.todo.sep,
+            okt: mythis.todo.okt,
+            nop: mythis.todo.nop,
+            des: mythis.todo.des,
+            realizationn1: mythis.todo.realizationn1,
+            realizationn2: mythis.todo.realizationn2,
+            realizationn3: mythis.todo.realizationn3,
+            realizationn4: mythis.todo.realizationn4,
+            realizationn5: mythis.todo.realizationn5,
+            realizationn6: mythis.todo.realizationn6,
+            realizationn7: mythis.todo.realizationn7,
+            realizationn8: mythis.todo.realizationn8,
+            realizationn9: mythis.todo.realizationn9,
+            realizationn10: mythis.todo.realizationn10,
+            realizationn11: mythis.todo.realizationn11,
+            realizationn12: mythis.todo.realizationn12,
+            totalrealization: mythis.todo.totalrealization,
+            year: mythis.todo.year,
 
-            userid: mythis.userid
+            userid: mythis.userid,
           },
           config
         )
@@ -1623,40 +1850,39 @@ year: mythis.todo.year,
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.kodebeban = res.data.data.kodebeban;
-mythis.todo.kodedivisi = res.data.data.kodedivisi;
-mythis.todo.expense = res.data.data.expense;
-mythis.todo.expensegroup = res.data.data.expensegroup;
-mythis.todo.groupbeban = res.data.data.groupbeban;
-mythis.todo.groupcostcenter = res.data.data.groupcostcenter;
-mythis.todo.totalfinal = res.data.data.totalfinal;
-mythis.todo.total = res.data.data.total;
-mythis.todo.jan = res.data.data.jan;
-mythis.todo.feb = res.data.data.feb;
-mythis.todo.mar = res.data.data.mar;
-mythis.todo.apr = res.data.data.apr;
-mythis.todo.mei = res.data.data.mei;
-mythis.todo.jun = res.data.data.jun;
-mythis.todo.jul = res.data.data.jul;
-mythis.todo.ags = res.data.data.ags;
-mythis.todo.sep = res.data.data.sep;
-mythis.todo.okt = res.data.data.okt;
-mythis.todo.nop = res.data.data.nop;
-mythis.todo.des = res.data.data.des;
-mythis.todo.realizationn1 = res.data.data.realizationn1;
-mythis.todo.realizationn2 = res.data.data.realizationn2;
-mythis.todo.realizationn3 = res.data.data.realizationn3;
-mythis.todo.realizationn4 = res.data.data.realizationn4;
-mythis.todo.realizationn5 = res.data.data.realizationn5;
-mythis.todo.realizationn6 = res.data.data.realizationn6;
-mythis.todo.realizationn7 = res.data.data.realizationn7;
-mythis.todo.realizationn8 = res.data.data.realizationn8;
-mythis.todo.realizationn9 = res.data.data.realizationn9;
-mythis.todo.realizationn10 = res.data.data.realizationn10;
-mythis.todo.realizationn11 = res.data.data.realizationn11;
-mythis.todo.realizationn12 = res.data.data.realizationn12;
-mythis.todo.totalrealization = res.data.data.totalrealization;
-mythis.todo.year = res.data.data.year;
-
+          mythis.todo.kodedivisi = res.data.data.kodedivisi;
+          mythis.todo.expense = res.data.data.expense;
+          mythis.todo.expensegroup = res.data.data.expensegroup;
+          mythis.todo.groupbeban = res.data.data.groupbeban;
+          mythis.todo.groupcostcenter = res.data.data.groupcostcenter;
+          mythis.todo.totalfinal = res.data.data.totalfinal;
+          mythis.todo.total = res.data.data.total;
+          mythis.todo.jan = res.data.data.jan;
+          mythis.todo.feb = res.data.data.feb;
+          mythis.todo.mar = res.data.data.mar;
+          mythis.todo.apr = res.data.data.apr;
+          mythis.todo.mei = res.data.data.mei;
+          mythis.todo.jun = res.data.data.jun;
+          mythis.todo.jul = res.data.data.jul;
+          mythis.todo.ags = res.data.data.ags;
+          mythis.todo.sep = res.data.data.sep;
+          mythis.todo.okt = res.data.data.okt;
+          mythis.todo.nop = res.data.data.nop;
+          mythis.todo.des = res.data.data.des;
+          mythis.todo.realizationn1 = res.data.data.realizationn1;
+          mythis.todo.realizationn2 = res.data.data.realizationn2;
+          mythis.todo.realizationn3 = res.data.data.realizationn3;
+          mythis.todo.realizationn4 = res.data.data.realizationn4;
+          mythis.todo.realizationn5 = res.data.data.realizationn5;
+          mythis.todo.realizationn6 = res.data.data.realizationn6;
+          mythis.todo.realizationn7 = res.data.data.realizationn7;
+          mythis.todo.realizationn8 = res.data.data.realizationn8;
+          mythis.todo.realizationn9 = res.data.data.realizationn9;
+          mythis.todo.realizationn10 = res.data.data.realizationn10;
+          mythis.todo.realizationn11 = res.data.data.realizationn11;
+          mythis.todo.realizationn12 = res.data.data.realizationn12;
+          mythis.todo.totalrealization = res.data.data.totalrealization;
+          mythis.todo.year = res.data.data.year;
 
           document.getElementById("inputA").focus(); // sets the focus on the input
 

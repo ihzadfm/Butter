@@ -351,7 +351,7 @@ export default {
       //   message: "message"
       // },
       m_item: {
-        message: 'message',
+        message: "message",
       },
 
       flagFirebaseNotif: false,
@@ -598,7 +598,7 @@ export default {
         !this.menuHeader_status[header_menu];
     },
     async sendNotifFirebase(header, body) {
-      console.log(header, body)
+      console.log(header, body);
       //return false;
 
       var mythis = this;

@@ -46,7 +46,9 @@
                         : 'form-control input-lg'
                     "
                     :disabled="!flagButtonAdd"
-                    @input="(val) => (todo.item_code = todo.item_code.toUpperCase())"
+                    @input="
+                      (val) => (todo.item_code = todo.item_code.toUpperCase())
+                    "
                   />
                 </div>
               </div>
@@ -63,7 +65,9 @@
                         ? 'form-control input-lg input-error'
                         : 'form-control input-lg'
                     "
-                    @input="(val) => (todo.item_name = todo.item_name.toUpperCase())"
+                    @input="
+                      (val) => (todo.item_name = todo.item_name.toUpperCase())
+                    "
                   />
                 </div>
               </div>
@@ -84,8 +88,8 @@
                   "
                 />
               </div>
-            </div>  
-            
+            </div>
+
             <div class="col-md-6">
               <div class="form-group">
                 <label for="on_order">On Order</label>
@@ -102,7 +106,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -119,7 +123,7 @@
                 />
               </div>
             </div>
-            
+
             <div class="col-md-6">
               <div class="form-group">
                 <label for="max_stock">Max Stock</label>
@@ -136,12 +140,12 @@
               </div>
             </div>
           </div>
-        <div class="row">
+          <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="Min order">Min Order</label>
                 <CmpInputText
-                type="number"
+                  type="number"
                   placeholder="Min Order"
                   v-model="todo.min_order"
                   :class="
@@ -221,7 +225,6 @@
                   todo.whs_code == null ||
                   todo.whs_code == ''
                 "
-               
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -242,7 +245,6 @@
                   todo.whs_code == null ||
                   todo.whs_code == ''
                 "
-
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -574,8 +576,16 @@ export default {
               html(`<span class="pull-left">${card.max_stock}</span>`),
               html(`<span class="pull-left">${card.min_order}</span>`),
               html(`<span class="pull-left">${card.reorder_qty}</span>`),
-              html(`<span class="pull-left">${card.on_priority ? 'Yes' : 'No'}</span>`),
-              html(`<span class="pull-left">${card.flag_active ? 'Yes' : 'No'}</span>`),
+              html(
+                `<span class="pull-left">${
+                  card.on_priority ? "Yes" : "No"
+                }</span>`
+              ),
+              html(
+                `<span class="pull-left">${
+                  card.flag_active ? "Yes" : "No"
+                }</span>`
+              ),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -611,21 +621,18 @@ export default {
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-          // const AuthStr = "bearer " + localStorage.getItem("token");
-          // const config = {
-          //   headers: {
-          //     Authorization: AuthStr,
-          //   },
+            // const AuthStr = "bearer " + localStorage.getItem("token");
+            // const config = {
+            //   headers: {
+            //     Authorization: AuthStr,
+            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
             },
           };
           axios
-            .delete(
-              mythis.$root.apiHost + `api/m_item_inventory/${id}`,
-              config
-            )
+            .delete(mythis.$root.apiHost + `api/m_item_inventory/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -642,12 +649,12 @@ export default {
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
       // const AuthStr = "bearer " + localStorage.getItem("token");
-      
+
       //   headers: {
       //     Authorization: AuthStr,
       //   },
       // };
-      const config = ""
+      const config = "";
       axios
         .put(
           mythis.$root.apiHost + "api/m_item_inventory/" + mythis.todo.id,

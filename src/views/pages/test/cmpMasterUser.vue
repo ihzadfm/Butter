@@ -29,7 +29,7 @@
         </div>
         <div class="modal-body">
           <pre>{{ todo }}</pre>
-          
+
           <!-- Wizards Row -->
           <div class="row">
             <div class="col-md-12">
@@ -90,7 +90,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-              <div class="form-group">
+                <div class="form-group">
                   <label for="example-nf-email">Telpon</label>
                   <CmpInputText
                     type="text"
@@ -103,8 +103,8 @@
                     "
                     @input="(val) => (todo.telp = todo.telp.toUpperCase())"
                   />
+                </div>
               </div>
-            </div>          
             </div>
           </div>
 
@@ -130,7 +130,6 @@
                   todo.alamat == null ||
                   todo.alamat == ''
                 "
-               
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -155,7 +154,6 @@
                   todo.alamat == null ||
                   todo.alamat == ''
                 "
-
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -193,40 +191,58 @@
         <!-- <pre>{{ csv}}</pre> -->
 
         <div v-if="csv != null">
-            <strong>{{ csv.length }} </strong> data<br />
-          </div>
+          <strong>{{ csv.length }} </strong> data<br />
+        </div>
 
-        <vue-csv-import
-        v-model="csv"
-        :fields="dataImportCsv"
-    >
-        <vue-csv-toggle-headers></vue-csv-toggle-headers>
-        <vue-csv-errors></vue-csv-errors>
-        <vue-csv-input></vue-csv-input>
-        <vue-csv-table-map
-          :auto-match="true"
-          :table-attributes="{
-            id: 'csv-table',
-            class: 'table table-bordered table-hover',
-          }"
-        ></vue-csv-table-map>
-    </vue-csv-import>
-    <br />
+        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+          <vue-csv-toggle-headers></vue-csv-toggle-headers>
+          <vue-csv-errors></vue-csv-errors>
+          <vue-csv-input></vue-csv-input>
+          <vue-csv-table-map
+            :auto-match="true"
+            :table-attributes="{
+              id: 'csv-table',
+              class: 'table table-bordered table-hover',
+            }"
+          ></vue-csv-table-map>
+        </vue-csv-import>
+        <br />
 
-    <button
-    v-if="csv !=null"
-    @click="saveTodoBulky()"
-    type="button"
-    class="btn btn-sm btn-primary pull-left"
-    >
-    SAVE DATA BULKY
-    </button>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    
+        <button
+          v-if="csv != null"
+          @click="saveTodoBulky()"
+          type="button"
+          class="btn btn-sm btn-primary pull-left"
+        >
+          SAVE DATA BULKY
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <download-excel
+          class="button"
+          :data="json_data"
+          :fields="json_fields"
+          :worksheet="nama_sheetnya"
+          :name="nama_excelnya"
+          :before-generate="startDownload"
+          :before-finish="finishDownload"
+        >
+          <button
+            class="btn btn-sm btn-success pull-left"
+            @click="download_excel_xyz()"
+          >
+            Export Excel
+          </button>
+        </download-excel>
+
+        <button class="btn btn-sm btn-primary pull-right" @click="exportPdf()">
+          Export PDF
+        </button>
+
         <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
@@ -258,8 +274,13 @@ import loadingBar from "@/assets/img/Moving_train.gif";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
+import JsonExcel from "vue-json-excel3";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
 export default {
   components: {
+    downloadExcel: JsonExcel,
     // CmpSelect2,
     // LoadingX,
     // CmpInputText,
@@ -300,17 +321,37 @@ export default {
         },
         nik: {
           label: "nik",
-          required: true, 
+          required: true,
         },
         alamat: {
           label: "alamat",
           required: true,
-        },  
+        },
         telp: {
           label: "telp",
           required: true,
         },
-      }
+      },
+      data_x_tabel: [],
+      data_x_excel: [],
+      json_meta: [
+        [
+          {
+            key: "charset",
+            value: "utf-8",
+          },
+        ],
+      ],
+      json_data: [],
+      json_fields: {
+        nama: "nama",
+        nik: "nik",
+        telp: "telp",
+        alamat: "alamat",
+      },
+      nama_Worksheet: "Sheet Master User",
+      nama_excelnya: "",
+      nama_sheetnya: "",
     };
   },
   async mounted() {
@@ -319,6 +360,205 @@ export default {
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
+    async exportPdf() {
+      const mythis = this;
+      mythis.$root.presentLoading();
+
+      try {
+        let allData = [];
+        let count = 1;
+        let nn = 0;
+        const limitx = 100;
+
+        while (count > 0) {
+          const offsetx = limitx * nn;
+
+          const reqData = await axios({
+            method: "get",
+            url:
+              mythis.$root.apiHost +
+              "api/MMUser?offset=" +
+              offsetx +
+              "&limit=" +
+              limitx,
+          });
+
+          const resData = reqData.data;
+          allData = [...allData, ...resData.results];
+
+          if (resData.results.length === 0 || resData.results.length < limitx) {
+            count = 0;
+          }
+
+          nn++;
+          if (nn >= 100) {
+            // Safety check to prevent infinite loop
+            count = 0;
+          }
+        }
+
+        const doc = new jsPDF();
+        let totalPagesExp = "{total_pages_count_string}";
+
+        doc.setFontSize(18);
+        doc.text("Master User Report", 14, 22);
+        doc.setFontSize(11);
+        doc.setTextColor(100);
+
+        // Add Print Date
+        doc.setFontSize(10);
+        doc.text(`Print Date: ${new Date().toLocaleString()}`, 14, 30);
+
+        doc.autoTable({
+          theme: "striped",
+          head: [["No", "Nama", "NIK", "Telpon", "Alamat"]],
+          body: allData.map((m_user, index) => [index + 1, m_user.nama, m_user.nik, m_user.telp, m_user.alamat]),
+          startY: 35, // Adjusted to accommodate the Print Date
+          didDrawPage: function (data) {
+            // Footer
+            let str = "Page " + doc.internal.getNumberOfPages();
+            if (typeof doc.putTotalPages === "function") {
+              str = str + " of " + totalPagesExp;
+            }
+            doc.setFontSize(10);
+
+            let pageSize = doc.internal.pageSize;
+            let pageHeight = pageSize.height
+              ? pageSize.height
+              : pageSize.getHeight();
+            doc.text(str, data.settings.margin.left, pageHeight - 10);
+          },
+          showHead: "everyPage",
+        });
+
+        if (typeof doc.putTotalPages === "function") {
+          doc.putTotalPages(totalPagesExp);
+        }
+
+        const fileName =
+          "Master_User_Report_" + mythis.formatDate(new Date()) + ".pdf";
+        doc.save(fileName);
+        console.log(fileName + " generated");
+
+        mythis.$root.stopLoading();
+        Swal.fire("Success", "PDF has been generated successfully", "success");
+      } catch (error) {
+        console.error("Error generating PDF:", error);
+        mythis.$root.stopLoading();
+        Swal.fire("Error", "Failed to generate PDF", "error");
+      }
+    },
+    padTo2Digits(num) {
+      return num.toString().padStart(2, "0");
+    },
+    formatDate(date) {
+      return (
+        [
+          date.getFullYear(),
+          this.padTo2Digits(date.getMonth() + 1),
+          this.padTo2Digits(date.getDate()),
+        ].join("-") +
+        " " +
+        [
+          this.padTo2Digits(date.getHours()),
+          this.padTo2Digits(date.getMinutes()),
+          this.padTo2Digits(date.getSeconds()),
+        ].join(":")
+      );
+    },
+    async getDataExportExcel() {
+      var mythis = this;
+      mythis.$root.presentLoading();
+      var nn = 0;
+      var count = 1;
+      var limitx = 100;
+      var offsetx = 0;
+      var baris = 0;
+
+      var nomor_x = 1;
+      var br_pdf = 0;
+      var br_flag = 0;
+      var br_string = "";
+      var html = "";
+
+      var baris_excel = 0;
+      // mythis.json_data = [];
+      mythis.data_x_excel = [];
+
+      while (count > 0) {
+        offsetx = limitx * nn;
+
+        const reqData = await axios({
+          method: "get",
+          url:
+            mythis.$root.apiHost +
+            "api/MMUser?offset=" +
+            offsetx +
+            "&limit=" +
+            limitx,
+        });
+
+        console.log(reqData);
+
+        const resData = reqData.data;
+        console.log(resData.results.length);
+        if (resData.results.length == 0) {
+          count = 0;
+        }
+
+        Object.keys(resData.results).forEach(function (key) {
+          const countries_x = {
+            nomor: nomor_x,
+
+            nama: "'" + resData.results[key].nama,
+            nik: resData.results[key].nik,
+            telp: resData.results[key].telp,
+            alamat: resData.results[key].alamat,
+          };
+          mythis.data_x_excel[baris_excel] = countries_x;
+
+          br_pdf++;
+          baris_excel++;
+          nomor_x++;
+          ////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////
+        });
+
+        nn = nn + 1;
+        if (resData.count < resData.nomorBaris) {
+          count = 0;
+        }
+        if (nn >= 100) {
+          count = 0;
+        }
+      }
+
+      baris_excel++;
+      //Penutup Excel
+
+      baris_excel++;
+      var countries_x = {
+        nomor: "",
+        nama: "Print Date",
+        nik: mythis.formatDate(new Date()),
+      };
+      mythis.data_x_excel[baris_excel] = countries_x;
+
+      mythis.json_data = mythis.data_x_excel;
+      mythis.flagDownloadXLS = 1;
+
+      var a = new Date().toLocaleString("en-GB");
+      mythis.nama_excelnya = "MASTER_USER_" + a + ".xls";
+      mythis.nama_sheetnya = mythis.nama_excelnya;
+
+      mythis.$root.stopLoading();
+    },
+    download_excel_xyz() {},
+    async startDownload() {
+      await this.getDataExportExcel();
+    },
+    finishDownload() {},
+
     mySelectEvent() {
       this.todo.roles = this.tmp.cboRoles.code;
     },
@@ -341,7 +581,7 @@ export default {
       this.getTable();
       //////////////////////////////
     },
-    
+
     saveTodoBulky() {
       var mythis = this;
 
@@ -419,7 +659,7 @@ export default {
               }
             });
         }
-      })
+      });
     },
     saveTodo() {
       var mythis = this;
@@ -629,21 +869,18 @@ export default {
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-          // const AuthStr = "bearer " + localStorage.getItem("token");
-          // const config = {
-          //   headers: {
-          //     Authorization: AuthStr,
-          //   },
+            // const AuthStr = "bearer " + localStorage.getItem("token");
+            // const config = {
+            //   headers: {
+            //     Authorization: AuthStr,
+            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
             },
           };
           axios
-            .delete(
-              mythis.$root.apiHost + `api/MMUser/${id}`,
-              config
-            )
+            .delete(mythis.$root.apiHost + `api/MMUser/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -660,12 +897,12 @@ export default {
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
       // const AuthStr = "bearer " + localStorage.getItem("token");
-      
+
       //   headers: {
       //     Authorization: AuthStr,
       //   },
       // };
-      const config = ""
+      const config = "";
       axios
         .put(
           mythis.$root.apiHost + "api/MMUser/" + mythis.todo.id,
@@ -675,8 +912,6 @@ export default {
             alamat: mythis.todo.alamat,
             telp: mythis.todo.telp,
             userid: mythis.userid,
-
-
           },
           config
         )

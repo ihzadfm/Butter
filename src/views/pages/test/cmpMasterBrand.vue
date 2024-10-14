@@ -29,46 +29,46 @@
         </div>
         <div class="modal-body">
           <!-- <pre>{{ budgetData }}</pre> -->
-          
-          <!-- Wizards Row -->
-          <!-- Wizards Row -->
-<div class="row">
-  <div class="col-md-12">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="example">Brand Code</label>
-        <CmpInputText
-          id="inputBrandCode"
-          type="text"
-          placeholder="brand code"
-          v-model="todo.brandcode"
-          :class="
-            errorField.brandcode
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-          :disabled="!flagButtonAdd"
-        />
-      </div>
-    </div>
 
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="example-nf-email">Brand Name</label>
-        <CmpInputText
-          type="text"
-          placeholder="brand name"
-          v-model="todo.brandname"
-          :class="
-            errorField.brandname
-              ? 'form-control input-lg input-error'
-              : 'form-control input-lg'
-          "
-        />
-      </div>
-    </div>
-  </div>
-</div>
+          <!-- Wizards Row -->
+          <!-- Wizards Row -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="example">Brand Code</label>
+                  <CmpInputText
+                    id="inputBrandCode"
+                    type="text"
+                    placeholder="brand code"
+                    v-model="todo.brandcode"
+                    :class="
+                      errorField.brandcode
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                    :disabled="!flagButtonAdd"
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="example-nf-email">Brand Name</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="brand name"
+                    v-model="todo.brandname"
+                    :class="
+                      errorField.brandname
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- END Wizards Row -->
         </div>
@@ -88,7 +88,6 @@
                   todo.BrandName == null ||
                   todo.BrandName == ''
                 "
-               
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -103,13 +102,12 @@
                 type="button"
                 class="btn btn-sm btn-primary pull-left"
                 :disabled="
-                $root.flagButtonLoading ||
+                  $root.flagButtonLoading ||
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
                   todo.brandname == null ||
                   todo.brandname == ''
                 "
-
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -147,49 +145,64 @@
         <!-- <pre>{{ csv}}</pre> -->
 
         <div v-if="csv != null">
-            <strong>{{ csv.length }} </strong> data<br />
-          </div>
+          <strong>{{ csv.length }} </strong> data<br />
+        </div>
 
-          <!-- <pre> -->
-        <vue-csv-import
-        v-model="csv"
-        :fields="dataImportCsv"
-    >
-        <vue-csv-toggle-headers></vue-csv-toggle-headers>
-        <vue-csv-errors></vue-csv-errors>
-        <vue-csv-input></vue-csv-input>
-        <vue-csv-table-map
-          :auto-match="true"
-          :table-attributes="{
-            id: 'csv-table',
-            class: 'table table-bordered table-hover',
-          }"
-        ></vue-csv-table-map>
-    </vue-csv-import>
-    <!-- </pre> -->
-    <br />
+        <!-- <pre> -->
+        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+          <vue-csv-toggle-headers></vue-csv-toggle-headers>
+          <vue-csv-errors></vue-csv-errors>
+          <vue-csv-input></vue-csv-input>
+          <vue-csv-table-map
+            :auto-match="true"
+            :table-attributes="{
+              id: 'csv-table',
+              class: 'table table-bordered table-hover',
+            }"
+          ></vue-csv-table-map>
+        </vue-csv-import>
+        <!-- </pre> -->
+        <br />
 
-    <button 
-    v-if="csv != null"
-    @click="saveTodoBulky()" 
-    type="button"
-    class="btn btn-sm btn-primary pull-left"
-    >
-    SAVE DATA BULKY
-    </button>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    
-        <!-- <button
+        <button
+          v-if="csv != null"
+          @click="saveTodoBulky()"
+          type="button"
+          class="btn btn-sm btn-primary pull-left"
+        >
+          SAVE DATA BULKY
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <download-excel
+          class="button"
+          :data="json_data"
+          :fields="json_fields"
+          :worksheet="nama_sheetnya"
+          :name="nama_excelnya"
+          :before-generate="startDownload"
+          :before-finish="finishDownload"
+        >
+          <button
+            class="btn btn-sm btn-success pull-left"
+            @click="download_excel_xyz()"
+          >
+            Export Excel
+          </button>
+        </download-excel>
+
+        <button
+          <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
         >
           ADD DATA
-        </button> -->
+        </button>
 
         <!------------------------>
         <div id="wrapper2"></div>
@@ -213,13 +226,11 @@ import loadingBar from "@/assets/img/Moving_train.gif";
 
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import JsonExcel from "vue-json-excel3";
 
 export default {
   components: {
-    // CmpSelect2,
-    // LoadingX,
-    // CmpInputText,
-    // CmpInputText,
+    downloadExcel: JsonExcel,
   },
   data() {
     return {
@@ -232,31 +243,56 @@ export default {
         id: false,
         brandcode: false,
         brandname: false,
-        },
+      },
 
-        userid: 0,
-        status_table: false,
+      userid: 0,
+      status_table: false,
 
-        modal: false,
+      modal: false,
 
-        todo: {
-          id: "",
-          brandcode: "",
-          brandname: "",
-
-          },
+      todo: {
+        id: "",
+        brandcode: "",
+        brandname: "",
+      },
       flagButtonAdd: true,
       csv: null,
       dataImportCsv: {
         brandcode: {
-    label: "brandcode",
-    required: true,
-},
-brandname: {
-    label: "brandname",
-    required: true, 
-},
-      }
+          label: "brandcode",
+          required: true,
+        },
+        brandname: {
+          label: "brandname",
+          required: true,
+        },
+      },
+      data_x_tabel: [],
+
+      data_x_excel: [],
+
+      json_meta: [
+        [
+          {
+            key: "charset",
+
+            value: "utf-8",
+          },
+        ],
+      ],
+
+      json_data: [],
+
+      json_fields: {
+        brandcode: "brandcode",
+        brandname: "brandname",
+      },
+
+      nama_Worksheet: "Sheet Master Brand",
+
+      nama_excelnya: "",
+
+      nama_sheetnya: "",
     };
   },
   async mounted() {
@@ -265,6 +301,153 @@ brandname: {
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
+    padTo2Digits(num) {
+      return num.toString().padStart(2, "0");
+    },
+
+    formatDate(date) {
+      return (
+        [
+          date.getFullYear(),
+
+          this.padTo2Digits(date.getMonth() + 1),
+
+          this.padTo2Digits(date.getDate()),
+        ].join("-") +
+        " " +
+        [
+          this.padTo2Digits(date.getHours()),
+
+          this.padTo2Digits(date.getMinutes()),
+
+          this.padTo2Digits(date.getSeconds()),
+        ].join(":")
+      );
+    },
+
+    async getDataExportExcel() {
+      var mythis = this;
+
+      mythis.$root.presentLoading();
+
+      var nn = 0;
+
+      var count = 1;
+
+      var limitx = 100;
+
+      var offsetx = 0;
+
+      var baris = 0;
+
+      var nomor_x = 1;
+
+      var br_pdf = 0;
+
+      var br_flag = 0;
+
+      var br_string = "";
+
+      var html = "";
+
+      var baris_excel = 0;
+
+      // mythis.json_data = [];
+
+      mythis.data_x_excel = [];
+
+      while (count > 0) {
+        offsetx = limitx * nn;
+
+        const reqData = await axios({
+          method: "get",
+
+          url:
+            mythis.$root.apiHost +
+            "api/masterbrand?offset=" +
+            offsetx +
+            "&limit=" +
+            limitx,
+        });
+
+        console.log(reqData);
+
+        const resData = reqData.data;
+
+        console.log(resData.results.length);
+
+        if (resData.results.length == 0) {
+          count = 0;
+        }
+
+        Object.keys(resData.results).forEach(function (key) {
+          const countries_x = {
+            nomor: nomor_x,
+            brandcode: "'" + resData.results[key].brandcode,
+
+            brandname: resData.results[key].brandname,
+          };
+
+          mythis.data_x_excel[baris_excel] = countries_x;
+
+          br_pdf++;
+
+          baris_excel++;
+
+          nomor_x++;
+
+          ////////////////////////////////////////////////////////
+
+          ////////////////////////////////////////////////////////
+        });
+
+        nn = nn + 1;
+
+        if (resData.count < resData.nomorBaris) {
+          count = 0;
+        }
+
+        if (nn >= 100) {
+          count = 0;
+        }
+      }
+
+      baris_excel++;
+
+      //Penutup Excel
+
+      baris_excel++;
+
+      var countries_x = {
+        nomor: "",
+
+        nama: "Print Date",
+
+        nik: mythis.formatDate(new Date()),
+      };
+
+      mythis.data_x_excel[baris_excel] = countries_x;
+
+      mythis.json_data = mythis.data_x_excel;
+
+      mythis.flagDownloadXLS = 1;
+
+      var a = new Date().toLocaleString("en-GB");
+
+      mythis.nama_excelnya = "MASTER_BRAND_" + a + ".xls";
+
+      mythis.nama_sheetnya = mythis.nama_excelnya;
+
+      mythis.$root.stopLoading();
+    },
+
+    download_excel_xyz() {},
+
+    async startDownload() {
+      await this.getDataExportExcel();
+    },
+
+    finishDownload() {},
     mySelectEvent() {
       this.todo.roles = this.tmp.cboRoles.code;
     },
@@ -287,7 +470,7 @@ brandname: {
       this.getTable();
       //////////////////////////////
     },
-    
+
     saveTodoBulky() {
       var mythis = this;
 
@@ -366,13 +549,13 @@ brandname: {
               }
             });
         }
-      })
+      });
     },
     saveTodo() {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master User",
+        title: "Create Master BRAND",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -399,8 +582,7 @@ brandname: {
               {
                 brandcode: mythis.todo.brandcode,
                 brandname: mythis.todo.brandname,
-                userid: mythis.userid
-
+                userid: mythis.userid,
               },
               config
             )
@@ -489,8 +671,8 @@ brandname: {
         columns: [
           { name: "ID", hidden: true },
           "NO",
-"BRAND CODE",
-"BRAND NAME",
+          "BRAND CODE",
+          "BRAND NAME",
 
           {
             name: "Action",
@@ -572,21 +754,18 @@ brandname: {
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-          // const AuthStr = "bearer " + localStorage.getItem("token");
-          // const config = {
-          //   headers: {
-          //     Authorization: AuthStr,
-          //   },
+            // const AuthStr = "bearer " + localStorage.getItem("token");
+            // const config = {
+            //   headers: {
+            //     Authorization: AuthStr,
+            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
             },
           };
           axios
-            .delete(
-              mythis.$root.apiHost + `api/masterbrand/${id}`,
-              config
-            )
+            .delete(mythis.$root.apiHost + `api/masterbrand/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -603,19 +782,19 @@ brandname: {
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
       // const AuthStr = "bearer " + localStorage.getItem("token");
-      
+
       //   headers: {
       //     Authorization: AuthStr,
       //   },
       // };
-      const config = ""
+      const config = "";
       axios
         .put(
           mythis.$root.apiHost + "api/masterbrand/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
             brandname: mythis.todo.brandname,
-            userid: mythis.userid
+            userid: mythis.userid,
           },
           config
         )
@@ -682,7 +861,7 @@ brandname: {
           mythis.todo.brandcode = res.data.data.brandcode;
           mythis.todo.brandname = res.data.data.brandname;
 
-          // document.getElementById("inputA").focus(); 
+          // document.getElementById("inputA").focus();
           // sets the focus on the input
 
           mythis.$root.stopLoading();

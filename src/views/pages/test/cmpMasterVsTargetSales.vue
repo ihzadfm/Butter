@@ -29,7 +29,7 @@
         </div>
         <div class="modal-body">
           <pre>{{ budgetData }}</pre>
-          
+
           <!-- Wizards Row -->
           <div class="row">
             <div class="col-md-12">
@@ -125,7 +125,9 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="example-nf-email">Month of Production (MOP)</label>
+                  <label for="example-nf-email"
+                    >Month of Production (MOP)</label
+                  >
                   <CmpInputText
                     type="text"
                     placeholder="mop"
@@ -155,22 +157,19 @@
                   $root.flagButtonLoading ||
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
-todo.target == null ||
-todo.target == '' ||
-todo.sales == null ||
-todo.sales == '' ||
-todo.yop == null ||
-todo.yop == '' ||
-todo.mop == null ||
-todo.mop == '' ||
-todo.distcode == null ||
-todo.distcode == '' ||
-todo.achievement == null ||
-todo.achievement == ''
-
-
+                  todo.target == null ||
+                  todo.target == '' ||
+                  todo.sales == null ||
+                  todo.sales == '' ||
+                  todo.yop == null ||
+                  todo.yop == '' ||
+                  todo.mop == null ||
+                  todo.mop == '' ||
+                  todo.distcode == null ||
+                  todo.distcode == '' ||
+                  todo.achievement == null ||
+                  todo.achievement == ''
                 "
-               
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -185,24 +184,22 @@ todo.achievement == ''
                 type="button"
                 class="btn btn-sm btn-primary pull-left"
                 :disabled="
-                $root.flagButtonLoading ||
-                todo.brandcode == null ||
-                todo.brandcode == '' ||
-todo.target == null ||
-todo.target == '' ||
-todo.sales == null ||
-todo.sales == '' ||
-todo.yop == null ||
-todo.yop == '' ||
-todo.mop == null ||
-todo.mop == '' ||
-todo.distcode == null ||
-todo.distcode == '' ||
-todo.achievement == null ||
-todo.achievement == ''
-
+                  $root.flagButtonLoading ||
+                  todo.brandcode == null ||
+                  todo.brandcode == '' ||
+                  todo.target == null ||
+                  todo.target == '' ||
+                  todo.sales == null ||
+                  todo.sales == '' ||
+                  todo.yop == null ||
+                  todo.yop == '' ||
+                  todo.mop == null ||
+                  todo.mop == '' ||
+                  todo.distcode == null ||
+                  todo.distcode == '' ||
+                  todo.achievement == null ||
+                  todo.achievement == ''
                 "
-
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -240,49 +237,62 @@ todo.achievement == ''
         <!-- <pre>{{ csv}}</pre> -->
 
         <div v-if="csv != null">
-            <strong>{{ csv.length }} </strong> data<br />
-          </div>
+          <strong>{{ csv.length }} </strong> data<br />
+        </div>
 
-          <!-- <pre> -->
-        <vue-csv-import
-        v-model="csv"
-        :fields="dataImportCsv"
-    >
-        <vue-csv-toggle-headers></vue-csv-toggle-headers>
-        <vue-csv-errors></vue-csv-errors>
-        <vue-csv-input></vue-csv-input>
-        <vue-csv-table-map
-          :auto-match="true"
-          :table-attributes="{
-            id: 'csv-table',
-            class: 'table table-bordered table-hover',
-          }"
-        ></vue-csv-table-map>
-    </vue-csv-import>
-    <!-- </pre> -->
-    <br />
+        <!-- <pre> -->
+        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+          <vue-csv-toggle-headers></vue-csv-toggle-headers>
+          <vue-csv-errors></vue-csv-errors>
+          <vue-csv-input></vue-csv-input>
+          <vue-csv-table-map
+            :auto-match="true"
+            :table-attributes="{
+              id: 'csv-table',
+              class: 'table table-bordered table-hover',
+            }"
+          ></vue-csv-table-map>
+        </vue-csv-import>
+        <!-- </pre> -->
+        <br />
 
-    <button 
-    v-if="csv != null"
-    @click="saveTodoBulky()" 
-    type="button"
-    class="btn btn-sm btn-primary pull-left"
-    >
-    SAVE DATA BULKY
-    </button>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    
-        <!-- <button
+        <button
+          v-if="csv != null"
+          @click="saveTodoBulky()"
+          type="button"
+          class="btn btn-sm btn-primary pull-left"
+        >
+          SAVE DATA BULKY
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <download-excel
+          class="button"
+          :data="json_data"
+          :fields="json_fields"
+          :worksheet="nama_sheetnya"
+          :name="nama_excelnya"
+          :before-generate="startDownload"
+          :before-finish="finishDownload"
+        >
+          <button
+            class="btn btn-sm btn-success pull-left"
+            @click="download_excel_xyz()"
+          >
+            Export Excel
+          </button>
+        </download-excel>
+
+        <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
         >
           ADD DATA
-        </button> -->
+        </button>
 
         <!------------------------>
         <div id="wrapper2"></div>
@@ -306,13 +316,11 @@ import loadingBar from "@/assets/img/Moving_train.gif";
 
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import JsonExcel from "vue-json-excel3";
 
 export default {
   components: {
-    // CmpSelect2,
-    // LoadingX,
-    // CmpInputText,
-    // CmpInputText,
+    downloadExcel: JsonExcel,
   },
   data() {
     return {
@@ -323,63 +331,91 @@ export default {
       // grid2: new Grid(),
       errorField: {
         yop: false,
-mop: false,
-distcode: false,
-brandcode: false,
-sales: false,
-target: false,
-achievement: false,
+        mop: false,
+        distcode: false,
+        brandcode: false,
+        sales: false,
+        target: false,
+        achievement: false,
+      },
 
+      userid: 0,
+      status_table: false,
 
-        },
+      modal: false,
 
-        userid: 0,
-        status_table: false,
-
-        modal: false,
-
-        todo: {
-          brandcode: "",
-sales: "",
-target: "",
-yop: "",
-mop: "",
-distcode: "",
-achievement: "",
-
-          },
+      todo: {
+        brandcode: "",
+        sales: "",
+        target: "",
+        yop: "",
+        mop: "",
+        distcode: "",
+        achievement: "",
+      },
       flagButtonAdd: true,
       csv: null,
       dataImportCsv: {
         brandcode: {
-    label: "brandcode",
-    required: true,
-},
-sales: {
-    label: "sales",
-    required: true,
-},
-target: {
-    label: "target",
-    required: true,
-},
-yop: {
-    label: "yop",
-    required: true,
-},
-mop: {
-    label: "mop",
-    required: true,
-},
-distcode: {
-    label: "distcode",
-    required: true,
-},
-achievement: {
-    label: "achievement",
-    required: true,
-},
-      }
+          label: "brandcode",
+          required: true,
+        },
+        sales: {
+          label: "sales",
+          required: true,
+        },
+        target: {
+          label: "target",
+          required: true,
+        },
+        yop: {
+          label: "yop",
+          required: true,
+        },
+        mop: {
+          label: "mop",
+          required: true,
+        },
+        distcode: {
+          label: "distcode",
+          required: true,
+        },
+        achievement: {
+          label: "achievement",
+          required: true,
+        },
+      },
+      data_x_tabel: [],
+
+      data_x_excel: [],
+
+      json_meta: [
+        [
+          {
+            key: "charset",
+
+            value: "utf-8",
+          },
+        ],
+      ],
+
+      json_data: [],
+
+      json_fields: {
+        yop: "yop",
+        mop: "mop",
+        distcode: "distcode",
+        brandcode: "brandcode",
+        sales: "sales",
+        target: "target",
+        achievement: "achievement",
+      },
+
+      nama_Worksheet: "Sheet Master TARGET VS SALES",
+
+      nama_excelnya: "",
+
+      nama_sheetnya: "",
     };
   },
   async mounted() {
@@ -388,6 +424,158 @@ achievement: {
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
+    padTo2Digits(num) {
+      return num.toString().padStart(2, "0");
+    },
+
+    formatDate(date) {
+      return (
+        [
+          date.getFullYear(),
+
+          this.padTo2Digits(date.getMonth() + 1),
+
+          this.padTo2Digits(date.getDate()),
+        ].join("-") +
+        " " +
+        [
+          this.padTo2Digits(date.getHours()),
+
+          this.padTo2Digits(date.getMinutes()),
+
+          this.padTo2Digits(date.getSeconds()),
+        ].join(":")
+      );
+    },
+
+    async getDataExportExcel() {
+      var mythis = this;
+
+      mythis.$root.presentLoading();
+
+      var nn = 0;
+
+      var count = 1;
+
+      var limitx = 100;
+
+      var offsetx = 0;
+
+      var baris = 0;
+
+      var nomor_x = 1;
+
+      var br_pdf = 0;
+
+      var br_flag = 0;
+
+      var br_string = "";
+
+      var html = "";
+
+      var baris_excel = 0;
+
+      // mythis.json_data = [];
+
+      mythis.data_x_excel = [];
+
+      while (count > 0) {
+        offsetx = limitx * nn;
+
+        const reqData = await axios({
+          method: "get",
+
+          url:
+            mythis.$root.apiHost +
+            "api/targetpenjualan?offset=" +
+            offsetx +
+            "&limit=" +
+            limitx,
+        });
+
+        console.log(reqData);
+
+        const resData = reqData.data;
+
+        console.log(resData.results.length);
+
+        if (resData.results.length == 0) {
+          count = 0;
+        }
+
+        Object.keys(resData.results).forEach(function (key) {
+          const countries_x = {
+            nomor: nomor_x,
+
+            yop: resData.results[key].yop,
+            mop: resData.results[key].mop,
+            distcode: resData.results[key].distcode,
+            brandcode: "'" + resData.results[key].brandcode, // Menambahkan tanda kutip tunggal
+            sales: resData.results[key].sales,
+            target: resData.results[key].target,
+            achievement: resData.results[key].achievement,
+          };
+
+          mythis.data_x_excel[baris_excel] = countries_x;
+
+          br_pdf++;
+
+          baris_excel++;
+
+          nomor_x++;
+
+          ////////////////////////////////////////////////////////
+
+          ////////////////////////////////////////////////////////
+        });
+
+        nn = nn + 1;
+
+        if (resData.count < resData.nomorBaris) {
+          count = 0;
+        }
+
+        if (nn >= 100) {
+          count = 0;
+        }
+      }
+
+      baris_excel++;
+
+      //Penutup Excel
+
+      baris_excel++;
+
+      var countries_x = {
+        nomor: "",
+
+        nama: "Print Date",
+
+        nik: mythis.formatDate(new Date()),
+      };
+
+      mythis.data_x_excel[baris_excel] = countries_x;
+
+      mythis.json_data = mythis.data_x_excel;
+
+      mythis.flagDownloadXLS = 1;
+
+      var a = new Date().toLocaleString("en-GB");
+
+      mythis.nama_excelnya = "MASTER_VSTARGETSALES_" + a + ".xls";
+
+      mythis.nama_sheetnya = mythis.nama_excelnya;
+
+      mythis.$root.stopLoading();
+    },
+
+    download_excel_xyz() {},
+
+    async startDownload() {
+      await this.getDataExportExcel();
+    },
+
+    finishDownload() {},
     mySelectEvent() {
       this.todo.roles = this.tmp.cboRoles.code;
     },
@@ -410,7 +598,7 @@ achievement: {
       this.getTable();
       //////////////////////////////
     },
-    
+
     saveTodoBulky() {
       var mythis = this;
 
@@ -489,13 +677,13 @@ achievement: {
               }
             });
         }
-      })
+      });
     },
     saveTodo() {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master User",
+        title: "Create Master TARGET VS SALES",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -521,14 +709,13 @@ achievement: {
               url,
               {
                 yop: mythis.todo.yop,
-mop: mythis.todo.mop,
-distcode: mythis.todo.distcode,
-brandcode: mythis.todo.brandcode,
-sales: mythis.todo.sales,
-target: mythis.todo.target,
-achievement: mythis.todo.achievement,
-                userid: mythis.userid
-
+                mop: mythis.todo.mop,
+                distcode: mythis.todo.distcode,
+                brandcode: mythis.todo.brandcode,
+                sales: mythis.todo.sales,
+                target: mythis.todo.target,
+                achievement: mythis.todo.achievement,
+                userid: mythis.userid,
               },
               config
             )
@@ -618,34 +805,34 @@ achievement: mythis.todo.achievement,
           { name: "ID", hidden: true },
           "No",
           "YOP",
-"MOP",
+          "MOP",
           "BRAND CODE",
           "DISTCODE",
-"Target",
-"Sales",
-"Achievement",
+          "Target",
+          "Sales",
+          "Achievement",
 
           {
-            name: "Action",
-            formatter: (_, row) =>
-              mythis.$root.accessRoles[mythis.access_page].update &&
-              mythis.$root.accessRoles[mythis.access_page].delete
-                ? html(
-                    `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
-                &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
-              `
-                  )
-                : mythis.$root.accessRoles[mythis.access_page].update
-                ? html(
-                    `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
-                  )
-                : mythis.$root.accessRoles[mythis.access_page].delete
-                ? html(`&nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
-                : ``,
+            // name: "Action",
+            // formatter: (_, row) =>
+            //   mythis.$root.accessRoles[mythis.access_page].update &&
+            //   mythis.$root.accessRoles[mythis.access_page].delete
+            //     ? html(
+            //         `
+            //     <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
+            //     &nbsp;&nbsp;&nbsp;
+            //     <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
+            //   `
+            //       )
+            //     : mythis.$root.accessRoles[mythis.access_page].update
+            //     ? html(
+            //         `
+            //     <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
+            //       )
+            //     : mythis.$root.accessRoles[mythis.access_page].delete
+            //     ? html(`&nbsp;&nbsp;&nbsp;
+            //     <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
+            //     : ``,
           },
         ],
         style: {
@@ -669,13 +856,12 @@ achievement: mythis.todo.achievement,
               card.id,
               data.nomorBaris++ + 1,
               html(`<span class="pull-left">${card.yop}</span>`),
-html(`<span class="pull-left">${card.mop}</span>`),
-html(`<span class="pull-left">${card.brandcode}</span>`),
-html(`<span class="pull-left">${card.distcode}</span>`),
-html(`<span class="pull-left">${card.target}</span>`),
-html(`<span class="pull-left">${card.sales}</span>`),
-html(`<span class="pull-left">${card.achievement}</span>`),
-
+              html(`<span class="pull-left">${card.mop}</span>`),
+              html(`<span class="pull-left">${card.brandcode}</span>`),
+              html(`<span class="pull-left">${card.distcode}</span>`),
+              html(`<span class="pull-left">${card.target}</span>`),
+              html(`<span class="pull-left">${card.sales}</span>`),
+              html(`<span class="pull-left">${card.achievement}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -711,21 +897,18 @@ html(`<span class="pull-left">${card.achievement}</span>`),
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-          // const AuthStr = "bearer " + localStorage.getItem("token");
-          // const config = {
-          //   headers: {
-          //     Authorization: AuthStr,
-          //   },
+            // const AuthStr = "bearer " + localStorage.getItem("token");
+            // const config = {
+            //   headers: {
+            //     Authorization: AuthStr,
+            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
             },
           };
           axios
-            .delete(
-              mythis.$root.apiHost + `api/targetpenjualan/${id}`,
-              config
-            )
+            .delete(mythis.$root.apiHost + `api/targetpenjualan/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -742,25 +925,25 @@ html(`<span class="pull-left">${card.achievement}</span>`),
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
       // const AuthStr = "bearer " + localStorage.getItem("token");
-      
+
       //   headers: {
       //     Authorization: AuthStr,
       //   },
       // };
-      const config = ""
+      const config = "";
       axios
         .put(
           mythis.$root.apiHost + "api/targetpenjualan/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
-sales: mythis.todo.sales,
-target: mythis.todo.target,
-yop: mythis.todo.yop,
-mop: mythis.todo.mop,
-distcode: mythis.todo.distcode,
-achievement: mythis.todo.achievement,
+            sales: mythis.todo.sales,
+            target: mythis.todo.target,
+            yop: mythis.todo.yop,
+            mop: mythis.todo.mop,
+            distcode: mythis.todo.distcode,
+            achievement: mythis.todo.achievement,
 
-            userid: mythis.userid
+            userid: mythis.userid,
           },
           config
         )
@@ -825,13 +1008,12 @@ achievement: mythis.todo.achievement,
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.brandcode = res.data.data.brandcode;
-mythis.todo.sales = res.data.data.sales;
-mythis.todo.target = res.data.data.target;
-mythis.todo.yop = res.data.data.yop;
-mythis.todo.mop = res.data.data.mop;
-mythis.todo.distcode = res.data.data.distcode;
-mythis.todo.achievement = res.data.data.achievement;
-
+          mythis.todo.sales = res.data.data.sales;
+          mythis.todo.target = res.data.data.target;
+          mythis.todo.yop = res.data.data.yop;
+          mythis.todo.mop = res.data.data.mop;
+          mythis.todo.distcode = res.data.data.distcode;
+          mythis.todo.achievement = res.data.data.achievement;
 
           document.getElementById("inputA").focus(); // sets the focus on the input
 

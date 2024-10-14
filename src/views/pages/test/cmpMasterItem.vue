@@ -10,7 +10,6 @@
     data-keyboard="false"
     data-backdrop="true"
     :style="modal ? 'display: block;' : 'display: none;'"
-  
   >
     <div class="modal-dialog2 modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -47,7 +46,9 @@
                         : 'form-control input-lg'
                     "
                     :disabled="!flagButtonAdd"
-                    @input="(val) => (todo.item_code = todo.item_code.toUpperCase())"
+                    @input="
+                      (val) => (todo.item_code = todo.item_code.toUpperCase())
+                    "
                   />
                 </div>
               </div>
@@ -64,7 +65,9 @@
                         ? 'form-control input-lg input-error'
                         : 'form-control input-lg'
                     "
-                    @input="(val) => (todo.item_name = todo.item_name.toUpperCase())"
+                    @input="
+                      (val) => (todo.item_name = todo.item_name.toUpperCase())
+                    "
                   />
                 </div>
               </div>
@@ -87,7 +90,7 @@
                   />
                 </div>
               </div>
-              
+
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="example-nf-email">Purch Item</label>
@@ -103,7 +106,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-              <div class="form-group">
+                <div class="form-group">
                   <label for="example-nf-email">Return Item</label>
                   <input
                     type="checkbox"
@@ -114,10 +117,10 @@
                         : 'form-control input-lg'
                     "
                   />
+                </div>
               </div>
             </div>
-            </div>          
-            
+
             <!-- Add flag_active Checkbox -->
             <div class="col-md-6">
               <div class="form-group">
@@ -142,11 +145,15 @@
                   type="text"
                   placeholder="Barcode"
                   v-model="todo.code_bars"
-                  :class="errorField.code_bars ? 'form-control input-lg input-error' : 'form-control input-lg'"
+                  :class="
+                    errorField.code_bars
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
                 />
               </div>
             </div>
-            
+
             <div class="col-md-6">
               <div class="form-group">
                 <label for="example-nf-email">Manufacturer Code</label>
@@ -154,7 +161,11 @@
                   type="text"
                   placeholder="Manufacturer Code"
                   v-model="todo.mnft_code"
-                  :class="errorField.mnft_code ? 'form-control input-lg input-error' : 'form-control input-lg'"
+                  :class="
+                    errorField.mnft_code
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
                 />
               </div>
             </div>
@@ -166,7 +177,11 @@
                   type="number"
                   placeholder="Unit of Measure 1"
                   v-model="todo.uom1"
-                  :class="errorField.uom1 ? 'form-control input-lg input-error' : 'form-control input-lg'"
+                  :class="
+                    errorField.uom1
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
                 />
               </div>
             </div>
@@ -178,7 +193,11 @@
                   type="number"
                   placeholder="Unit of Measure 2"
                   v-model="todo.uom2"
-                  :class="errorField.uom2 ? 'form-control input-lg input-error' : 'form-control input-lg'"
+                  :class="
+                    errorField.uom2
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
                 />
               </div>
             </div>
@@ -190,7 +209,11 @@
                   type="number"
                   placeholder="Unit of Measure 3"
                   v-model="todo.uom3"
-                  :class="errorField.uom3 ? 'form-control input-lg input-error' : 'form-control input-lg'"
+                  :class="
+                    errorField.uom3
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
                 />
               </div>
             </div>
@@ -202,7 +225,11 @@
                   type="number"
                   placeholder="Unit of Measure 4"
                   v-model="todo.uom4"
-                  :class="errorField.uom4 ? 'form-control input-lg input-error' : 'form-control input-lg'"
+                  :class="
+                    errorField.uom4
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
                 />
               </div>
             </div>
@@ -214,7 +241,11 @@
                   type="number"
                   placeholder="Object Type"
                   v-model="todo.obj_type"
-                  :class="errorField.obj_type ? 'form-control input-lg input-error' : 'form-control input-lg'"
+                  :class="
+                    errorField.obj_type
+                      ? 'form-control input-lg input-error'
+                      : 'form-control input-lg'
+                  "
                 />
               </div>
               <!-- Add flag_active Checkbox -->
@@ -252,7 +283,6 @@
                   todo.item_name == null ||
                   todo.item_name == ''
                 "
-               
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -273,7 +303,6 @@
                   todo.item_name == null ||
                   todo.item_name == ''
                 "
-
               >
                 <i
                   v-if="$root.flagButtonLoading"
@@ -304,25 +333,20 @@
         <i v-if="!status_table" class="fa fa-spinner fa-spin text-default"></i>
       </div>
       <!-- END Block Title -->
-      
 
       <div class="block-content">
         <!------------------------>
         <!-- Button trigger modal -->
-        <vue-csv-import
-        v-model="csv"
-        :fields="dataImportCsv"
-    >
-        <vue-csv-toggle-headers></vue-csv-toggle-headers>
-        <vue-csv-errors></vue-csv-errors>
-        <vue-csv-input></vue-csv-input>
-        <vue-csv-map></vue-csv-map>
-    </vue-csv-import>
+        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+          <vue-csv-toggle-headers></vue-csv-toggle-headers>
+          <vue-csv-errors></vue-csv-errors>
+          <vue-csv-input></vue-csv-input>
+          <vue-csv-map></vue-csv-map>
+        </vue-csv-import>
         <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
-      
         >
           ADD DATA
         </button>
@@ -350,8 +374,11 @@ import loadingBar from "@/assets/img/Moving_train.gif";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
+import JsonExcel from "vue-json-excel3";
+
 export default {
   components: {
+    downloadExcel: JsonExcel,
     // CmpSelect2,
     // LoadingX,
     // CmpInputText,
@@ -377,7 +404,7 @@ export default {
         uom2: false,
         uom3: false,
         uom4: false,
-        obj_type: false
+        obj_type: false,
       },
 
       userid: 0,
@@ -398,11 +425,10 @@ export default {
         uom2: null,
         uom3: null,
         uom4: null,
-        obj_type: null
+        obj_type: null,
       },
 
       flagButtonAdd: true,
-      
     };
   },
   async mounted() {
@@ -488,7 +514,7 @@ export default {
               mythis.show_modal();
               mythis.refreshTable();
               //NOTIFIKASI SUKSES
-              mythis.$root.sendNotifFirebase('SUKSES', 'Body')
+              mythis.$root.sendNotifFirebase("SUKSES", "Body");
             })
             .catch(function (error) {
               mythis.$root.flagButtonLoading = false;
@@ -621,7 +647,11 @@ export default {
               html(`<span class="pull-left">${card.sales_item}</span>`),
               html(`<span class="pull-left">${card.purch_item}</span>`),
               html(`<span class="pull-left">${card.return_item}</span>`),
-              html(`<span class="pull-left">${card.flag_active ? 'Yes' : 'No'}</span>`),
+              html(
+                `<span class="pull-left">${
+                  card.flag_active ? "Yes" : "No"
+                }</span>`
+              ),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -657,21 +687,18 @@ export default {
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-          // const AuthStr = "bearer " + localStorage.getItem("token");
-          // const config = {
-          //   headers: {
-          //     Authorization: AuthStr,
-          //   },
+            // const AuthStr = "bearer " + localStorage.getItem("token");
+            // const config = {
+            //   headers: {
+            //     Authorization: AuthStr,
+            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
             },
           };
           axios
-            .delete(
-              mythis.$root.apiHost + `api/m_item/${id}`,
-              config
-            )
+            .delete(mythis.$root.apiHost + `api/m_item/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -688,12 +715,12 @@ export default {
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
       // const AuthStr = "bearer " + localStorage.getItem("token");
-      
+
       //   headers: {
       //     Authorization: AuthStr,
       //   },
       // };
-      const config = ""
+      const config = "";
       axios
         .put(
           mythis.$root.apiHost + "api/m_item/" + mythis.todo.id,
