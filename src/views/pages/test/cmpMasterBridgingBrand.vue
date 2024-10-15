@@ -28,8 +28,9 @@
           </button>
         </div>
         <div class="modal-body">
-          <pre>{{ budgetData }}</pre>
+          <!-- <pre>{{ budgetData }}</pre> -->
 
+          <!-- Wizards Row -->
           <!-- Wizards Row -->
           <div class="row">
             <div class="col-md-12">
@@ -37,7 +38,7 @@
                 <div class="form-group">
                   <label for="example">Brand Code</label>
                   <CmpInputText
-                    id="inputA"
+                    id="inputBrandCode"
                     type="text"
                     placeholder="brand code"
                     v-model="todo.brandcode"
@@ -53,13 +54,13 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="example-nf-email">Item Name</label>
+                  <label for="example-nf-email">Brand Name</label>
                   <CmpInputText
                     type="text"
-                    placeholder="item name"
-                    v-model="todo.itemname"
+                    placeholder="brand name"
+                    v-model="todo.brandname"
                     :class="
-                      errorField.itemname
+                      errorField.brandname
                         ? 'form-control input-lg input-error'
                         : 'form-control input-lg'
                     "
@@ -69,79 +70,6 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="example-nf-email">Item Code</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="item code"
-                    v-model="todo.itemcode"
-                    :class="
-                      errorField.itemcode
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="example-nf-email">target</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="target"
-                    v-model="todo.target"
-                    :class="
-                      errorField.target
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="example-nf-email">Year of Production (YOP)</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="yop"
-                    v-model="todo.yop"
-                    :class="
-                      errorField.yop
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="example-nf-email"
-                    >Month of Production (MOP)</label
-                  >
-                  <CmpInputText
-                    type="text"
-                    placeholder="mop"
-                    v-model="todo.mop"
-                    :class="
-                      errorField.mop
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
           <!-- END Wizards Row -->
         </div>
 
@@ -155,20 +83,12 @@
                 class="btn btn-sm btn-primary pull-left"
                 :disabled="
                   $root.flagButtonLoading ||
-                  todo.brandcode == null ||
-                  todo.brandcode == '' ||
-                  todo.itemcode == null ||
-                  todo.itemcode == '' ||
-                  todo.itemname == null ||
-                  todo.itemname == '' ||
-                  todo.target == null ||
-                  todo.target == '' ||
-                  todo.yop == null ||
-                  todo.yop == '' ||
-                  todo.mop == null ||
-                  todo.mop == '' ||
-                  todo.distcode == null ||
-                  todo.distcode == ''
+                  todo.BrandCode == null ||
+                  todo.BrandCode == '' ||
+                  todo.BrandName == null ||
+                  todo.BrandName == '' ||
+                  todo.KodeBeban == null ||
+                  todo.KodeBeban == ''
                 "
               >
                 <i
@@ -187,18 +107,10 @@
                   $root.flagButtonLoading ||
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
-                  todo.itemcode == null ||
-                  todo.itemcode == '' ||
-                  todo.itemname == null ||
-                  todo.itemname == '' ||
-                  todo.target == null ||
-                  todo.target == '' ||
-                  todo.yop == null ||
-                  todo.yop == '' ||
-                  todo.mop == null ||
-                  todo.mop == '' ||
-                  todo.distcode == null ||
-                  todo.distcode == ''
+                  todo.brandname == null ||
+                  todo.brandname == '' ||
+                  todo.kodebeban == null ||
+                  todo.kodebeban == ''
                 "
               >
                 <i
@@ -269,6 +181,7 @@
         <br />
         <br />
         <br />
+
         <download-excel
           class="button"
           :data="json_data"
@@ -331,13 +244,10 @@ export default {
       grid: new Grid(),
       // grid2: new Grid(),
       errorField: {
-        BrandCode: false,
-        ItemCode: false,
-        ItemName: false,
-        target: false,
-        Yop: false,
-        Mop: false,
-        distcode: false,
+        id: false,
+        brandcode: false,
+        brandname: false,
+        kodebeban: false,
       },
 
       userid: 0,
@@ -346,13 +256,10 @@ export default {
       modal: false,
 
       todo: {
+        id: "",
         brandcode: "",
-        itemcode: "",
-        itemname: "",
-        target: "",
-        yop: "",
-        mop: "",
-        distcode: "",
+        brandname: "",
+        kodebeban: "",
       },
       flagButtonAdd: true,
       csv: null,
@@ -361,28 +268,12 @@ export default {
           label: "brandcode",
           required: true,
         },
-        itemcode: {
-          label: "itemcode",
+        brandname: {
+          label: "brandname",
           required: true,
         },
-        itemname: {
-          label: "itemname",
-          required: true,
-        },
-        target: {
-          label: "target",
-          required: true,
-        },
-        yop: {
-          label: "yop",
-          required: true,
-        },
-        mop: {
-          label: "mop",
-          required: true,
-        },
-        distcode: {
-          label: "distcode",
+        kodebeban: {
+          label: "kodebeban",
           required: true,
         },
       },
@@ -404,15 +295,11 @@ export default {
 
       json_fields: {
         brandcode: "brandcode",
-        itemcode: "itemcode",
-        itemname: "itemname",
-        target: "target",
-        yop: "yop", // Year of Production
-        mop: "mop", // Month of Production
-        distcode: "distcode",
+        brandname: "brandname",
+        kodeban: "kodeban",
       },
 
-      nama_Worksheet: "Sheet Master target",
+      nama_Worksheet: "Sheet Master BRIDGING Brand",
 
       nama_excelnya: "",
 
@@ -488,7 +375,7 @@ export default {
 
           url:
             mythis.$root.apiHost +
-            "api/targetpenjualan?offset=" +
+            "api/bridgingbrand?offset=" +
             offsetx +
             "&limit=" +
             limitx,
@@ -507,14 +394,10 @@ export default {
         Object.keys(resData.results).forEach(function (key) {
           const countries_x = {
             nomor: nomor_x,
-
             brandcode: "'" + resData.results[key].brandcode,
-            itemcode: resData.results[key].itemcode,
-            itemname: resData.results[key].itemname,
-            target: resData.results[key].target,
-            yop: resData.results[key].yop,
-            mop: resData.results[key].mop,
-            distcode: resData.results[key].distcode,
+
+            brandname: resData.results[key].brandname,
+            kodebeban: resData.results[key].kodeban,
           };
 
           mythis.data_x_excel[baris_excel] = countries_x;
@@ -563,7 +446,7 @@ export default {
 
       var a = new Date().toLocaleString("en-GB");
 
-      mythis.nama_excelnya = "MASTER_TARGET_" + a + ".xls";
+      mythis.nama_excelnya = "MASTER_BRAND_" + a + ".xls";
 
       mythis.nama_sheetnya = mythis.nama_excelnya;
 
@@ -604,7 +487,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master target Bulky",
+        title: "Create Master BRIDGING Brand Bulky",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -624,7 +507,7 @@ export default {
           //   },
           // };
           const config = "";
-          var url = mythis.$root.apiHost + "api/targetpenjualanBulky";
+          var url = mythis.$root.apiHost + "api/bridgingbrandBulky";
           axios
             .post(
               url,
@@ -684,7 +567,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master User",
+        title: "Create Master BRIDGING BRAND",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -704,18 +587,14 @@ export default {
           //   },
           // };
           const config = "";
-          var url = mythis.$root.apiHost + "api/targetpenjualan";
+          var url = mythis.$root.apiHost + "api/bridgingbrand";
           axios
             .post(
               url,
               {
                 brandcode: mythis.todo.brandcode,
-                itemcode: mythis.todo.itemcode,
-                itemname: mythis.todo.itemname,
-                target: mythis.todo.target,
-                yop: mythis.todo.yop,
-                mop: mythis.todo.mop,
-                distcode: mythis.todo.distcode,
+                brandname: mythis.todo.brandname,
+                kodebeban: mythis.todo.kodebeban,
                 userid: mythis.userid,
               },
               config
@@ -804,14 +683,10 @@ export default {
         },
         columns: [
           { name: "ID", hidden: true },
-          "No",
-          "YOP",
-          "MOP",
+          "NO",
           "BRAND CODE",
-          "ITEM CODE",
-          "ITEM NAME",
-          "TARGET",
-          "DISTCODE",
+          "BRAND NAME",
+          "KODE BEBAN",
 
           {
             name: "Action",
@@ -851,18 +726,14 @@ export default {
           },
         },
         server: {
-          url: this.$root.apiHost + "api/targetpenjualan",
+          url: this.$root.apiHost + "api/bridgingbrand",
           then: (data) =>
             data.results.map((card) => [
               card.id,
               data.nomorBaris++ + 1,
-              html(`<span class="pull-left">${card.yop}</span>`),
-              html(`<span class="pull-left">${card.mop}</span>`),
               html(`<span class="pull-left">${card.brandcode}</span>`),
-              html(`<span class="pull-left">${card.itemcode}</span>`),
-              html(`<span class="pull-left">${card.itemname}</span>`),
-              html(`<span class="pull-left">${card.target}</span>`),
-              html(`<span class="pull-left">${card.distcode}</span>`),
+              html(`<span class="pull-left">${card.brandname}</span>`),
+              html(`<span class="pull-left">${card.kodebeban}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -909,7 +780,7 @@ export default {
             },
           };
           axios
-            .delete(mythis.$root.apiHost + `api/targetpenjualan/${id}`, config)
+            .delete(mythis.$root.apiHost + `api/bridgingbrand/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -934,16 +805,11 @@ export default {
       const config = "";
       axios
         .put(
-          mythis.$root.apiHost + "api/targetpenjualan/" + mythis.todo.id,
+          mythis.$root.apiHost + "api/bridgingbrand/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
-            itemcode: mythis.todo.itemcode,
-            itemname: mythis.todo.itemname,
-            target: mythis.todo.target,
-            yop: mythis.todo.yop,
-            mop: mythis.todo.mop,
-            distcode: mythis.todo.distcode,
-
+            brandname: mythis.todo.brandname,
+            kodebeban: mythis.todo.kodebeban,
             userid: mythis.userid,
           },
           config
@@ -1002,21 +868,18 @@ export default {
         // },
       };
       await axios
-        .get(mythis.$root.apiHost + `api/targetpenjualan/${id}`, config)
+        .get(mythis.$root.apiHost + `api/bridgingbrand/${id}`, config)
         .then(async (res) => {
-          //console.log(res.data.data);
+          console.log(res.data.data);
           //mythis.acuanEdit = id;
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.brandcode = res.data.data.brandcode;
-          mythis.todo.itemcode = res.data.data.itemcode;
-          mythis.todo.itemname = res.data.data.itemname;
-          mythis.todo.target = res.data.data.target;
-          mythis.todo.yop = res.data.data.yop;
-          mythis.todo.mop = res.data.data.mop;
-          mythis.todo.distcode = res.data.data.distcode;
+          mythis.todo.brandname = res.data.data.brandname;
+          mythis.todo.kodebeban = res.data.data.kodebeban;
 
-          document.getElementById("inputA").focus(); // sets the focus on the input
+          // document.getElementById("inputA").focus();
+          // sets the focus on the input
 
           mythis.$root.stopLoading();
         });

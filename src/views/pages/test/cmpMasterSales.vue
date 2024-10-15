@@ -808,10 +808,10 @@ export default {
           "YOP",
           "MOP",
           "BRAND CODE",
-          "DISTCODE",
+          "ITEM CODE",
           "ITEM NAME",
           "SALES",
-          "ITEM CODE",
+          "DISTCODE",
 
           {
             name: "Action",

@@ -44,31 +44,6 @@ import { markRaw } from "vue";
 
 import { defineAsyncComponent } from "vue";
 
-// //jika belum ubah profil di sso
-// import cmpHalProfilNotUpdate from "@/views/auth/_ProfilNotUpdate.vue";
-// import cmpHalProfile from "@/views/pages/_profile.vue";
-
-// import cmpHalForm from "@/views/pages/_form.vue";
-// import cmpHalTable1 from "@/views/pages/_master1.vue";
-
-// //master
-// import cmpHalmUom from "@/views/pages/master/_mUom.vue";
-// import cmpHalmType from "@/views/pages/master/_mType.vue";
-// import cmpHalmTrCode from "@/views/pages/master/_mTrCode.vue";
-// import cmpHalmWarehouse from "@/views/pages/master/_mWarehouse.vue";
-// import cmpHalmCustomer from "@/views/pages/master/_mCustomer.vue";
-// import cmpHalmProduct from "@/views/pages/master/_mProduct.vue";
-// import cmpHalmBpItem from "@/views/pages/master/_mBpItem.vue";
-// import cmpHalmCapacity from "@/views/pages/master/_mCapacity.vue";
-// import cmpHalmRack from "@/views/pages/master/_mRack.vue";
-
-// //log
-// import cmpHalLogUsers from "@/views/pages/master/_logUsers.vue";
-
-// //Transaction
-// import cmpHalTrPutRequest from "@/views/pages/transaction/_trPutRequest.vue";
-// import cmpHalSrLocate from "@/views/pages/transaction/_srLocate.vue";
-
 const currentUrl = window.location.pathname;
 
 import LoadingX from "vue3-loading-overlay";
@@ -95,6 +70,7 @@ import cmpMasterItem from "./views/pages/test/cmpMasterItem.vue";
 import cmpMasterItemInventory from "./views/pages/test/cmpMasterItemInventory.vue";
 import CmpMasterBudgetMonitoring from "./views/pages/test/cmpMasterBudgetMonitoring.vue";
 import CmpMasterBrand from "./views/pages/test/cmpMasterBrand.vue";
+import cmpMasterBridgingBrand from "./views/pages/test/cmpMasterBridgingBrand.vue";
 import cmpMasterProduct from "./views/pages/test/cmpMasterProduct.vue";
 import cmpMasterBridging from "./views/pages/test/cmpMasterBridging.vue";
 import cmpMasterSales from "./views/pages/test/cmpMasterSales.vue";
@@ -136,6 +112,7 @@ const routeComponent = {
   cmpMasterItemInventory: markRaw(cmpMasterItemInventory),
   CmpMasterBudgetMonitoring: markRaw(CmpMasterBudgetMonitoring),
   CmpMasterBrand: markRaw(CmpMasterBrand),
+  cmpMasterBridgingBrand: markRaw(cmpMasterBridgingBrand),
   cmpMasterProduct: markRaw(cmpMasterProduct),
   cmpMasterBridging: markRaw(cmpMasterBridging),
   cmpMasterSales: markRaw(cmpMasterSales),
@@ -370,6 +347,7 @@ export default {
             cmpMasterUser: "USER",
             CmpMasterBudgetMonitoring: "BUDGET",
             CmpMasterBrand: "BRAND",
+            cmpMasterBridgingBrand: "BRIDGING BRAND",
             cmpMasterProduct: "PRODUCT",
             cmpMasterBridging: "BRIDGING",
             cmpMasterSales: "SALES",
@@ -390,6 +368,7 @@ export default {
         cmpMasterUser: "USER",
         CmpMasterBudgetMonitoring: "BUDGET",
         CmpMasterBrand: "BRAND",
+        cmpMasterBridgingBrand: "BRIDGING BRAND",
         cmpMasterProduct: "PRODUCT",
         cmpMasterBridging: "BRIDGING",
         cmpMasterSales: "SALES",
@@ -425,6 +404,11 @@ export default {
           delete: true,
         },
         CmpMasterBrand: {
+          create: true,
+          update: true,
+          delete: true,
+        },
+        cmpMasterBridgingBrand: {
           create: true,
           update: true,
           delete: true,
