@@ -813,32 +813,34 @@ export default {
           "TARGET",
           "DISTCODE",
 
-          {
-            name: "Action",
-            formatter: (_, row) =>
-              mythis.$root.accessRoles[mythis.access_page].update &&
-              mythis.$root.accessRoles[mythis.access_page].delete
-                ? html(
-                    `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
-                &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
-              `
-                  )
-                : mythis.$root.accessRoles[mythis.access_page].update
-                ? html(
-                    `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
-                  )
-                : mythis.$root.accessRoles[mythis.access_page].delete
-                ? html(`&nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
-                : ``,
-          },
+          // {
+          //   name: "Action",
+          //   formatter: (_, row) =>
+          //     mythis.$root.accessRoles[mythis.access_page].update &&
+          //     mythis.$root.accessRoles[mythis.access_page].delete
+          //       ? html(
+          //           `
+          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
+          //       &nbsp;&nbsp;&nbsp;
+          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
+          //     `
+          //         )
+          //       : mythis.$root.accessRoles[mythis.access_page].update
+          //       ? html(
+          //           `
+          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
+          //         )
+          //       : mythis.$root.accessRoles[mythis.access_page].delete
+          //       ? html(`&nbsp;&nbsp;&nbsp;
+          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
+          //       : ``,
+          // },
         ],
         style: {
           table: {
             border: "1px solid #ccc",
+            width : "auto",
+            "min-width": "100%"
           },
           th: {
             "background-color": "rgba(0, 55, 255, 0.1)",

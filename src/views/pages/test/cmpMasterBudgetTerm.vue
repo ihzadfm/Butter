@@ -591,76 +591,24 @@
                 class="btn btn-sm btn-primary pull-left"
                 :disabled="
                   $root.flagButtonLoading ||
-                  todo.KodeBeban == null ||
-                  todo.KodeBeban == '' ||
-                  todo.KodeDivisi == null ||
-                  todo.KodeDivisi == '' ||
-                  todo.Expense == null ||
-                  todo.Expense == '' ||
-                  todo.ExpenseGroup == null ||
-                  todo.ExpenseGroup == '' ||
-                  todo.GroupBeban == null ||
-                  todo.GroupBeban == '' ||
-                  todo.GroupCostCenter == null ||
-                  todo.GroupCostCenter == '' ||
-                  todo.CostCenter == null ||
-                  todo.CostCenter == '' ||
-                  todo.TOTALFINAL == null ||
-                  todo.TOTALFINAL == '' ||
-                  todo.TOTAL == null ||
-                  todo.TOTAL == '' ||
-                  todo.JAN == null ||
-                  todo.JAN == '' ||
-                  todo.FEB == null ||
-                  todo.FEB == '' ||
-                  todo.MAR == null ||
-                  todo.MAR == '' ||
-                  todo.APR == null ||
-                  todo.APR == '' ||
-                  todo.MEI == null ||
-                  todo.MEI == '' ||
-                  todo.JUN == null ||
-                  todo.JUN == '' ||
-                  todo.JUL == null ||
-                  todo.JUL == '' ||
-                  todo.AGS == null ||
-                  todo.AGS == '' ||
-                  todo.SEP == null ||
-                  todo.SEP == '' ||
-                  todo.OKT == null ||
-                  todo.OKT == '' ||
-                  todo.NOP == null ||
-                  todo.NOP == '' ||
-                  todo.DES == null ||
-                  todo.DES == '' ||
-                  todo.RealizationN1 == null ||
-                  todo.RealizationN1 == '' ||
-                  todo.RealizationN2 == null ||
-                  todo.RealizationN2 == '' ||
-                  todo.RealizationN3 == null ||
-                  todo.RealizationN3 == '' ||
-                  todo.RealizationN4 == null ||
-                  todo.RealizationN4 == '' ||
-                  todo.RealizationN5 == null ||
-                  todo.RealizationN5 == '' ||
-                  todo.RealizationN6 == null ||
-                  todo.RealizationN6 == '' ||
-                  todo.RealizationN7 == null ||
-                  todo.RealizationN7 == '' ||
-                  todo.RealizationN8 == null ||
-                  todo.RealizationN8 == '' ||
-                  todo.RealizationN9 == null ||
-                  todo.RealizationN9 == '' ||
-                  todo.RealizationN10 == null ||
-                  todo.RealizationN10 == '' ||
-                  todo.RealizationN11 == null ||
-                  todo.RealizationN11 == '' ||
-                  todo.RealizationN12 == null ||
-                  todo.RealizationN12 == '' ||
-                  todo.TotalRealization == null ||
-                  todo.TotalRealization == '' ||
-                  todo.Year == null ||
-                  todo.Year == ''
+                  this.todo.kodebeban == null ||
+                  this.todo.kodebeban == '' ||
+                  this.todo.q1 == null ||
+                  this.todo.q1 == '' ||
+                  this.todo.q2 == null ||
+                  this.todo.q2 == '' ||
+                  this.todo.q3 == null ||
+                  this.todo.q3 == '' ||
+                  this.todo.q4 == null ||
+                  this.todo.q4 == '' ||
+                  this.todo.realizationq1 == null ||
+                  this.todo.realizationq1 == '' ||
+                  this.todo.realizationq2 == null ||
+                  this.todo.realizationq2 == '' ||
+                  this.todo.realizationq3 == null ||
+                  this.todo.realizationq3 == '' ||
+                  this.todo.realizationq4 == null ||
+                  this.todo.realizationq4 == ''
                 "
               >
                 <i
@@ -677,76 +625,24 @@
                 class="btn btn-sm btn-primary pull-left"
                 :disabled="
                   $root.flagButtonLoading ||
-                  todo.kodebeban == null ||
-                  todo.kodebeban == '' ||
-                  todo.kodedivisi == null ||
-                  todo.kodedivisi == '' ||
-                  todo.expense == null ||
-                  todo.expense == '' ||
-                  todo.expensegroup == null ||
-                  todo.expensegroup == '' ||
-                  todo.groupbeban == null ||
-                  todo.groupbeban == '' ||
-                  todo.groupcostcenter == null ||
-                  todo.groupcostcenter == '' ||
-                  todo.costcenter == null ||
-                  todo.costcenter == '' ||
-                  todo.totalfinal == null ||
-                  todo.totalfinal == '' ||
-                  todo.total == null ||
-                  todo.total == '' ||
-                  todo.jan == null ||
-                  todo.jan == '' ||
-                  todo.feb == null ||
-                  todo.feb == '' ||
-                  todo.mar == null ||
-                  todo.mar == '' ||
-                  todo.apr == null ||
-                  todo.apr == '' ||
-                  todo.mei == null ||
-                  todo.mei == '' ||
-                  todo.jun == null ||
-                  todo.jun == '' ||
-                  todo.jul == null ||
-                  todo.jul == '' ||
-                  todo.ags == null ||
-                  todo.ags == '' ||
-                  todo.sep == null ||
-                  todo.sep == '' ||
-                  todo.okt == null ||
-                  todo.okt == '' ||
-                  todo.nop == null ||
-                  todo.nop == '' ||
-                  todo.des == null ||
-                  todo.des == '' ||
-                  todo.realizationn1 == null ||
-                  todo.realizationn1 == '' ||
-                  todo.realizationn2 == null ||
-                  todo.realizationn2 == '' ||
-                  todo.realizationn3 == null ||
-                  todo.realizationn3 == '' ||
-                  todo.realizationn4 == null ||
-                  todo.realizationn4 == '' ||
-                  todo.realizationn5 == null ||
-                  todo.realizationn5 == '' ||
-                  todo.realizationn6 == null ||
-                  todo.realizationn6 == '' ||
-                  todo.realizationn7 == null ||
-                  todo.realizationn7 == '' ||
-                  todo.realizationn8 == null ||
-                  todo.realizationn8 == '' ||
-                  todo.realizationn9 == null ||
-                  todo.realizationn9 == '' ||
-                  todo.realizationn10 == null ||
-                  todo.realizationn10 == '' ||
-                  todo.realizationn11 == null ||
-                  todo.realizationn11 == '' ||
-                  todo.realizationn12 == null ||
-                  todo.realizationn12 == '' ||
-                  todo.totalrealization == null ||
-                  todo.totalrealization == '' ||
-                  todo.year == null ||
-                  todo.year == ''
+                  this.todo.kodebeban == null ||
+                  this.todo.kodebeban == '' ||
+                  this.todo.q1 == null ||
+                  this.todo.q1 == '' ||
+                  this.todo.q2 == null ||
+                  this.todo.q2 == '' ||
+                  this.todo.q3 == null ||
+                  this.todo.q3 == '' ||
+                  this.todo.q4 == null ||
+                  this.todo.q4 == '' ||
+                  this.todo.realizationq1 == null ||
+                  this.todo.realizationq1 == '' ||
+                  this.todo.realizationq2 == null ||
+                  this.todo.realizationq2 == '' ||
+                  this.todo.realizationq3 == null ||
+                  this.todo.realizationq3 == '' ||
+                  this.todo.realizationq4 == null ||
+                  this.todo.realizationq4 == ''
                 "
               >
                 <i
@@ -883,42 +779,15 @@ export default {
       grid: new Grid(),
       // grid2: new Grid(),
       errorField: {
-        KodeBeban: false,
-        KodeDivisi: false,
-        Expense: false,
-        ExpenseGroup: false,
-        GroupBeban: false,
-        GroupCostCenter: false,
-        CostCenter: false,
-        CostCenter: false,
-        TOTALFINAL: false,
-        TOTAL: false,
-        JAN: false,
-        FEB: false,
-        MAR: false,
-        APR: false,
-        MEI: false,
-        JUN: false,
-        JUL: false,
-        AGS: false,
-        SEP: false,
-        OKT: false,
-        NOP: false,
-        DES: false,
-        RealizationN1: false,
-        RealizationN2: false,
-        RealizationN3: false,
-        RealizationN4: false,
-        RealizationN5: false,
-        RealizationN6: false,
-        RealizationN7: false,
-        RealizationN8: false,
-        RealizationN9: false,
-        RealizationN10: false,
-        RealizationN11: false,
-        RealizationN12: false,
-        TotalRealization: false,
-        Year: false,
+        kodebeban: false,
+        q1: false,
+        q2: false,
+        q3: false,
+        q4: false,
+        realizationq1: false,
+        realizationq2: false,
+        realizationq3: false,
+        realizationq4: false,
       },
 
       userid: 0,
@@ -928,41 +797,14 @@ export default {
 
       todo: {
         kodebeban: "",
-        kodedivisi: "",
-        expense: "",
-        expensegroup: "",
-        groupbeban: "",
-        groupcostcenter: "",
-        costcenter: "",
-        costcenter: "",
-        totalfinal: "",
-        total: "",
-        jan: "",
-        feb: "",
-        mar: "",
-        apr: "",
-        mei: "",
-        jun: "",
-        jul: "",
-        ags: "",
-        sep: "",
-        okt: "",
-        nop: "",
-        des: "",
-        realizationn1: "",
-        realizationn2: "",
-        realizationn3: "",
-        realizationn4: "",
-        realizationn5: "",
-        realizationn6: "",
-        realizationn7: "",
-        realizationn8: "",
-        realizationn9: "",
-        realizationn10: "",
-        realizationn11: "",
-        realizationn12: "",
-        totalrealization: "",
-        year: "",
+        q1: "",
+        q2: "",
+        q3: "",
+        q4: "",
+        realizationq1: "",
+        realizationq2: "",
+        realizationq3: "",
+        realizationq4: "",
       },
       flagButtonAdd: true,
       csv: null,
@@ -971,144 +813,36 @@ export default {
           label: "kodebeban",
           required: true,
         },
-        kodedivisi: {
-          label: "kodedivisi",
+        q1: {
+          label: "q1",
           required: true,
         },
-        expense: {
-          label: "expense",
+        q2: {
+          label: "q2",
           required: true,
         },
-        expensegroup: {
-          label: "expensegroup",
+        q3: {
+          label: "q3",
           required: true,
         },
-        groupbeban: {
-          label: "groupbeban",
+        q4: {
+          label: "q4",
           required: true,
         },
-        groupcostcenter: {
-          label: "groupcostcenter",
+        realizationq1: {
+          label: "realizationq1",
           required: true,
         },
-        costcenter: {
-          label: "costcenter",
+        realizationq2: {
+          label: "realizationq2",
           required: true,
         },
-        costcenter: {
-          label: "costcenter",
+        realizationq3: {
+          label: "realizationq3",
           required: true,
         },
-        totalfinal: {
-          label: "totalfinal",
-          required: true,
-        },
-        total: {
-          label: "total",
-          required: true,
-        },
-        jan: {
-          label: "jan",
-          required: true,
-        },
-        feb: {
-          label: "feb",
-          required: true,
-        },
-        mar: {
-          label: "mar",
-          required: true,
-        },
-        apr: {
-          label: "apr",
-          required: true,
-        },
-        mei: {
-          label: "mei",
-          required: true,
-        },
-        jun: {
-          label: "jun",
-          required: true,
-        },
-        jul: {
-          label: "jul",
-          required: true,
-        },
-        ags: {
-          label: "ags",
-          required: true,
-        },
-        sep: {
-          label: "sep",
-          required: true,
-        },
-        okt: {
-          label: "okt",
-          required: true,
-        },
-        nop: {
-          label: "nop",
-          required: true,
-        },
-        des: {
-          label: "des",
-          required: true,
-        },
-        realizationn1: {
-          label: "realizationn1",
-          required: true,
-        },
-        realizationn2: {
-          label: "realizationn2",
-          required: true,
-        },
-        realizationn3: {
-          label: "realizationn3",
-          required: true,
-        },
-        realizationn4: {
-          label: "realizationn4",
-          required: true,
-        },
-        realizationn5: {
-          label: "realizationn5",
-          required: true,
-        },
-        realizationn6: {
-          label: "realizationn6",
-          required: true,
-        },
-        realizationn7: {
-          label: "realizationn7",
-          required: true,
-        },
-        realizationn8: {
-          label: "realizationn8",
-          required: true,
-        },
-        realizationn9: {
-          label: "realizationn9",
-          required: true,
-        },
-        realizationn10: {
-          label: "realizationn10",
-          required: true,
-        },
-        realizationn11: {
-          label: "realizationn11",
-          required: true,
-        },
-        realizationn12: {
-          label: "realizationn12",
-          required: true,
-        },
-        totalrealization: {
-          label: "totalrealization",
-          required: true,
-        },
-        year: {
-          label: "year",
+        realizationq4: {
+          label: "realizationq4",
           required: true,
         },
       },
@@ -1125,42 +859,16 @@ export default {
       json_data: [],
       json_fields: {
         kodebeban: "kodebeban",
-        kodedivisi: "kodedivisi",
-        expense: "expense",
-        expensegroup: "expensegroup",
-        groupbeban: "groupbeban",
-        groupcostcenter: "groupcostcenter",
-        costcenter: "costcenter",
-        totalfinal: "totalfinal",
-        total: "total",
-        jan: "jan",
-        feb: "feb",
-        mar: "mar",
-        apr: "apr",
-        mei: "mei",
-        jun: "jun",
-        jul: "jul",
-        ags: "ags",
-        sep: "sep",
-        okt: "okt",
-        nop: "nop",
-        des: "des",
-        realizationn1: "realizationn1",
-        realizationn2: "realizationn2",
-        realizationn3: "realizationn3",
-        realizationn4: "realizationn4",
-        realizationn5: "realizationn5",
-        realizationn6: "realizationn6",
-        realizationn7: "realizationn7",
-        realizationn8: "realizationn8",
-        realizationn9: "realizationn9",
-        realizationn10: "realizationn10",
-        realizationn11: "realizationn11",
-        realizationn12: "realizationn12",
-        totalrealization: "totalrealization",
-        year: "year",
+        q1: "q1",
+        q2: "q2",
+        q3: "q3",
+        q4: "q4",
+        realizationq1: "realizationq1",
+        realizationq2: "realizationq2",
+        realizationq3: "realizationq3",
+        realizationq4: "realizationq4",
       },
-      nama_Worksheet: "Sheet Master Budget",
+      nama_Worksheet: "Sheet Master Budget Term",
       nama_excelnya: "",
       nama_sheetnya: "",
     };
@@ -1230,7 +938,7 @@ export default {
 
           url:
             mythis.$root.apiHost +
-            "api/BudgetMonitoring?offset=" +
+            "api/budgetterm?offset=" +
             offsetx +
             "&limit=" +
             limitx,
@@ -1252,80 +960,22 @@ export default {
             kodebeban: resData.results[key].kodebeban
               ? resData.results[key].kodebeban
               : "",
-            kodedivisi: resData.results[key].kodedivisi
-              ? resData.results[key].kodedivisi
+            q1: resData.results[key].q1 ? resData.results[key].q1 : "",
+            q2: resData.results[key].q2 ? resData.results[key].q2 : "",
+            q3: resData.results[key].q3 ? resData.results[key].q3 : "",
+            q4: resData.results[key].q4 ? resData.results[key].q4 : "",
+            realizationq1: resData.results[key].realizationq1
+              ? resData.results[key].realizationq1
               : "",
-            expense: resData.results[key].expense
-              ? resData.results[key].expense
+            realizationq2: resData.results[key].realizationq2
+              ? resData.results[key].realizationq2
               : "",
-            expensegroup: resData.results[key].expensegroup
-              ? resData.results[key].expensegroup
+            realizationq3: resData.results[key].realizationq3
+              ? resData.results[key].realizationq3
               : "",
-            groupbeban: resData.results[key].groupbeban
-              ? resData.results[key].groupbeban
+            realizationq4: resData.results[key].realizationq4
+              ? resData.results[key].realizationq4
               : "",
-            groupcostcenter: resData.results[key].groupcostcenter
-              ? resData.results[key].groupcostcenter
-              : "",
-            costcenter: resData.results[key].costcenter
-              ? resData.results[key].costcenter
-              : "",
-            totalfinal: resData.results[key].totalfinal
-              ? resData.results[key].totalfinal
-              : "",
-            total: resData.results[key].total ? resData.results[key].total : "",
-            jan: resData.results[key].jan ? resData.results[key].jan : "",
-            feb: resData.results[key].feb ? resData.results[key].feb : "",
-            mar: resData.results[key].mar ? resData.results[key].mar : "",
-            apr: resData.results[key].apr ? resData.results[key].apr : "",
-            mei: resData.results[key].mei ? resData.results[key].mei : "",
-            jun: resData.results[key].jun ? resData.results[key].jun : "",
-            jul: resData.results[key].jul ? resData.results[key].jul : "",
-            ags: resData.results[key].ags ? resData.results[key].ags : "",
-            sep: resData.results[key].sep ? resData.results[key].sep : "",
-            okt: resData.results[key].okt ? resData.results[key].okt : "",
-            nop: resData.results[key].nop ? resData.results[key].nop : "",
-            des: resData.results[key].des ? resData.results[key].des : "",
-            realizationn1: resData.results[key].realizationn1
-              ? resData.results[key].realizationn1
-              : "",
-            realizationn2: resData.results[key].realizationn2
-              ? resData.results[key].realizationn2
-              : "",
-            realizationn3: resData.results[key].realizationn3
-              ? resData.results[key].realizationn3
-              : "",
-            realizationn4: resData.results[key].realizationn4
-              ? resData.results[key].realizationn4
-              : "",
-            realizationn5: resData.results[key].realizationn5
-              ? resData.results[key].realizationn5
-              : "",
-            realizationn6: resData.results[key].realizationn6
-              ? resData.results[key].realizationn6
-              : "",
-            realizationn7: resData.results[key].realizationn7
-              ? resData.results[key].realizationn7
-              : "",
-            realizationn8: resData.results[key].realizationn8
-              ? resData.results[key].realizationn8
-              : "",
-            realizationn9: resData.results[key].realizationn9
-              ? resData.results[key].realizationn9
-              : "",
-            realizationn10: resData.results[key].realizationn10
-              ? resData.results[key].realizationn10
-              : "",
-            realizationn11: resData.results[key].realizationn11
-              ? resData.results[key].realizationn11
-              : "",
-            realizationn12: resData.results[key].realizationn12
-              ? resData.results[key].realizationn12
-              : "",
-            totalrealization: resData.results[key].totalrealization
-              ? resData.results[key].totalrealization
-              : "",
-            year: resData.results[key].year ? resData.results[key].year : "",
           };
 
           mythis.data_x_excel[baris_excel] = countries_x;
@@ -1374,7 +1024,7 @@ export default {
 
       var a = new Date().toLocaleString("en-GB");
 
-      mythis.nama_excelnya = "MASTER_BUDGET_" + a + ".xls";
+      mythis.nama_excelnya = "MASTER_BUDGET_TERM_" + a + ".xls";
 
       mythis.nama_sheetnya = mythis.nama_excelnya;
 
@@ -1522,40 +1172,14 @@ export default {
               url,
               {
                 KodeBeban: mythis.todo.KodeBeban,
-                KodeDivisi: mythis.todo.KodeDivisi,
-                Expense: mythis.todo.Expense,
-                ExpenseGroup: mythis.todo.ExpenseGroup,
-                GroupBeban: mythis.todo.GroupBeban,
-                GroupCostCenter: mythis.todo.GroupCostCenter,
-                CostCenter: mythis.todo.CostCenter,
-                TOTALFINAL: mythis.todo.TOTALFINAL,
-                TOTAL: mythis.todo.TOTAL,
-                JAN: mythis.todo.JAN,
-                FEB: mythis.todo.FEB,
-                MAR: mythis.todo.MAR,
-                APR: mythis.todo.APR,
-                MEI: mythis.todo.MEI,
-                JUN: mythis.todo.JUN,
-                JUL: mythis.todo.JUL,
-                AGS: mythis.todo.AGS,
-                SEP: mythis.todo.SEP,
-                OKT: mythis.todo.OKT,
-                NOP: mythis.todo.NOP,
-                DES: mythis.todo.DES,
-                RealizationN1: mythis.todo.RealizationN1,
-                RealizationN2: mythis.todo.RealizationN2,
-                RealizationN3: mythis.todo.RealizationN3,
-                RealizationN4: mythis.todo.RealizationN4,
-                RealizationN5: mythis.todo.RealizationN5,
-                RealizationN6: mythis.todo.RealizationN6,
-                RealizationN7: mythis.todo.RealizationN7,
-                RealizationN8: mythis.todo.RealizationN8,
-                RealizationN9: mythis.todo.RealizationN9,
-                RealizationN10: mythis.todo.RealizationN10,
-                RealizationN11: mythis.todo.RealizationN11,
-                RealizationN12: mythis.todo.RealizationN12,
-                TotalRealization: mythis.todo.TotalRealization,
-                Year: mythis.todo.Year,
+                q1: mythis.todo.q1,
+                q2: mythis.todo.q2,
+                q3: mythis.todo.q3,
+                q4: mythis.todo.q4,
+                realizationq1: mythis.todo.realizationq1,
+                realizationq2: mythis.todo.realizationq2,
+                realizationq3: mythis.todo.realizationq3,
+                realizationq4: mythis.todo.realizationq4,
                 userid: mythis.userid,
               },
               config
@@ -1646,59 +1270,46 @@ export default {
           { name: "ID", hidden: true },
           "No",
           "KODE BEBAN",
-          "KODE DIVISI",
-          "EXPENSE",
-          "EXPENSE GROUP",
-          "GROUP BEBAN",
-          "GROUP COST CENTER",
-          "COST CENTER",
-          "TOTAL FINAL",
-          "TOTAL",
-          "JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI", 
-    "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DESEMBER",
-          "REALIZATION N1",
-          "REALIZATION N2",
-          "REALIZATION N3",
-          "REALIZATION N4",
-          "REALIZATION N5",
-          "REALIZATION N6",
-          "REALIZATION N7",
-          "REALIZATION N8",
-          "REALIZATION N9",
-          "REALIZATION N10",
-          "REALIZATION N11",
-          "REALIZATION N12",
-          "TOTAL REALIZATION",
-          "YEAR",
+          "Q1", // Kuartal 1 = Jan + Feb + Mar
+          "REALIZATION Q1",
+          "Q2", // Kuartal 2 = Apr + Mei + Jun
+          "REALIZATION Q2",
+          "Q3", // Kuartal 3 = Jul + Ags + Sep
+          "REALIZATION Q3",
+          "Q4", // Kuartal 4 = Okt + Nop + Des
+           // Realisasi Kuartal 1 = Realization N1 + N2 + N3
+           // Realisasi Kuartal 2 = Realization N4 + N5 + N6
+           // Realisasi Kuartal 3 = Realization N7 + N8 + N9
+          "REALIZATION Q4",
 
-          // {
-          //   name: "Action",
-          //   formatter: (_, row) =>
-          //     mythis.$root.accessRoles[mythis.access_page].update &&
-          //     mythis.$root.accessRoles[mythis.access_page].delete
-          //       ? html(
-          //           `
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
-          //       &nbsp;&nbsp;&nbsp;
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
-          //     `
-          //         )
-          //       : mythis.$root.accessRoles[mythis.access_page].update
-          //       ? html(
-          //           `
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
-          //         )
-          //       : mythis.$root.accessRoles[mythis.access_page].delete
-          //       ? html(`&nbsp;&nbsp;&nbsp;
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
-          //       : ``,
-          // },
+        //   {
+        //     name: "Action",
+        //     formatter: (_, row) =>
+        //       mythis.$root.accessRoles[mythis.access_page].update &&
+        //       mythis.$root.accessRoles[mythis.access_page].delete
+        //         ? html(
+        //             `
+        //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
+        //         &nbsp;&nbsp;&nbsp;
+        //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
+        //       `
+        //           )
+        //         : mythis.$root.accessRoles[mythis.access_page].update
+        //         ? html(
+        //             `
+        //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
+        //           )
+        //         : mythis.$root.accessRoles[mythis.access_page].delete
+        //         ? html(`&nbsp;&nbsp;&nbsp;
+        //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
+        //         : ``,
+        //   },
         ],
         style: {
           table: {
             border: "1px solid #ccc",
-            width : "auto",
-            "min-width": "100%"
+            width: "auto",
+            "min-width": "100%",
           },
           th: {
             "background-color": "rgba(0, 55, 255, 0.1)",
@@ -1711,46 +1322,22 @@ export default {
           },
         },
         server: {
-          url: this.$root.apiHost + "api/BudgetMonitoring",
+          url: this.$root.apiHost + "api/budgetterm",
           then: (data) =>
             data.results.map((card) => [
               card.id,
               data.nomorBaris++ + 1,
               html(`<span class="pull-left">${card.kodebeban}</span>`),
-              html(`<span class="pull-left">${card.kodedivisi}</span>`),
-              html(`<span class="pull-left">${card.expense}</span>`),
-              html(`<span class="pull-left">${card.expensegroup}</span>`),
-              html(`<span class="pull-left">${card.groupbeban}</span>`),
-              html(`<span class="pull-left">${card.groupcostcenter}</span>`),
-              html(`<span class="pull-left">${card.costcenter}</span>`),
-              html(`<span class="pull-left">${card.totalfinal}</span>`),
-              html(`<span class="pull-left">${card.total}</span>`),
-              html(`<span class="pull-left">${card.jan}</span>`),
-              html(`<span class="pull-left">${card.feb}</span>`),
-              html(`<span class="pull-left">${card.mar}</span>`),
-              html(`<span class="pull-left">${card.apr}</span>`),
-              html(`<span class="pull-left">${card.mei}</span>`),
-              html(`<span class="pull-left">${card.jun}</span>`),
-              html(`<span class="pull-left">${card.jul}</span>`),
-              html(`<span class="pull-left">${card.ags}</span>`),
-              html(`<span class="pull-left">${card.sep}</span>`),
-              html(`<span class="pull-left">${card.okt}</span>`),
-              html(`<span class="pull-left">${card.nop}</span>`),
-              html(`<span class="pull-left">${card.des}</span>`),
-              html(`<span class="pull-left">${card.realizationn1}</span>`),
-              html(`<span class="pull-left">${card.realizationn2}</span>`),
-              html(`<span class="pull-left">${card.realizationn3}</span>`),
-              html(`<span class="pull-left">${card.realizationn4}</span>`),
-              html(`<span class="pull-left">${card.realizationn5}</span>`),
-              html(`<span class="pull-left">${card.realizationn6}</span>`),
-              html(`<span class="pull-left">${card.realizationn7}</span>`),
-              html(`<span class="pull-left">${card.realizationn8}</span>`),
-              html(`<span class="pull-left">${card.realizationn9}</span>`),
-              html(`<span class="pull-left">${card.realizationn10}</span>`),
-              html(`<span class="pull-left">${card.realizationn11}</span>`),
-              html(`<span class="pull-left">${card.realizationn12}</span>`),
-              html(`<span class="pull-left">${card.totalrealization}</span>`),
-              html(`<span class="pull-left">${card.year}</span>`),
+              // Kuartal 1 (Jan + Feb + Mar)
+              // Kuartal 2 (Apr + Mei + Jun)
+              html(`<span class="pull-left">${card.q1}</span>`), // Kuartal 4 (Okt + Nop + Des)
+              html(`<span class="pull-left">${card.realizationq1}</span>`),
+              html(`<span class="pull-left">${card.q2}</span>`), // Realisasi Kuartal 1 (N1 + N2 + N3)
+              html(`<span class="pull-left">${card.realizationq2}</span>`), // Realisasi Kuartal 2 (N4 + N5 + N6)
+              html(`<span class="pull-left">${card.q3}</span>`), // Kuartal 3 (Jul + Ags + Sep)
+              html(`<span class="pull-left">${card.realizationq3}</span>`), // Realisasi Kuartal 3 (N7 + N8 + N9)
+              html(`<span class="pull-left">${card.q4}</span>`),
+              html(`<span class="pull-left">${card.realizationq4}</span>`), // Realisasi Kuartal 4 (N10 + N11 + N12)
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -1825,41 +1412,14 @@ export default {
           mythis.$root.apiHost + "api/BudgetMonitoring/" + mythis.todo.id,
           {
             kodebeban: mythis.todo.kodebeban,
-            kodedivisi: mythis.todo.kodedivisi,
-            expense: mythis.todo.expense,
-            expensegroup: mythis.todo.expensegroup,
-            groupbeban: mythis.todo.groupbeban,
-            groupcostcenter: mythis.todo.groupcostcenter,
-            costcenter: mythis.todo.costcenter,
-            totalfinal: mythis.todo.totalfinal,
-            total: mythis.todo.total,
-            jan: mythis.todo.jan,
-            feb: mythis.todo.feb,
-            mar: mythis.todo.mar,
-            apr: mythis.todo.apr,
-            mei: mythis.todo.mei,
-            jun: mythis.todo.jun,
-            jul: mythis.todo.jul,
-            ags: mythis.todo.ags,
-            sep: mythis.todo.sep,
-            okt: mythis.todo.okt,
-            nop: mythis.todo.nop,
-            des: mythis.todo.des,
-            realizationn1: mythis.todo.realizationn1,
-            realizationn2: mythis.todo.realizationn2,
-            realizationn3: mythis.todo.realizationn3,
-            realizationn4: mythis.todo.realizationn4,
-            realizationn5: mythis.todo.realizationn5,
-            realizationn6: mythis.todo.realizationn6,
-            realizationn7: mythis.todo.realizationn7,
-            realizationn8: mythis.todo.realizationn8,
-            realizationn9: mythis.todo.realizationn9,
-            realizationn10: mythis.todo.realizationn10,
-            realizationn11: mythis.todo.realizationn11,
-            realizationn12: mythis.todo.realizationn12,
-            totalrealization: mythis.todo.totalrealization,
-            year: mythis.todo.year,
-
+            q1: mythis.todo.q1, // Kuartal 1 (Jan + Feb + Mar)
+            q2: mythis.todo.q2, // Kuartal 2 (Apr + Mei + Jun)
+            q3: mythis.todo.q3, // Kuartal 3 (Jul + Ags + Sep)
+            q4: mythis.todo.q4, // Kuartal 4 (Okt + Nop + Des)
+            realizationq1: mythis.todo.realizationq1, // Realisasi Kuartal 1 (Realization N1 + N2 + N3)
+            realizationq2: mythis.todo.realizationq2, // Realisasi Kuartal 2 (Realization N4 + N5 + N6)
+            realizationq3: mythis.todo.realizationq3, // Realisasi Kuartal 3 (Realization N7 + N8 + N9)
+            realizationq4: mythis.todo.realizationq4,
             userid: mythis.userid,
           },
           config
@@ -1920,45 +1480,16 @@ export default {
       await axios
         .get(mythis.$root.apiHost + `api/BudgetMonitoring/${id}`, config)
         .then(async (res) => {
-          //console.log(res.data.data);
-          //mythis.acuanEdit = id;
-          //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.kodebeban = res.data.data.kodebeban;
-          mythis.todo.kodedivisi = res.data.data.kodedivisi;
-          mythis.todo.expense = res.data.data.expense;
-          mythis.todo.expensegroup = res.data.data.expensegroup;
-          mythis.todo.groupbeban = res.data.data.groupbeban;
-          mythis.todo.groupcostcenter = res.data.data.groupcostcenter;
-          mythis.todo.costcenter = res.data.data.costcenter;
-          mythis.todo.totalfinal = res.data.data.totalfinal;
-          mythis.todo.total = res.data.data.total;
-          mythis.todo.jan = res.data.data.jan;
-          mythis.todo.feb = res.data.data.feb;
-          mythis.todo.mar = res.data.data.mar;
-          mythis.todo.apr = res.data.data.apr;
-          mythis.todo.mei = res.data.data.mei;
-          mythis.todo.jun = res.data.data.jun;
-          mythis.todo.jul = res.data.data.jul;
-          mythis.todo.ags = res.data.data.ags;
-          mythis.todo.sep = res.data.data.sep;
-          mythis.todo.okt = res.data.data.okt;
-          mythis.todo.nop = res.data.data.nop;
-          mythis.todo.des = res.data.data.des;
-          mythis.todo.realizationn1 = res.data.data.realizationn1;
-          mythis.todo.realizationn2 = res.data.data.realizationn2;
-          mythis.todo.realizationn3 = res.data.data.realizationn3;
-          mythis.todo.realizationn4 = res.data.data.realizationn4;
-          mythis.todo.realizationn5 = res.data.data.realizationn5;
-          mythis.todo.realizationn6 = res.data.data.realizationn6;
-          mythis.todo.realizationn7 = res.data.data.realizationn7;
-          mythis.todo.realizationn8 = res.data.data.realizationn8;
-          mythis.todo.realizationn9 = res.data.data.realizationn9;
-          mythis.todo.realizationn10 = res.data.data.realizationn10;
-          mythis.todo.realizationn11 = res.data.data.realizationn11;
-          mythis.todo.realizationn12 = res.data.data.realizationn12;
-          mythis.todo.totalrealization = res.data.data.totalrealization;
-          mythis.todo.year = res.data.data.year;
+          mythis.todo.q1 = res.data.data.q1; // Data untuk Q1 (Jan + Feb + Mar)
+          mythis.todo.q2 = res.data.data.q2; // Data untuk Q2 (Apr + Mei + Jun)
+          mythis.todo.q3 = res.data.data.q3; // Data untuk Q3 (Jul + Ags + Sep)
+          mythis.todo.q4 = res.data.data.q4; // Data untuk Q4 (Okt + Nop + Des)
+          mythis.todo.realizationq1 = res.data.data.realizationq1; // Realisasi Q1 (Realization N1 + N2 + N3)
+          mythis.todo.realizationq2 = res.data.data.realizationq2; // Realisasi Q2 (Realization N4 + N5 + N6)
+          mythis.todo.realizationq3 = res.data.data.realizationq3; // Realisasi Q3 (Realization N7 + N8 + N9)
+          mythis.todo.realizationq4 = res.data.data.realizationq4;
 
           document.getElementById("inputA").focus(); // sets the focus on the input
 

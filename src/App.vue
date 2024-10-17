@@ -69,6 +69,7 @@ import cmpHalRoute from "@/views/pages/cmpHalRoute.vue";
 import cmpMasterItem from "./views/pages/test/cmpMasterItem.vue";
 import cmpMasterItemInventory from "./views/pages/test/cmpMasterItemInventory.vue";
 import CmpMasterBudgetMonitoring from "./views/pages/test/cmpMasterBudgetMonitoring.vue";
+import cmpMasterBudgetTerm from "./views/pages/test/cmpMasterBudgetTerm.vue";
 import CmpMasterBrand from "./views/pages/test/cmpMasterBrand.vue";
 import cmpMasterBridgingBrand from "./views/pages/test/cmpMasterBridgingBrand.vue";
 import cmpMasterProduct from "./views/pages/test/cmpMasterProduct.vue";
@@ -111,6 +112,7 @@ const routeComponent = {
   cmpMasterItem: markRaw(cmpMasterItem),
   cmpMasterItemInventory: markRaw(cmpMasterItemInventory),
   CmpMasterBudgetMonitoring: markRaw(CmpMasterBudgetMonitoring),
+  cmpMasterBudgetTerm: markRaw(cmpMasterBudgetTerm),
   CmpMasterBrand: markRaw(CmpMasterBrand),
   cmpMasterBridgingBrand: markRaw(cmpMasterBridgingBrand),
   cmpMasterProduct: markRaw(cmpMasterProduct),
@@ -346,10 +348,11 @@ export default {
             cmpMasterDocStatus: "MENU TEST 1",
             cmpMasterUser: "USER",
             CmpMasterBudgetMonitoring: "BUDGET",
+            cmpMasterBudgetTerm: "BUDGET TERM",
             CmpMasterBrand: "BRAND",
             cmpMasterBridgingBrand: "BRIDGING BRAND",
             cmpMasterProduct: "PRODUCT",
-            cmpMasterBridging: "BRIDGING",
+            cmpMasterBridging: "BRIDGING BUDGET",
             cmpMasterSales: "SALES",
             cmpMasterTarget: "TARGET",
             cmpMasterVsTargetSales: "TARGET VS SALES",
@@ -367,10 +370,11 @@ export default {
         cmpMasterDocStatus: "MENU TEST 1",
         cmpMasterUser: "USER",
         CmpMasterBudgetMonitoring: "BUDGET",
+        cmpMasterBudgetTerm: "BUDGET TERM",
         CmpMasterBrand: "BRAND",
         cmpMasterBridgingBrand: "BRIDGING BRAND",
         cmpMasterProduct: "PRODUCT",
-        cmpMasterBridging: "BRIDGING",
+        cmpMasterBridging: "BRIDGING BUDGET",
         cmpMasterSales: "SALES",
         cmpMasterTarget: "TARGET",
         cmpMasterVsTargetSales: "TARGET VS SALES",
@@ -399,6 +403,11 @@ export default {
           delete: true,
         },
         CmpMasterBudgetMonitoring: {
+          create: true,
+          update: true,
+          delete: true,
+        },
+        cmpMasterBudgetTerm: {
           create: true,
           update: true,
           delete: true,

@@ -199,14 +199,14 @@
           </button>
         </download-excel>
 
-        <button
+        <!-- <button
           <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
         >
           ADD DATA
-        </button>
+        </button> -->
 
         <!------------------------>
         <div id="wrapper2"></div>
@@ -296,7 +296,7 @@ export default {
       json_fields: {
         brandcode: "brandcode",
         brandname: "brandname",
-        kodeban: "kodeban",
+        kodebeban: "kodebeban",
       },
 
       nama_Worksheet: "Sheet Master BRIDGING Brand",
@@ -397,7 +397,7 @@ export default {
             brandcode: "'" + resData.results[key].brandcode,
 
             brandname: resData.results[key].brandname,
-            kodebeban: resData.results[key].kodeban,
+            kodebeban: resData.results[key].kodebeban,
           };
 
           mythis.data_x_excel[baris_excel] = countries_x;
@@ -446,7 +446,7 @@ export default {
 
       var a = new Date().toLocaleString("en-GB");
 
-      mythis.nama_excelnya = "MASTER_BRAND_" + a + ".xls";
+      mythis.nama_excelnya = "MASTER_BRIDGING_BRAND_" + a + ".xls";
 
       mythis.nama_sheetnya = mythis.nama_excelnya;
 
@@ -507,7 +507,7 @@ export default {
           //   },
           // };
           const config = "";
-          var url = mythis.$root.apiHost + "api/bridgingbrandBulky";
+          var url = mythis.$root.apiHost + "api/masterbrandbulky";
           axios
             .post(
               url,
@@ -587,7 +587,7 @@ export default {
           //   },
           // };
           const config = "";
-          var url = mythis.$root.apiHost + "api/bridgingbrand";
+          var url = mythis.$root.apiHost + "api/masterbrand";
           axios
             .post(
               url,
@@ -688,32 +688,34 @@ export default {
           "BRAND NAME",
           "KODE BEBAN",
 
-          {
-            name: "Action",
-            formatter: (_, row) =>
-              mythis.$root.accessRoles[mythis.access_page].update &&
-              mythis.$root.accessRoles[mythis.access_page].delete
-                ? html(
-                    `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
-                &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
-              `
-                  )
-                : mythis.$root.accessRoles[mythis.access_page].update
-                ? html(
-                    `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
-                  )
-                : mythis.$root.accessRoles[mythis.access_page].delete
-                ? html(`&nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
-                : ``,
-          },
+          // {
+          //   name: "Action",
+          //   formatter: (_, row) =>
+          //     mythis.$root.accessRoles[mythis.access_page].update &&
+          //     mythis.$root.accessRoles[mythis.access_page].delete
+          //       ? html(
+          //           `
+          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
+          //       &nbsp;&nbsp;&nbsp;
+          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
+          //     `
+          //         )
+          //       : mythis.$root.accessRoles[mythis.access_page].update
+          //       ? html(
+          //           `
+          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
+          //         )
+          //       : mythis.$root.accessRoles[mythis.access_page].delete
+          //       ? html(`&nbsp;&nbsp;&nbsp;
+          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
+          //       : ``,
+          // },
         ],
         style: {
           table: {
             border: "1px solid #ccc",
+            width : "auto",
+            "min-width": "100%"
           },
           th: {
             "background-color": "rgba(0, 55, 255, 0.1)",
@@ -780,7 +782,7 @@ export default {
             },
           };
           axios
-            .delete(mythis.$root.apiHost + `api/bridgingbrand/${id}`, config)
+            .delete(mythis.$root.apiHost + `api/masterbrand/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -805,7 +807,7 @@ export default {
       const config = "";
       axios
         .put(
-          mythis.$root.apiHost + "api/bridgingbrand/" + mythis.todo.id,
+          mythis.$root.apiHost + "api/masterbrand/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
             brandname: mythis.todo.brandname,
@@ -868,7 +870,7 @@ export default {
         // },
       };
       await axios
-        .get(mythis.$root.apiHost + `api/bridgingbrand/${id}`, config)
+        .get(mythis.$root.apiHost + `api/masterbrand/${id}`, config)
         .then(async (res) => {
           console.log(res.data.data);
           //mythis.acuanEdit = id;

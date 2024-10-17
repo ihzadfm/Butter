@@ -286,13 +286,13 @@
           </button>
         </download-excel>
 
-        <button
+        <!-- <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
         >
           ADD DATA
-        </button>
+        </button> -->
 
         <!------------------------>
         <div id="wrapper2"></div>
@@ -487,7 +487,7 @@ export default {
 
           url:
             mythis.$root.apiHost +
-            "api/targetpenjualan?offset=" +
+            "api/vstargetsales?offset=" +
             offsetx +
             "&limit=" +
             limitx,
@@ -502,7 +502,7 @@ export default {
         if (resData.results.length == 0) {
           count = 0;
         }
-
+        console.log(resData, "wow");
         Object.keys(resData.results).forEach(function (key) {
           const countries_x = {
             nomor: nomor_x,
@@ -640,7 +640,7 @@ export default {
               location.reload();
               // mythis.$root.stopLoading();
               // mythis.$root.flagButtonLoading = false;
-              // mythis.resetForm();
+              // mythis.resetForm();G
               // mythis.show_modal();
               // mythis.refreshTable();
             })
@@ -802,42 +802,21 @@ export default {
           },
         },
         columns: [
-          { name: "ID", hidden: true },
-          "No",
-          "YOP",
-          "MOP",
-          "BRAND CODE",
-          "DISTCODE",
-          "Target",
-          "Sales",
-          "Achievement",
-
-          {
-            // name: "Action",
-            // formatter: (_, row) =>
-            //   mythis.$root.accessRoles[mythis.access_page].update &&
-            //   mythis.$root.accessRoles[mythis.access_page].delete
-            //     ? html(
-            //         `
-            //     <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
-            //     &nbsp;&nbsp;&nbsp;
-            //     <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
-            //   `
-            //       )
-            //     : mythis.$root.accessRoles[mythis.access_page].update
-            //     ? html(
-            //         `
-            //     <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
-            //       )
-            //     : mythis.$root.accessRoles[mythis.access_page].delete
-            //     ? html(`&nbsp;&nbsp;&nbsp;
-            //     <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
-            //     : ``,
-          },
+          { id: "id", name: "ID", hidden: true },
+          { id: "no", name: "No" },
+          { id: "yop", name: "YOP" },
+          { id: "mop", name: "MOP" },
+          { id: "brandcode", name: "BRAND CODE" },
+          { id: "distcode", name: "DISTCODE" },
+          { id: "target", name: "TARGET" },
+          { id: "sales", name: "SALES" },
+          { id: "achievement", name: "ACHIEVEMENT" },
         ],
         style: {
           table: {
             border: "1px solid #ccc",
+            width : "auto",
+            "min-width": "100%"
           },
           th: {
             "background-color": "rgba(0, 55, 255, 0.1)",

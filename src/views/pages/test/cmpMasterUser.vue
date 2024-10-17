@@ -813,6 +813,8 @@ export default {
         style: {
           table: {
             border: "1px solid #ccc",
+            width : "auto",
+            "min-width": "100%"
           },
           th: {
             "background-color": "rgba(0, 55, 255, 0.1)",
