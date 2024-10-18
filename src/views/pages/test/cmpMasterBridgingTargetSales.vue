@@ -28,9 +28,8 @@
           </button>
         </div>
         <div class="modal-body">
-          <!-- <pre>{{ budgetData }}</pre> -->
+          <pre>{{ budgetData }}</pre>
 
-          <!-- Wizards Row -->
           <!-- Wizards Row -->
           <div class="row">
             <div class="col-md-12">
@@ -38,7 +37,7 @@
                 <div class="form-group">
                   <label for="example">Brand Code</label>
                   <CmpInputText
-                    id="inputBrandCode"
+                    id="inputA"
                     type="text"
                     placeholder="brand code"
                     v-model="todo.brandcode"
@@ -54,13 +53,13 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="example-nf-email">Brand Name</label>
+                  <label for="example-nf-email">Item Name</label>
                   <CmpInputText
                     type="text"
-                    placeholder="brand name"
-                    v-model="todo.brandname"
+                    placeholder="item name"
+                    v-model="todo.itemname"
                     :class="
-                      errorField.brandname
+                      errorField.itemname
                         ? 'form-control input-lg input-error'
                         : 'form-control input-lg'
                     "
@@ -70,6 +69,79 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="example-nf-email">Item Code</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="item code"
+                    v-model="todo.itemcode"
+                    :class="
+                      errorField.itemcode
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="example-nf-email">Target</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="target"
+                    v-model="todo.target"
+                    :class="
+                      errorField.target
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="example-nf-email">Year of Production (YOP)</label>
+                  <CmpInputText
+                    type="text"
+                    placeholder="yop"
+                    v-model="todo.yop"
+                    :class="
+                      errorField.yop
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="example-nf-email"
+                    >Month of Production (MOP)</label
+                  >
+                  <CmpInputText
+                    type="text"
+                    placeholder="mop"
+                    v-model="todo.mop"
+                    :class="
+                      errorField.mop
+                        ? 'form-control input-lg input-error'
+                        : 'form-control input-lg'
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- END Wizards Row -->
         </div>
 
@@ -83,10 +155,18 @@
                 class="btn btn-sm btn-primary pull-left"
                 :disabled="
                   $root.flagButtonLoading ||
-                  todo.BrandCode == null ||
-                  todo.BrandCode == '' ||
-                  todo.BrandName == null ||
-                  todo.BrandName == ''
+                  todo.brandcode == null ||
+                  todo.brandcode == '' ||
+                  todo.brandname == null ||
+                  todo.brandname == '' ||
+                  todo.kodebeban == null ||
+                  todo.kodebeban == '' ||
+                  todo.target == null ||
+                  todo.target == '' ||
+                  todo.sales == null ||
+                  todo.sales == '' ||
+                  todo.achievement == null ||
+                  todo.achievement == ''
                 "
               >
                 <i
@@ -106,7 +186,15 @@
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
                   todo.brandname == null ||
-                  todo.brandname == ''
+                  todo.brandname == '' ||
+                  todo.kodebeban == null ||
+                  todo.kodebeban == '' ||
+                  todo.target == null ||
+                  todo.target == '' ||
+                  todo.sales == null ||
+                  todo.sales == '' ||
+                  todo.achievement == null ||
+                  todo.achievement == ''
                 "
               >
                 <i
@@ -177,7 +265,6 @@
         <br />
         <br />
         <br />
-
         <download-excel
           class="button"
           :data="json_data"
@@ -195,14 +282,13 @@
           </button>
         </download-excel>
 
-        <button
-          <button
+        <!-- <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
         >
           ADD DATA
-        </button>
+        </button> -->
 
         <!------------------------>
         <div id="wrapper2"></div>
@@ -240,9 +326,12 @@ export default {
       grid: new Grid(),
       // grid2: new Grid(),
       errorField: {
-        id: false,
         brandcode: false,
-        brandname: false,
+        brandname: false, // Menambahkan brandname
+        kodebeban: false, // Menambahkan kodebeban
+        sales: false,
+        target: false,
+        achievement: false,
       },
 
       userid: 0,
@@ -251,9 +340,12 @@ export default {
       modal: false,
 
       todo: {
-        id: "",
         brandcode: "",
-        brandname: "",
+        brandname: "", // Menambahkan brandname
+        kodebeban: "", // Menambahkan kodebeban
+        sales: "",
+        target: "",
+        achievement: "",
       },
       flagButtonAdd: true,
       csv: null,
@@ -263,7 +355,25 @@ export default {
           required: true,
         },
         brandname: {
+          // Menambahkan brandname di dataImportCsv
           label: "brandname",
+          required: true,
+        },
+        kodebeban: {
+          // Menambahkan kodebeban di dataImportCsv
+          label: "kodebeban",
+          required: true,
+        },
+        sales: {
+          label: "sales",
+          required: true,
+        },
+        target: {
+          label: "target",
+          required: true,
+        },
+        achievement: {
+          label: "achievement",
           required: true,
         },
       },
@@ -285,10 +395,14 @@ export default {
 
       json_fields: {
         brandcode: "brandcode",
-        brandname: "brandname",
+        brandname: "brandname", // Menambahkan brandname
+        kodebeban: "kodebeban", // Menambahkan kodebeban
+        sales: "sales",
+        target: "target",
+        achievement: "achievement",
       },
 
-      nama_Worksheet: "Sheet Master Brand",
+      nama_Worksheet: "Sheet Master BRIDGING TARGET SALES",
 
       nama_excelnya: "",
 
@@ -364,7 +478,7 @@ export default {
 
           url:
             mythis.$root.apiHost +
-            "api/masterbrand?offset=" +
+            "api/bridgingtargetsales?offset=" +
             offsetx +
             "&limit=" +
             limitx,
@@ -379,13 +493,16 @@ export default {
         if (resData.results.length == 0) {
           count = 0;
         }
-
+        console.log(resData, "wow");
         Object.keys(resData.results).forEach(function (key) {
           const countries_x = {
             nomor: nomor_x,
-            brandcode: "'" + resData.results[key].brandcode,
-
-            brandname: resData.results[key].brandname,
+            kodebeban: resData.results[key].kodebeban, // Menambahkan kodebeban
+            brandcode: "'" + resData.results[key].brandcode, // Menambahkan tanda kutip tunggal
+            brandname: resData.results[key].brandname, // Menambahkan brandname
+            sales: resData.results[key].sales,
+            target: resData.results[key].target,
+            achievement: resData.results[key].achievement,
           };
 
           mythis.data_x_excel[baris_excel] = countries_x;
@@ -434,7 +551,7 @@ export default {
 
       var a = new Date().toLocaleString("en-GB");
 
-      mythis.nama_excelnya = "MASTER_BRAND_" + a + ".xls";
+      mythis.nama_excelnya = "MASTER_BRIDGINGTARGETSALES_" + a + ".xls";
 
       mythis.nama_sheetnya = mythis.nama_excelnya;
 
@@ -475,7 +592,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master Brand Bulky",
+        title: "Create Master Target vs Sales Bulky",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -495,7 +612,7 @@ export default {
           //   },
           // };
           const config = "";
-          var url = mythis.$root.apiHost + "api/masterbrandBulky";
+          var url = mythis.$root.apiHost + "api/targetpenjualanBulky";
           axios
             .post(
               url,
@@ -512,7 +629,7 @@ export default {
               location.reload();
               // mythis.$root.stopLoading();
               // mythis.$root.flagButtonLoading = false;
-              // mythis.resetForm();
+              // mythis.resetForm();G
               // mythis.show_modal();
               // mythis.refreshTable();
             })
@@ -555,7 +672,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master BRAND",
+        title: "Create Master BRIDGING TARGET SALES",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -575,13 +692,17 @@ export default {
           //   },
           // };
           const config = "";
-          var url = mythis.$root.apiHost + "api/masterbrand";
+          var url = mythis.$root.apiHost + "api/targetpenjualan";
           axios
             .post(
               url,
               {
                 brandcode: mythis.todo.brandcode,
-                brandname: mythis.todo.brandname,
+                sales: mythis.todo.sales,
+                target: mythis.todo.target,
+                achievement: mythis.todo.achievement,
+                kodebeban: mythis.todo.kodebeban, // Menambahkan kodebeban
+                brandname: mythis.todo.brandname, // Menambahkan brandname
                 userid: mythis.userid,
               },
               config
@@ -669,33 +790,21 @@ export default {
           },
         },
         columns: [
-          { name: "ID", hidden: true },
-          "NO",
-          "BRAND CODE",
-          "BRAND NAME",
-
-          // {
-          //   name: "Action",
-          //   formatter: (_, row) =>
-          //     mythis.$root.accessRoles[mythis.access_page].update &&
-          //     mythis.$root.accessRoles[mythis.access_page].delete
-          //       ? html(
-          //           `
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
-          //       &nbsp;&nbsp;&nbsp;
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
-          //     `
-          //         )
-          //       : mythis.$root.accessRoles[mythis.access_page].update
-          //       ? html(
-          //           `
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
-          //         )
-          //       : mythis.$root.accessRoles[mythis.access_page].delete
-          //       ? html(`&nbsp;&nbsp;&nbsp;
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
-          //       : ``,
-          // },
+          { id: "id", name: "ID", hidden: true },
+          { id: "no", name: "No" },
+          { id: "kodebeban", name: "KODE BEBAN" }, // Menambahkan kodebeban
+          { id: "brandcode", name: "BRAND CODE" },
+          { id: "brandname", name: "BRAND NAME" }, // Menambahkan brandname
+          { id: "target", name: "TARGET" },
+          { id: "sales", name: "SALES" },
+          {
+            id: "achievement",
+            name: "ACHIEVEMENT",
+            formatter: (cell) => {
+              console.log("Achievement value:", cell); // Tambahkan log untuk debugging
+              return html(`${cell.props.content}%`); // Menampilkan dengan simbol persen
+            },
+          },
         ],
         style: {
           table: {
@@ -714,13 +823,17 @@ export default {
           },
         },
         server: {
-          url: this.$root.apiHost + "api/masterbrand",
+          url: this.$root.apiHost + "api/bridgingtargetsales",
           then: (data) =>
             data.results.map((card) => [
               card.id,
               data.nomorBaris++ + 1,
+              html(`<span class="pull-left">${card.kodebeban}</span>`), // Menambahkan kodebeban
+              html(`<span class="pull-left">${card.brandname}</span>`), // Menambahkan brandname
               html(`<span class="pull-left">${card.brandcode}</span>`),
-              html(`<span class="pull-left">${card.brandname}</span>`),
+              html(`<span class="pull-left">${card.target}</span>`),
+              html(`<span class="pull-left">${card.sales}</span>`),
+              html(`<span class="pull-left">${card.achievement}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -767,7 +880,7 @@ export default {
             },
           };
           axios
-            .delete(mythis.$root.apiHost + `api/masterbrand/${id}`, config)
+            .delete(mythis.$root.apiHost + `api/targetpenjualan/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -792,10 +905,15 @@ export default {
       const config = "";
       axios
         .put(
-          mythis.$root.apiHost + "api/masterbrand/" + mythis.todo.id,
+          mythis.$root.apiHost + "api/targetpenjualan/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
-            brandname: mythis.todo.brandname,
+            brandname: mythis.todo.brandname, // Menambahkan brandname
+            kodebeban: mythis.todo.kodebeban, // Menambahkan kodebeban
+            sales: mythis.todo.sales,
+            target: mythis.todo.target,
+            achievement: mythis.todo.achievement,
+
             userid: mythis.userid,
           },
           config
@@ -854,17 +972,20 @@ export default {
         // },
       };
       await axios
-        .get(mythis.$root.apiHost + `api/masterbrand/${id}`, config)
+        .get(mythis.$root.apiHost + `api/targetpenjualan/${id}`, config)
         .then(async (res) => {
-          console.log(res.data.data);
+          //console.log(res.data.data);
           //mythis.acuanEdit = id;
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.brandcode = res.data.data.brandcode;
-          mythis.todo.brandname = res.data.data.brandname;
+          mythis.todo.brandname = res.data.data.brandname; // Menambahkan brandname
+          mythis.todo.kodebeban = res.data.data.kodebeban; // Menambahkan kodebeban
+          mythis.todo.sales = res.data.data.sales;
+          mythis.todo.target = res.data.data.target;
+          mythis.todo.achievement = res.data.data.achievement;
 
-          // document.getElementById("inputA").focus();
-          // sets the focus on the input
+          document.getElementById("inputA").focus(); // sets the focus on the input
 
           mythis.$root.stopLoading();
         });

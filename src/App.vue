@@ -77,6 +77,7 @@ import cmpMasterBridging from "./views/pages/test/cmpMasterBridging.vue";
 import cmpMasterSales from "./views/pages/test/cmpMasterSales.vue";
 import cmpMasterTarget from "./views/pages/test/cmpMasterTarget.vue";
 import cmpMasterVsTargetSales from "./views/pages/test/cmpMasterVsTargetSales.vue";
+import cmpMasterBridgingTargetSales from "./views/pages/test/cmpMasterBridgingTargetSales.vue";
 
 //MENU DINAMIS GET DARI FOLDER - START
 // const componentViews = import.meta.globEager("@/views/*.vue");
@@ -114,9 +115,10 @@ const routeComponent = {
   CmpMasterBudgetMonitoring: markRaw(CmpMasterBudgetMonitoring),
   cmpMasterBudgetTerm: markRaw(cmpMasterBudgetTerm),
   CmpMasterBrand: markRaw(CmpMasterBrand),
-  cmpMasterBridgingBrand: markRaw(cmpMasterBridgingBrand),
   cmpMasterProduct: markRaw(cmpMasterProduct),
+  cmpMasterBridgingBrand: markRaw(cmpMasterBridgingBrand),
   cmpMasterBridging: markRaw(cmpMasterBridging),
+  cmpMasterBridgingTargetSales: markRaw(cmpMasterBridgingTargetSales),
   cmpMasterSales: markRaw(cmpMasterSales),
   cmpMasterTarget: markRaw(cmpMasterTarget),
   cmpMasterVsTargetSales: markRaw(cmpMasterVsTargetSales),
@@ -350,9 +352,10 @@ export default {
             CmpMasterBudgetMonitoring: "BUDGET",
             cmpMasterBudgetTerm: "BUDGET TERM",
             CmpMasterBrand: "BRAND",
-            cmpMasterBridgingBrand: "BRIDGING BRAND",
             cmpMasterProduct: "PRODUCT",
+            cmpMasterBridgingBrand: "BRIDGING BRAND",
             cmpMasterBridging: "BRIDGING BUDGET",
+            cmpMasterBridgingTargetSales: "BRIDGING TARGET SALES",
             cmpMasterSales: "SALES",
             cmpMasterTarget: "TARGET",
             cmpMasterVsTargetSales: "TARGET VS SALES",
@@ -372,9 +375,10 @@ export default {
         CmpMasterBudgetMonitoring: "BUDGET",
         cmpMasterBudgetTerm: "BUDGET TERM",
         CmpMasterBrand: "BRAND",
-        cmpMasterBridgingBrand: "BRIDGING BRAND",
         cmpMasterProduct: "PRODUCT",
+        cmpMasterBridgingBrand: "BRIDGING BRAND",
         cmpMasterBridging: "BRIDGING BUDGET",
+        cmpMasterBridgingTargetSales: "BRIDGING TARGET SALES",
         cmpMasterSales: "SALES",
         cmpMasterTarget: "TARGET",
         cmpMasterVsTargetSales: "TARGET VS SALES",
@@ -417,17 +421,22 @@ export default {
           update: true,
           delete: true,
         },
-        cmpMasterBridgingBrand: {
-          create: true,
-          update: true,
-          delete: true,
-        },
         cmpMasterProduct: {
           create: true,
           update: true,
           delete: true,
         },
+        cmpMasterBridgingBrand: {
+          create: true,
+          update: true,
+          delete: true,
+        },
         cmpMasterBridging: {
+          create: true,
+          update: true,
+          delete: true,
+        },
+        cmpMasterBridgingTargetSales: {
           create: true,
           update: true,
           delete: true,

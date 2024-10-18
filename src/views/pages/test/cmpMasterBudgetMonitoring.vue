@@ -1654,8 +1654,18 @@ export default {
           "COST CENTER",
           "TOTAL FINAL",
           "TOTAL",
-          "JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI", 
-    "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DESEMBER",
+          "JANUARI",
+          "FEBRUARI",
+          "MARET",
+          "APRIL",
+          "MEI",
+          "JUNI",
+          "JULI",
+          "AGUSTUS",
+          "SEPTEMBER",
+          "OKTOBER",
+          "NOVEMBER",
+          "DESEMBER",
           "REALIZATION N1",
           "REALIZATION N2",
           "REALIZATION N3",
@@ -1697,8 +1707,8 @@ export default {
         style: {
           table: {
             border: "1px solid #ccc",
-            width : "auto",
-            "min-width": "100%"
+            width: "auto",
+            "min-width": "100%",
           },
           th: {
             "background-color": "rgba(0, 55, 255, 0.1)",
