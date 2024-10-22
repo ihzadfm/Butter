@@ -273,6 +273,44 @@
         <br />
         <br />
         <br />
+
+        <div class="block-content">
+          <div class="container-fluid">
+            <div class="mb-4">
+              <!-- <iframe hidden width="900px" height="900px" :src="this.exportLink" frameborder="0"></iframe> -->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label for="">DEPARTEMENT</label>
+                      </div>
+                      <div class="col-md-5">
+                        <v-select
+                          v-model="departement"
+                          :options="departemenOptions"
+                        ></v-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- {{departement}} -->
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4"></div>
+                      <div class="col-md-6">
+                        <button type="submit" @click="getvoipDatax()">
+                          SHOW
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <download-excel
           class="button"
           :data="json_data"
@@ -297,7 +335,6 @@
         >
           ADD DATA
         </button> -->
-
 
         <!------------------------>
         <div id="wrapper2"></div>
@@ -329,6 +366,8 @@ export default {
   },
   data() {
     return {
+      departement:'',
+      departemenOptions: [],
       access_page: this.$root.decryptData(localStorage.getItem("halaman")),
       isLogin: localStorage.getItem("token") != null ? 1 : 0,
       activemenu: null,
@@ -432,6 +471,7 @@ export default {
   },
   async mounted() {
     // await this.$root.refreshToken(localStorage.getItem("token"));
+    this.getparamData();
     this.getTable();
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
@@ -458,9 +498,7 @@ export default {
           };
           try {
             const response = await axios.delete(
-              mythis.$root.apiHost +
-                mythis.$root.prefixApi +
-                "pocustdelete",
+              mythis.$root.apiHost + mythis.$root.prefixApi + "pocustdelete",
               config
             );
             mythis.$root.stopLoading();
@@ -490,6 +528,33 @@ export default {
         }
       });
     },
+
+    async getparamData() {
+      return axios
+        .get(this.$root.apiHost+"api/getdistcodeall", {
+          dataType: "json",
+        })
+        .then((response) => {
+          // binding data
+          const data = response.data.results;
+          this.departemen = {
+            code: data.distcode,
+            label: data.distname,
+          };
+          data.forEach((item) => {
+            this.departemenOptions.push({
+              code: item.distcode,
+              label: item.distname,
+            });
+          });
+        })
+        .catch((e) => {
+          // if error / fail then show response
+          const err = e.response.data;
+          toast.error(err.message);
+        });
+    },
+
     padTo2Digits(num) {
       return num.toString().padStart(2, "0");
     },
@@ -879,13 +944,13 @@ export default {
           { id: "distcode", name: "DISTCODE" },
           { id: "sales", name: "SALES" },
           { id: "target", name: "TARGET" },
-          
+
           {
             id: "achievement",
             name: "ACHIEVEMENT",
-             formatter: (cell) => {
-             console.log("Achievement value:", cell);// Tambahkan log untuk debugging
-             return html(`${cell.props.content}%`) // Menampilkan dengan simbol persen
+            formatter: (cell) => {
+              console.log("Achievement value:", cell); // Tambahkan log untuk debugging
+              return html(`${cell.props.content}%`); // Menampilkan dengan simbol persen
             },
           },
         ],
@@ -916,8 +981,16 @@ export default {
               html(`<span class="pull-left">${card.brandcode}</span>`),
               html(`<span class="pull-left">${card.brandname}</span>`),
               html(`<span class="pull-left">${card.distcode}</span>`),
-              html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.sales)}</span>`),
-              html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.target)}</span>`),
+              html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.sales)}</span>`
+              ),
+              html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.target)}</span>`
+              ),
               html(`<span class="pull-left">${card.achievement}</span>`),
             ]),
           total: (data) => data.count,

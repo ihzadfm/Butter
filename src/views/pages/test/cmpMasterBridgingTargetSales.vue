@@ -265,6 +265,39 @@
         <br />
         <br />
         <br />
+
+        <div class="block-content">
+            <div class="container-fluid">
+            <div class="mb-4">
+                <!-- <iframe hidden width="900px" height="900px" :src="this.exportLink" frameborder="0"></iframe> -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="">DEPARTEMENT</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <v-select v-model="departement" :options="departemenOptions"></v-select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- {{departement}} -->
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" @click="getvoipDatax()">SHOW</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div></div>
+
         <download-excel
           class="button"
           :data="json_data"
@@ -320,6 +353,8 @@ export default {
   },
   data() {
     return {
+      departement:'',
+      departemenOptions: [],
       access_page: this.$root.decryptData(localStorage.getItem("halaman")),
       isLogin: localStorage.getItem("token") != null ? 1 : 0,
       activemenu: null,
@@ -412,6 +447,7 @@ export default {
   async mounted() {
     // await this.$root.refreshToken(localStorage.getItem("token"));
     this.getTable();
+    this.getparamData();
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
@@ -469,6 +505,35 @@ export default {
         }
       });
     },
+
+    async getparamData() {
+                return axios
+                    .get("api/getdistcodeall", {
+                        dataType: "json",
+                    })
+                    .then((response) => {
+                        // binding data
+                        const data = response.data.data;
+                        this.departemen = {
+                            code: data.distcode,
+                            label: data.distname
+                        };
+                        data.forEach(item => {
+                            this.departemenOptions.push(
+                                {
+                                    code: item.distcode,
+                                    label: item.distname
+                                }
+                            )
+                        });
+                    })
+                    .catch((e) => {
+                        // if error / fail then show response
+                        const err = e.response.data;
+                        toast.error(err.message);
+                    }); 
+        },
+
     padTo2Digits(num) {
       return num.toString().padStart(2, "0");
     },
