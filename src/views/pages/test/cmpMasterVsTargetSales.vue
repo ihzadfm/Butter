@@ -298,12 +298,6 @@
           ADD DATA
         </button> -->
 
-        <button
-          class="btn btn-sm custom-file-upload pull-right"
-          @click="deleteAllData"
-        >
-          Delete All Data
-        </button>
 
         <!------------------------>
         <div id="wrapper2"></div>

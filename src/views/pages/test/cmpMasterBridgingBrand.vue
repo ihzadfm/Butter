@@ -312,6 +312,60 @@ export default {
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
+    async deleteAllData() {
+      var mythis = this;
+      Swal.fire({
+        title: "Delete All Data",
+        text: "Are you sure? This action cannot be undone.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete all",
+        cancelButtonText: "Cancel",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          mythis.$root.presentLoading();
+          const config = {
+            data: {
+              fileUpload: "form satuan",
+              userid: mythis.userid,
+            },
+          };
+          try {
+            const response = await axios.delete(
+              mythis.$root.apiHost +
+                mythis.$root.prefixApi +
+                "pocustdelete",
+              config
+            );
+            mythis.$root.stopLoading();
+            if (response.data.status) {
+              Swal.fire(
+                "Deleted!",
+                `All data has been deleted. ${response.data.deleted_rows} rows were deleted.`,
+                "success"
+              );
+              mythis.refreshTable();
+            } else {
+              Swal.fire(
+                "Error",
+                response.data.message || "Failed to delete all data",
+                "error"
+              );
+            }
+          } catch (error) {
+            mythis.$root.stopLoading();
+            console.error("Error deleting all data:", error);
+            let errorMessage = "An error occurred while deleting data";
+            if (error.response) {
+              errorMessage = error.response.data.message || errorMessage;
+            }
+            Swal.fire("Error", errorMessage, "error");
+          }
+        }
+      });
+    },
     padTo2Digits(num) {
       return num.toString().padStart(2, "0");
     },

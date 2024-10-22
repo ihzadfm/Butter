@@ -623,6 +623,7 @@ export default {
     this.welcomeinfo();
   },
   methods: {
+    
     welcomeinfo() {
       this.first = sessionStorage.getItem("first");
       if (this.first == 1) {
