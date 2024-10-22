@@ -283,7 +283,7 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-md-2">
-                        <label for="">DEPARTEMENT</label>
+                        <label for="">DistCode</label>
                       </div>
                       <div class="col-md-5">
                         <v-select
@@ -291,6 +291,54 @@
                           :options="departemenOptions"
                         ></v-select>
                       </div>
+                      
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label for="">Kode Brand</label>
+                      </div>
+                      <div class="col-md-5">
+                        <v-select
+                          v-model="brand"
+                          :options="brandOptions"
+                        ></v-select>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                  
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label for="">Year</label>
+                      </div>
+                      <div class="col-md-5">
+                        <v-select
+                          v-model="year"
+                          :options="yearOptions"
+                        ></v-select>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label for="">Month</label>
+                      </div>
+                      <div class="col-md-5">
+                        <v-select
+                          v-model="month"
+                          :options="monthOptions"
+                        ></v-select>
+                      </div>
+                      
                     </div>
                   </div>
 
@@ -360,6 +408,8 @@ import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import JsonExcel from "vue-json-excel3";
 
+el: '#app';
+
 export default {
   components: {
     downloadExcel: JsonExcel,
@@ -368,6 +418,9 @@ export default {
     return {
       departement:'',
       departemenOptions: [],
+      brandOptions: [],
+      yearOptions: [],
+      monthOptions: [],
       access_page: this.$root.decryptData(localStorage.getItem("halaman")),
       isLogin: localStorage.getItem("token") != null ? 1 : 0,
       activemenu: null,
@@ -472,6 +525,9 @@ export default {
   async mounted() {
     // await this.$root.refreshToken(localStorage.getItem("token"));
     this.getparamData();
+    this.getparamData2();
+    this.getparamData3();
+    this.getparamData4();
     this.getTable();
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
@@ -537,7 +593,7 @@ export default {
         .then((response) => {
           // binding data
           const data = response.data.results;
-          this.departemen = {
+          this.brand = {
             code: data.distcode,
             label: data.distname,
           };
@@ -545,6 +601,84 @@ export default {
             this.departemenOptions.push({
               code: item.distcode,
               label: item.distname,
+            });
+          });
+        })
+        .catch((e) => {
+          // if error / fail then show response
+          const err = e.response.data;
+          toast.error(err.message);
+        });
+    },
+
+    async getparamData2() {
+      return axios
+        .get(this.$root.apiHost+"api/getdistcodeallbrand", {
+          dataType: "json",
+        })
+        .then((response) => {
+          // binding data
+          const data = response.data.results;
+          this.departemen = {
+            code: data.brandcode,
+            label: data.brandname,
+          };
+          data.forEach((item) => {
+            this.brandOptions.push({
+              code: item.brandcode,
+              label: item.brandname,
+            });
+          });
+        })
+        .catch((e) => {
+          // if error / fail then show response
+          const err = e.response.data;
+          toast.error(err.message);
+        });
+    },
+
+    async getparamData3() {
+      return axios
+        .get(this.$root.apiHost+"api/getdistcodeallyear", {
+          dataType: "json",
+        })
+        .then((response) => {
+          // binding data
+          const data = response.data.results;
+          this.departemen = {
+            code: data.year,
+            label: data.year,
+          };
+          data.forEach((item) => {
+            this.yearOptions.push({
+              code: item.year,
+              label: item.year,
+            });
+          });
+        })
+        .catch((e) => {
+          // if error / fail then show response
+          const err = e.response.data;
+          toast.error(err.message);
+        });
+    },
+
+    async getparamData4() {
+      return axios
+        .get(this.$root.apiHost+"api/getdistcodeallmonth", {
+          dataType: "json",
+        })
+        .then((response) => {
+          // binding data
+          const data = response.data.results;
+          this.departemen = {
+            code: data.month,
+            label: data.month,
+          };
+          data.forEach((item) => {
+            this.monthOptions.push({
+              code: item.month,
+              label: item.month,
             });
           });
         })
