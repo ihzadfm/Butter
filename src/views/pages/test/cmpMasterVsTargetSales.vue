@@ -157,6 +157,8 @@
                   $root.flagButtonLoading ||
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
+                  todo.brandname == null ||
+                  todo.brandname == '' ||
                   todo.target == null ||
                   todo.target == '' ||
                   todo.sales == null ||
@@ -187,6 +189,8 @@
                   $root.flagButtonLoading ||
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
+                  todo.brandname == null ||
+                  todo.brandname == '' ||
                   todo.target == null ||
                   todo.target == '' ||
                   todo.sales == null ||
@@ -294,6 +298,13 @@
           ADD DATA
         </button> -->
 
+        <button
+          class="btn btn-sm custom-file-upload pull-right"
+          @click="deleteAllData"
+        >
+          Delete All Data
+        </button>
+
         <!------------------------>
         <div id="wrapper2"></div>
         <div id="box"></div>
@@ -334,6 +345,7 @@ export default {
         mop: false,
         distcode: false,
         brandcode: false,
+        brandname: false,
         sales: false,
         target: false,
         achievement: false,
@@ -346,6 +358,7 @@ export default {
 
       todo: {
         brandcode: "",
+        brandname: "",
         sales: "",
         target: "",
         yop: "",
@@ -358,6 +371,10 @@ export default {
       dataImportCsv: {
         brandcode: {
           label: "brandcode",
+          required: true,
+        },
+        brandname: {
+          label: "brandname",
           required: true,
         },
         sales: {
@@ -406,6 +423,7 @@ export default {
         mop: "mop",
         distcode: "distcode",
         brandcode: "brandcode",
+        brandname: "brandname",
         sales: "sales",
         target: "target",
         achievement: "achievement",
@@ -424,6 +442,60 @@ export default {
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
+    async deleteAllData() {
+      var mythis = this;
+      Swal.fire({
+        title: "Delete All Data",
+        text: "Are you sure? This action cannot be undone.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete all",
+        cancelButtonText: "Cancel",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          mythis.$root.presentLoading();
+          const config = {
+            data: {
+              fileUpload: "form satuan",
+              userid: mythis.userid,
+            },
+          };
+          try {
+            const response = await axios.delete(
+              mythis.$root.apiHost +
+                mythis.$root.prefixApi +
+                "pocustdelete",
+              config
+            );
+            mythis.$root.stopLoading();
+            if (response.data.status) {
+              Swal.fire(
+                "Deleted!",
+                `All data has been deleted. ${response.data.deleted_rows} rows were deleted.`,
+                "success"
+              );
+              mythis.refreshTable();
+            } else {
+              Swal.fire(
+                "Error",
+                response.data.message || "Failed to delete all data",
+                "error"
+              );
+            }
+          } catch (error) {
+            mythis.$root.stopLoading();
+            console.error("Error deleting all data:", error);
+            let errorMessage = "An error occurred while deleting data";
+            if (error.response) {
+              errorMessage = error.response.data.message || errorMessage;
+            }
+            Swal.fire("Error", errorMessage, "error");
+          }
+        }
+      });
+    },
     padTo2Digits(num) {
       return num.toString().padStart(2, "0");
     },
@@ -511,6 +583,7 @@ export default {
             mop: resData.results[key].mop,
             distcode: resData.results[key].distcode,
             brandcode: "'" + resData.results[key].brandcode, // Menambahkan tanda kutip tunggal
+            brandname: resData.results[key].brandname, // Menambahkan tanda kutip tunggal
             sales: resData.results[key].sales,
             target: resData.results[key].target,
             achievement: resData.results[key].achievement,
@@ -712,6 +785,7 @@ export default {
                 mop: mythis.todo.mop,
                 distcode: mythis.todo.distcode,
                 brandcode: mythis.todo.brandcode,
+                brandname: mythis.todo.brandname,
                 sales: mythis.todo.sales,
                 target: mythis.todo.target,
                 achievement: mythis.todo.achievement,
@@ -807,9 +881,11 @@ export default {
           { id: "yop", name: "YOP" },
           { id: "mop", name: "MOP" },
           { id: "brandcode", name: "BRAND CODE" },
+          { id: "brandname", name: "BRAND NAME" },
           { id: "distcode", name: "DISTCODE" },
-          { id: "target", name: "TARGET" },
           { id: "sales", name: "SALES" },
+          { id: "target", name: "TARGET" },
+          
           {
             id: "achievement",
             name: "ACHIEVEMENT",
@@ -844,6 +920,7 @@ export default {
               html(`<span class="pull-left">${card.yop}</span>`),
               html(`<span class="pull-left">${card.mop}</span>`),
               html(`<span class="pull-left">${card.brandcode}</span>`),
+              html(`<span class="pull-left">${card.brandname}</span>`),
               html(`<span class="pull-left">${card.distcode}</span>`),
               html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.sales)}</span>`),
               html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.target)}</span>`),
@@ -922,6 +999,7 @@ export default {
           mythis.$root.apiHost + "api/targetpenjualan/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
+            brandname: mythis.todo.brandname,
             sales: mythis.todo.sales,
             target: mythis.todo.target,
             yop: mythis.todo.yop,
@@ -994,6 +1072,7 @@ export default {
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.brandcode = res.data.data.brandcode;
+          mythis.todo.brandname = res.data.data.brandname;
           mythis.todo.sales = res.data.data.sales;
           mythis.todo.target = res.data.data.target;
           mythis.todo.yop = res.data.data.yop;
