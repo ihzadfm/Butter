@@ -813,9 +813,9 @@ export default {
           {
             id: "achievement",
             name: "ACHIEVEMENT",
-            formatter: (cell) => {
-              console.log("Achievement value:", cell); // Tambahkan log untuk debugging
-              return html(`${cell.props.content}%`) // Menampilkan dengan simbol persen
+             formatter: (cell) => {
+             console.log("Achievement value:", cell);// Tambahkan log untuk debugging
+             return html(`${cell.props.content}%`) // Menampilkan dengan simbol persen
             },
           },
         ],
@@ -845,8 +845,8 @@ export default {
               html(`<span class="pull-left">${card.mop}</span>`),
               html(`<span class="pull-left">${card.brandcode}</span>`),
               html(`<span class="pull-left">${card.distcode}</span>`),
-              html(`<span class="pull-left">${card.target}</span>`),
-              html(`<span class="pull-left">${card.sales}</span>`),
+              html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.sales)}</span>`),
+              html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.target)}</span>`),
               html(`<span class="pull-left">${card.achievement}</span>`),
             ]),
           total: (data) => data.count,

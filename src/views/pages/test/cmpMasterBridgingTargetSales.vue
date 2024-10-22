@@ -831,8 +831,8 @@ export default {
               html(`<span class="pull-left">${card.kodebeban}</span>`), // Menambahkan kodebeban
               html(`<span class="pull-left">${card.brandname}</span>`), // Menambahkan brandname
               html(`<span class="pull-left">${card.brandcode}</span>`),
-              html(`<span class="pull-left">${card.target}</span>`),
-              html(`<span class="pull-left">${card.sales}</span>`),
+              html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.sales)}</span>`),
+              html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.target)}</span>`),
               html(`<span class="pull-left">${card.achievement}</span>`),
             ]),
           total: (data) => data.count,

@@ -156,6 +156,8 @@
                   $root.flagButtonLoading ||
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
+                  todo.brandname == null ||
+                  todo.brandname == '' ||
                   todo.kodebeban == null ||
                   todo.kodebeban == '' ||
                   todo.itemcode == null ||
@@ -184,6 +186,8 @@
                   $root.flagButtonLoading ||
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
+                  todo.brandname == null ||
+                  todo.brandname == '' ||
                   todo.kodebeban == null ||
                   todo.kodebeban == '' ||
                   todo.itemcode == null ||
@@ -327,6 +331,7 @@ export default {
       // grid2: new Grid(),
       errorField: {
         brandcode: false,
+        brandname: false,
         kodebeban: false,
         itemcode: false,
         mtgcode: false,
@@ -341,6 +346,7 @@ export default {
 
       todo: {
         brandcode: "",
+        brandname: "",
         kodebeban: "",
         itemcode: "",
         mtgcode: "",
@@ -352,6 +358,10 @@ export default {
       dataImportCsv: {
         brandcode: {
           label: "brandcode",
+          required: true,
+        },
+        brandname: {
+          label: "brandname",
           required: true,
         },
         kodebeban: {
@@ -393,6 +403,7 @@ export default {
 
       json_fields: {
         brandcode: "brandcode",
+        brandname: "brandname",
         kodebeban: "kodebeban",
         itemcode: "itemcode",
         mtgcode: "mtgcode",
@@ -496,6 +507,7 @@ export default {
           const countries_x = {
             nomor: nomor_x,
             brandcode: "'" + resData.results[key].brandcode,
+            brandname: resData.results[key].brandname,
             kodebeban: resData.results[key].kodebeban,
             itemcode: resData.results[key].itemcode,
             mtgcode: resData.results[key].mtgcode,
@@ -697,6 +709,7 @@ export default {
               url,
               {
                 brandcode: mythis.todo.brandcode,
+                brandname: mythis.todo.brandname,
                 kodebeban: mythis.todo.kodebeban,
                 itemcode: mythis.todo.itemcode,
                 mtgcode: mythis.todo.mtgcode,
@@ -792,6 +805,7 @@ export default {
           { name: "ID", hidden: true },
           "No",
           "BRAND CODE",
+          "BRAND NAME",
           "KODE BEBAN",
           "ITEM CODE",
           "MTG CODE",
@@ -842,6 +856,7 @@ export default {
               card.id,
               data.nomorBaris++ + 1,
               html(`<span class="pull-left">${card.brandcode}</span>`),
+              html(`<span class="pull-left">${card.brandname}</span>`),
               html(`<span class="pull-left">${card.kodebeban}</span>`),
               html(`<span class="pull-left">${card.itemcode}</span>`),
               html(`<span class="pull-left">${card.mtgcode}</span>`),
@@ -924,6 +939,7 @@ export default {
           mythis.$root.apiHost + "api/bridgingbudgetbrand/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
+            brandname: mythis.todo.brandname,
             kodebeban: mythis.todo.kodebeban,
             itemcode: mythis.todo.itemcode,
             mtgcode: mythis.todo.mtgcode,
@@ -994,6 +1010,7 @@ export default {
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.brandcode = res.data.data.brandcode;
+          mythis.todo.brandname = res.data.data.brandname;
           mythis.todo.kodebeban = res.data.data.kodebeban;
           mythis.todo.itemcode = res.data.data.itemcode;
           mythis.todo.mtgcode = res.data.data.mtgcode;

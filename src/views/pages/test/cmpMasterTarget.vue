@@ -157,6 +157,8 @@
                   $root.flagButtonLoading ||
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
+                  todo.brandname == null ||
+                  todo.brandname == '' ||
                   todo.itemcode == null ||
                   todo.itemcode == '' ||
                   todo.itemname == null ||
@@ -187,6 +189,8 @@
                   $root.flagButtonLoading ||
                   todo.brandcode == null ||
                   todo.brandcode == '' ||
+                  todo.brandname == null ||
+                  todo.brandname == '' ||
                   todo.itemcode == null ||
                   todo.itemcode == '' ||
                   todo.itemname == null ||
@@ -332,6 +336,8 @@ export default {
       // grid2: new Grid(),
       errorField: {
         BrandCode: false,
+        BrandName: false,
+        BrandName: false,
         ItemCode: false,
         ItemName: false,
         target: false,
@@ -347,6 +353,7 @@ export default {
 
       todo: {
         brandcode: "",
+        brandname: "",
         itemcode: "",
         itemname: "",
         target: "",
@@ -359,6 +366,10 @@ export default {
       dataImportCsv: {
         brandcode: {
           label: "brandcode",
+          required: true,
+        },
+        brandname: {
+          label: "brandname",
           required: true,
         },
         itemcode: {
@@ -404,6 +415,7 @@ export default {
 
       json_fields: {
         brandcode: "brandcode",
+        brandname: "brandname",
         itemcode: "itemcode",
         itemname: "itemname",
         target: "target",
@@ -509,6 +521,7 @@ export default {
             nomor: nomor_x,
 
             brandcode: "'" + resData.results[key].brandcode,
+            brandname: resData.results[key].brandname,
             itemcode: resData.results[key].itemcode,
             itemname: resData.results[key].itemname,
             target: resData.results[key].target,
@@ -710,6 +723,7 @@ export default {
               url,
               {
                 brandcode: mythis.todo.brandcode,
+                brandname: mythis.todo.brandname,
                 itemcode: mythis.todo.itemcode,
                 itemname: mythis.todo.itemname,
                 target: mythis.todo.target,
@@ -808,6 +822,7 @@ export default {
           "YOP",
           "MOP",
           "BRAND CODE",
+          "BRAND NAME",
           "ITEM CODE",
           "ITEM NAME",
           "TARGET",
@@ -861,9 +876,10 @@ export default {
               html(`<span class="pull-left">${card.yop}</span>`),
               html(`<span class="pull-left">${card.mop}</span>`),
               html(`<span class="pull-left">${card.brandcode}</span>`),
+              html(`<span class="pull-left">${card.brandname}</span>`),
               html(`<span class="pull-left">${card.itemcode}</span>`),
               html(`<span class="pull-left">${card.itemname}</span>`),
-              html(`<span class="pull-left">${card.target}</span>`),
+              html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.target)}</span>`),
               html(`<span class="pull-left">${card.distcode}</span>`),
             ]),
           total: (data) => data.count,
@@ -939,6 +955,7 @@ export default {
           mythis.$root.apiHost + "api/targetpenjualan/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
+            brandname: mythis.todo.brandname,
             itemcode: mythis.todo.itemcode,
             itemname: mythis.todo.itemname,
             target: mythis.todo.target,
@@ -1011,6 +1028,7 @@ export default {
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.brandcode = res.data.data.brandcode;
+          mythis.todo.brandname = res.data.data.brandname;
           mythis.todo.itemcode = res.data.data.itemcode;
           mythis.todo.itemname = res.data.data.itemname;
           mythis.todo.target = res.data.data.target;

@@ -1330,14 +1330,15 @@ export default {
               html(`<span class="pull-left">${card.kodebeban}</span>`),
               // Kuartal 1 (Jan + Feb + Mar)
               // Kuartal 2 (Apr + Mei + Jun)
-              html(`<span class="pull-left">${card.q1}</span>`), // Kuartal 4 (Okt + Nop + Des)
-              html(`<span class="pull-left">${card.realizationq1}</span>`),
-              html(`<span class="pull-left">${card.q2}</span>`), // Realisasi Kuartal 1 (N1 + N2 + N3)
-              html(`<span class="pull-left">${card.realizationq2}</span>`), // Realisasi Kuartal 2 (N4 + N5 + N6)
-              html(`<span class="pull-left">${card.q3}</span>`), // Kuartal 3 (Jul + Ags + Sep)
-              html(`<span class="pull-left">${card.realizationq3}</span>`), // Realisasi Kuartal 3 (N7 + N8 + N9)
-              html(`<span class="pull-left">${card.q4}</span>`),
-              html(`<span class="pull-left">${card.realizationq4}</span>`), // Realisasi Kuartal 4 (N10 + N11 + N12)
+              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.q1)}</span>`),  // Kuartal 1 (Jan + Feb + Mar)
+              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationq1)}</span>`), // Realisasi Kuartal 1 (N1 + N2 + N3)
+              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.q2)}</span>`),  // Kuartal 2 (Apr + Mei + Jun)
+              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationq2)}</span>`), // Realisasi Kuartal 2 (N4 + N5 + N6)
+              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.q3)}</span>`),  // Kuartal 3 (Jul + Ags + Sep)
+              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationq3)}</span>`), // Realisasi Kuartal 3 (N7 + N8 + N9)
+              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.q4)}</span>`),  // Kuartal 4 (Okt + Nop + Des)
+              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationq4)}</span>`), // Realisasi Kuartal 4 (N10 + N11 + N12)
+
             ]),
           total: (data) => data.count,
           handle: (res) => {
