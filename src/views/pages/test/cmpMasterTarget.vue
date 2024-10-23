@@ -897,9 +897,9 @@ export default {
           "BRAND NAME",
           "ITEM CODE",
           "ITEM NAME",
-          "TARGET",
           "DISTRIBUTION CODE",
           "DISTRIBUTION NAME",
+          "TARGET",
 
           // {
           //   name: "Action",
@@ -952,9 +952,9 @@ export default {
               html(`<span class="pull-left">${card.brandname}</span>`),
               html(`<span class="pull-left">${card.itemcode}</span>`),
               html(`<span class="pull-left">${card.itemname}</span>`),
-              html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.target)}</span>`),
               html(`<span class="pull-left">${card.distcode}</span>`),
               html(`<span class="pull-left">${card.distname}</span>`),
+              html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.target)}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {

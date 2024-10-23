@@ -287,7 +287,7 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-md-2">
-                        <label for="">DistCode</label>
+                        <label for="">Distribution Name</label>
                       </div>
                       <div class="col-md-5">
                         <v-select
@@ -295,7 +295,6 @@
                           :options="departemenOptions"
                         ></v-select>
                       </div>
-                      
                     </div>
                   </div>
 
@@ -310,11 +309,8 @@
                           :options="brandOptions"
                         ></v-select>
                       </div>
-                      
                     </div>
                   </div>
-
-                  
 
                   <div class="form-group">
                     <div class="row">
@@ -327,7 +323,6 @@
                           :options="yearOptions"
                         ></v-select>
                       </div>
-                      
                     </div>
                   </div>
 
@@ -342,16 +337,15 @@
                           :options="monthOptions"
                         ></v-select>
                       </div>
-                      
                     </div>
                   </div>
 
-                  <!-- {{departement}} -->
+                  <!-- {{getsearchdata}} -->
                   <div class="form-group">
                     <div class="row">
                       <div class="col-md-4"></div>
                       <div class="col-md-6">
-                        <button type="submit" @click="getvoipDatax()">
+                        <button type="submit" @click="getsearchDatax()">
                           SHOW
                         </button>
                       </div>
@@ -412,7 +406,7 @@ import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import JsonExcel from "vue-json-excel3";
 
-el: '#app';
+el: "#app";
 
 export default {
   components: {
@@ -420,8 +414,9 @@ export default {
   },
   data() {
     return {
-      departement:'',
+      departement: "",
       departemenOptions: [],
+      brand: "",
       brandOptions: [],
       yearOptions: [],
       monthOptions: [],
@@ -543,66 +538,134 @@ export default {
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
-    async deleteAllData() {
-      var mythis = this;
-      Swal.fire({
-        title: "Delete All Data",
-        text: "Are you sure? This action cannot be undone.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete all",
-        cancelButtonText: "Cancel",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          mythis.$root.presentLoading();
-          const config = {
-            data: {
-              fileUpload: "form satuan",
-              userid: mythis.userid,
-            },
-          };
-          try {
-            const response = await axios.delete(
-              mythis.$root.apiHost + mythis.$root.prefixApi + "pocustdelete",
-              config
-            );
-            mythis.$root.stopLoading();
-            if (response.data.status) {
-              Swal.fire(
-                "Deleted!",
-                `All data has been deleted. ${response.data.deleted_rows} rows were deleted.`,
-                "success"
-              );
-              mythis.refreshTable();
-            } else {
-              Swal.fire(
-                "Error",
-                response.data.message || "Failed to delete all data",
-                "error"
-              );
-            }
-          } catch (error) {
-            mythis.$root.stopLoading();
-            console.error("Error deleting all data:", error);
-            let errorMessage = "An error occurred while deleting data";
-            if (error.response) {
-              errorMessage = error.response.data.message || errorMessage;
-            }
-            Swal.fire("Error", errorMessage, "error");
-          }
-        }
-      });
-    },
+    async getsearchDatax() {
+    const params = {
+        distribution_name: this.departement ? this.departement.label : null,
+        brand_code: this.brand ? this.brand.code : null,
+        year: this.year ? this.year.code : null,
+        month: this.month ? this.month.code : null,
+    };
 
+    axios
+      .get(this.$root.apiHost + "api/searchData", {
+        params: params, // Mengirim filter pencarian ke backend
+      })
+      .then((response) => {
+        // Data berhasil diterima
+        this.data_x_tabel = response.data.results.data;  // Menyimpan data yang diterima
+
+        // Perbarui tampilan tabel dengan data baru
+        this.grid.updateConfig({
+          data: this.data_x_tabel.map((item) => [
+            item.id,
+            item.yop,
+            item.mop,
+            item.brandcode,
+            item.brandname,
+            item.distcode,
+            item.distname,
+            new Intl.NumberFormat("en-US").format(item.sales),
+            new Intl.NumberFormat("en-US").format(item.target),
+            item.achievement + '%',
+          ]),
+          pagination: {
+            limit: 10,  // Atur limit jika perlu
+          },
+        }).forceRender(); // Render ulang tabel dengan data baru
+      })
+      .catch((e) => {
+        // Jika terjadi kesalahan
+        console.log(e);
+        toast.error(e.response.data.message);
+      });
+},
+
+    // async deleteAllData() {
+    //   var mythis = this;
+    //   Swal.fire({
+    //     title: "Delete All Data",
+    //     text: "Are you sure? This action cannot be undone.",
+    //     icon: "warning",
+    //     showCancelButton: true,
+    //     confirmButtonColor: "#3085d6",
+    //     cancelButtonColor: "#d33",
+    //     confirmButtonText: "Yes, delete all",
+    //     cancelButtonText: "Cancel",
+    //   }).then(async (result) => {
+    //     if (result.isConfirmed) {
+    //       mythis.$root.presentLoading();
+    //       const config = {
+    //         data: {
+    //           fileUpload: "form satuan",
+    //           userid: mythis.userid,
+    //         },
+    //       };
+    //       try {
+    //         const response = await axios.delete(
+    //           mythis.$root.apiHost + mythis.$root.prefixApi + "pocustdelete",
+    //           config
+    //         );
+    //         mythis.$root.stopLoading();
+    //         if (response.data.status) {
+    //           Swal.fire(
+    //             "Deleted!",
+    //             `All data has been deleted. ${response.data.deleted_rows} rows were deleted.`,
+    //             "success"
+    //           );
+    //           mythis.refreshTable();
+    //         } else {
+    //           Swal.fire(
+    //             "Error",
+    //             response.data.message || "Failed to delete all data",
+    //             "error"
+    //           );
+    //         }
+    //       } catch (error) {
+    //         mythis.$root.stopLoading();
+    //         console.error("Error deleting all data:", error);
+    //         let errorMessage = "An error occurred while deleting data";
+    //         if (error.response) {
+    //           errorMessage = error.response.data.message || errorMessage;
+    //         }
+    //         Swal.fire("Error", errorMessage, "error");
+    //       }
+    //     }
+    //   });
+    // },
+
+    // async getparamData() {
+    //   return axios
+    //     .get(this.$root.apiHost+"api/getdistcodeall", {
+    //       dataType: "json",
+    //     })
+    //     .then((response) => {
+    //       // binding data
+    //       const data = response.data.results;
+    //       this.brand = {
+    //         code: data.distcode,
+    //         label: data.distname,
+    //       };
+    //       data.forEach((item) => {
+    //         this.departemenOptions.push({
+    //           code: item.distcode,
+    //           label: item.distname,
+    //         });
+    //       });
+    //     })
+    //     .catch((e) => {
+    //       // if error / fail then show response
+    //       const err = e.response.data;
+    //       toast.error(err.message);
+    //     });
+    // },
     async getparamData() {
       return axios
-        .get(this.$root.apiHost+"api/getdistcodeall", {
+        .get(this.$root.apiHost + "api/getdistcodeall", {
           dataType: "json",
         })
         .then((response) => {
-          // binding data
+          // Check if the data is correctly received
+          // console.log(response.data.results); // Add this to debug
           const data = response.data.results;
           this.brand = {
             code: data.distcode,
@@ -616,15 +679,15 @@ export default {
           });
         })
         .catch((e) => {
-          // if error / fail then show response
-          const err = e.response.data;
-          toast.error(err.message);
+          // Log the error
+          console.log(e);
+          toast.error(e.response.data.message);
         });
     },
 
     async getparamData2() {
       return axios
-        .get(this.$root.apiHost+"api/getdistcodeallbrand", {
+        .get(this.$root.apiHost + "api/getdistcodeallbrand", {
           dataType: "json",
         })
         .then((response) => {
@@ -650,7 +713,7 @@ export default {
 
     async getparamData3() {
       return axios
-        .get(this.$root.apiHost+"api/getdistcodeallyear", {
+        .get(this.$root.apiHost + "api/getdistcodeallyear", {
           dataType: "json",
         })
         .then((response) => {
@@ -676,7 +739,7 @@ export default {
 
     async getparamData4() {
       return axios
-        .get(this.$root.apiHost+"api/getdistcodeallmonth", {
+        .get(this.$root.apiHost + "api/getdistcodeallmonth", {
           dataType: "json",
         })
         .then((response) => {
@@ -1097,7 +1160,7 @@ export default {
             id: "achievement",
             name: "ACHIEVEMENT",
             formatter: (cell) => {
-              console.log("Achievement value:", cell); // Tambahkan log untuk debugging
+              // console.log("Achievement value:", cell); // Tambahkan log untuk debugging
               return html(`${cell.props.content}%`); // Menampilkan dengan simbol persen
             },
           },
