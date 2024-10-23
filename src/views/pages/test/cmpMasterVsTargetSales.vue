@@ -169,6 +169,8 @@
                   todo.mop == '' ||
                   todo.distcode == null ||
                   todo.distcode == '' ||
+                  todo.distname == null ||
+                  todo.distname == '' ||
                   todo.achievement == null ||
                   todo.achievement == ''
                 "
@@ -201,6 +203,8 @@
                   todo.mop == '' ||
                   todo.distcode == null ||
                   todo.distcode == '' ||
+                  todo.distname == null ||
+                  todo.distname == '' ||
                   todo.achievement == null ||
                   todo.achievement == ''
                 "
@@ -430,6 +434,7 @@ export default {
         yop: false,
         mop: false,
         distcode: false,
+        distname: false,
         brandcode: false,
         brandname: false,
         sales: false,
@@ -450,6 +455,7 @@ export default {
         yop: "",
         mop: "",
         distcode: "",
+        distname: "",
         achievement: "",
       },
       flagButtonAdd: true,
@@ -483,6 +489,10 @@ export default {
           label: "distcode",
           required: true,
         },
+        distname: {
+          label: "distname",
+          required: true,
+        },
         achievement: {
           label: "achievement",
           required: true,
@@ -508,6 +518,7 @@ export default {
         yop: "yop",
         mop: "mop",
         distcode: "distcode",
+        distname: "distname",
         brandcode: "brandcode",
         brandname: "brandname",
         sales: "sales",
@@ -775,6 +786,7 @@ export default {
             yop: resData.results[key].yop,
             mop: resData.results[key].mop,
             distcode: resData.results[key].distcode,
+            distname: resData.results[key].distname,
             brandcode: "'" + resData.results[key].brandcode, // Menambahkan tanda kutip tunggal
             brandname: resData.results[key].brandname, // Menambahkan tanda kutip tunggal
             sales: resData.results[key].sales,
@@ -977,6 +989,7 @@ export default {
                 yop: mythis.todo.yop,
                 mop: mythis.todo.mop,
                 distcode: mythis.todo.distcode,
+                distname: mythis.todo.distname,
                 brandcode: mythis.todo.brandcode,
                 brandname: mythis.todo.brandname,
                 sales: mythis.todo.sales,
@@ -1075,7 +1088,8 @@ export default {
           { id: "mop", name: "MOP" },
           { id: "brandcode", name: "BRAND CODE" },
           { id: "brandname", name: "BRAND NAME" },
-          { id: "distcode", name: "DISTCODE" },
+          { id: "distcode", name: "DISTRIBUTION CODE" },
+          { id: "distname", name: "DISTRIBUTION NAME" },
           { id: "sales", name: "SALES" },
           { id: "target", name: "TARGET" },
 
@@ -1115,6 +1129,7 @@ export default {
               html(`<span class="pull-left">${card.brandcode}</span>`),
               html(`<span class="pull-left">${card.brandname}</span>`),
               html(`<span class="pull-left">${card.distcode}</span>`),
+              html(`<span class="pull-left">${card.distname}</span>`),
               html(
                 `<span class="pull-right">${new Intl.NumberFormat(
                   "en-US"
@@ -1206,6 +1221,7 @@ export default {
             yop: mythis.todo.yop,
             mop: mythis.todo.mop,
             distcode: mythis.todo.distcode,
+            distname: mythis.todo.distname,
             achievement: mythis.todo.achievement,
 
             userid: mythis.userid,
@@ -1279,6 +1295,7 @@ export default {
           mythis.todo.yop = res.data.data.yop;
           mythis.todo.mop = res.data.data.mop;
           mythis.todo.distcode = res.data.data.distcode;
+          mythis.todo.distname = res.data.data.distname;
           mythis.todo.achievement = res.data.data.achievement;
 
           document.getElementById("inputA").focus(); // sets the focus on the input

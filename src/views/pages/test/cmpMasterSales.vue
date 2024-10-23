@@ -170,7 +170,9 @@
                   todo.mop == null ||
                   todo.mop == '' ||
                   todo.distcode == null ||
-                  todo.distcode == ''
+                  todo.distcode == '' ||
+                  todo.distname == null ||
+                  todo.distname == ''
                 "
               >
                 <i
@@ -202,7 +204,9 @@
                   todo.mop == null ||
                   todo.mop == '' ||
                   todo.distcode == null ||
-                  todo.distcode == ''
+                  todo.distcode == '' ||
+                  todo.distname == null ||
+                  todo.distname == ''
                 "
               >
                 <i
@@ -344,12 +348,14 @@ export default {
       errorField: {
         BrandCode: false,
         BrandName: false,
+        BrandName: false,
         ItemCode: false,
         ItemName: false,
         sales: false,
         Yop: false,
         Mop: false,
         distcode: false,
+        distname: false,
       },
 
       userid: 0,
@@ -366,6 +372,7 @@ export default {
         yop: "",
         mop: "",
         distcode: "",
+        distname: "",
       },
       flagButtonAdd: true,
       csv: null,
@@ -402,6 +409,10 @@ export default {
           label: "distcode",
           required: true,
         },
+        distname: {
+          label: "distname",
+          required: true,
+        },
       },
       data_x_tabel: [],
 
@@ -428,9 +439,10 @@ export default {
         yop: "yop", // Year of Production
         mop: "mop", // Month of Production
         distcode: "distcode",
+        distname: "distname",
       },
 
-      nama_Worksheet: "Sheet Master SALES",
+      nama_Worksheet: "Sheet Master sales",
 
       nama_excelnya: "",
 
@@ -586,6 +598,7 @@ export default {
             yop: resData.results[key].yop,
             mop: resData.results[key].mop,
             distcode: resData.results[key].distcode,
+            distname: resData.results[key].distname,
           };
 
           mythis.data_x_excel[baris_excel] = countries_x;
@@ -675,7 +688,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master Sales Bulky",
+        title: "Create Master sales Bulky",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -788,6 +801,7 @@ export default {
                 yop: mythis.todo.yop,
                 mop: mythis.todo.mop,
                 distcode: mythis.todo.distcode,
+                distname: mythis.todo.distname,
                 userid: mythis.userid,
               },
               config
@@ -884,7 +898,8 @@ export default {
           "ITEM CODE",
           "ITEM NAME",
           "SALES",
-          "DISTCODE",
+          "DISTRIBUTION CODE",
+          "DISTRIBUTION NAME",
 
           // {
           //   name: "Action",
@@ -939,6 +954,7 @@ export default {
               html(`<span class="pull-left">${card.itemname}</span>`),
               html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.sales)}</span>`),
               html(`<span class="pull-left">${card.distcode}</span>`),
+              html(`<span class="pull-left">${card.distname}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -1020,6 +1036,7 @@ export default {
             yop: mythis.todo.yop,
             mop: mythis.todo.mop,
             distcode: mythis.todo.distcode,
+            distname: mythis.todo.distname,
 
             userid: mythis.userid,
           },
@@ -1093,6 +1110,7 @@ export default {
           mythis.todo.yop = res.data.data.yop;
           mythis.todo.mop = res.data.data.mop;
           mythis.todo.distcode = res.data.data.distcode;
+          mythis.todo.distname = res.data.data.distname;
 
           document.getElementById("inputA").focus(); // sets the focus on the input
 
