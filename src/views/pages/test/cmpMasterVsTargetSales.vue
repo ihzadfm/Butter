@@ -345,7 +345,7 @@
                     <div class="row">
                       <div class="col-md-4"></div>
                       <div class="col-md-6">
-                        <button type="submit" @click="getsearchDatax()">
+                        <button type="submit" @click="getsearch()">
                           SHOW
                         </button>
                       </div>
@@ -538,26 +538,34 @@ export default {
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
-    async getsearchDatax() {
+    async getsearch() {
+    // Ambil nilai parameter dari form input
     const params = {
-        distribution_name: this.departement ? this.departement.label : null,
-        brand_code: this.brand ? this.brand.code : null,
-        year: this.year ? this.year.code : null,
-        month: this.month ? this.month.code : null,
+        distcode: this.departement ? this.departement.code : 'ALL',
+        brandcode: this.brand ? this.brand.code : 'ALL',
+        yop: this.year ? this.year.code : 'ALL',
+        mop: this.month ? this.month.code : 'ALL',
     };
 
+    // Lakukan request ke API Laravel
     axios
-      .get(this.$root.apiHost + "api/searchData", {
-        params: params, // Mengirim filter pencarian ke backend
-      })
+      .get(this.$root.apiHost + `api/getsearchtargetsales/${params.distcode}/${params.brandcode}/${params.yop}/${params.mop}`)
       .then((response) => {
-        // Data berhasil diterima
-        this.data_x_tabel = response.data.results.data;  // Menyimpan data yang diterima
-
-        // Perbarui tampilan tabel dengan data baru
+        console.log(response); // Debug untuk melihat struktur data response
+        if(response.data.results.length ===0){
+          console.log('Data kosong');  // Jika tidak ada data, log pesan ini
+          this.data_x_tabel = [];  // Kosongkan tabel
+        } else {
+            // Jika ada data, masukkan ke dalam tabel
+            this.data_x_tabel = response.data.results;
+            console.log(this.data_x_tabel)
+        }
+        // Update konfigurasi tabel
         this.grid.updateConfig({
-          data: this.data_x_tabel.map((item) => [
-            item.id,
+          data: this.data_x_tabel.map((item) => {
+            console.log(item)
+            return [
+            // item.id,
             item.yop,
             item.mop,
             item.brandcode,
@@ -567,18 +575,18 @@ export default {
             new Intl.NumberFormat("en-US").format(item.sales),
             new Intl.NumberFormat("en-US").format(item.target),
             item.achievement + '%',
-          ]),
+          ]}),
           pagination: {
-            limit: 10,  // Atur limit jika perlu
+            limit: 10,  // Batasi data per halaman
           },
-        }).forceRender(); // Render ulang tabel dengan data baru
+        }).forceRender();  // Render ulang tabel dengan data baru
       })
       .catch((e) => {
-        // Jika terjadi kesalahan
-        console.log(e);
+        console.log(e);  // Log error jika ada masalah saat request
         toast.error(e.response.data.message);
       });
 },
+
 
     // async deleteAllData() {
     //   var mythis = this;
@@ -1136,7 +1144,7 @@ export default {
             url: (prev, page, limit) =>
               `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
                 page * limit
-              }`,
+              }?distcode=${this.departement.code}?brandcode=${this.brand.code}?yop=${this.yop.code}?mop=${this.mop.code}`,
           },
         },
         search: {
