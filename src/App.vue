@@ -59,6 +59,7 @@ import _footer from "@/views/auth/_footer.vue";
 import _Login from "@/views/auth/_Login.vue";
 
 import cmpHalDashboard from "@/views/pages/cmpHalDashboard.vue";
+// import cmpHalDashboardBudget from "@/views/pages/cmpHalDashboardBudget.vue";
 import cmpHalProfile from "@/views/pages/cmpHalProfile.vue";
 import cmpHalDashboard1 from "@/views/pages/cmpHalDashboard.vue";
 import cmpHalDashboard2 from "@/views/pages/cmpHalDashboard.vue";
@@ -77,6 +78,7 @@ import cmpMasterBridging from "./views/pages/test/cmpMasterBridging.vue";
 import cmpMasterSales from "./views/pages/test/cmpMasterSales.vue";
 import cmpMasterTarget from "./views/pages/test/cmpMasterTarget.vue";
 import cmpMasterVsTargetSales from "./views/pages/test/cmpMasterVsTargetSales.vue";
+import cmpSuggestion from "./views/pages/test/cmpSuggestion.vue";
 import cmpMasterBridgingTargetSales from "./views/pages/test/cmpMasterBridgingTargetSales.vue";
 
 //MENU DINAMIS GET DARI FOLDER - START
@@ -104,6 +106,7 @@ import cmpMasterBridgingTargetSales from "./views/pages/test/cmpMasterBridgingTa
 const routeComponent = {
   cmpHalRoute: markRaw(cmpHalRoute),
   cmpHalDashboard: markRaw(cmpHalDashboard),
+  // cmpHalDashboardBudget: markRaw(cmpHalDashboardBudget),
   cmpHalProfile: markRaw(cmpHalProfile),
   cmpHalDashboard1: markRaw(cmpHalDashboard1),
   cmpHalDashboard2: markRaw(cmpHalDashboard2),
@@ -122,6 +125,7 @@ const routeComponent = {
   cmpMasterSales: markRaw(cmpMasterSales),
   cmpMasterTarget: markRaw(cmpMasterTarget),
   cmpMasterVsTargetSales: markRaw(cmpMasterVsTargetSales),
+  cmpSuggestion: markRaw(cmpSuggestion),
   Login: markRaw(_Login),
   _logout: markRaw(_logout),
   _header: markRaw(_header),
@@ -359,6 +363,7 @@ export default {
             cmpMasterSales: "SALES",
             cmpMasterTarget: "TARGET",
             cmpMasterVsTargetSales: "TARGET VS SALES",
+            cmpSuggestion: "SUGGESTION BUDGET",
             // cmpMasterItem: "ITEM",
             // cmpMasterItemInventory: "ITEM INVENTORY",
             // "SUB MENU": {
@@ -382,6 +387,7 @@ export default {
         cmpMasterSales: "SALES",
         cmpMasterTarget: "TARGET",
         cmpMasterVsTargetSales: "TARGET VS SALES",
+        cmpSuggestion: "SUGGESTION BUDGET",
         // cmpMasterItem: "ITEM",
         // cmpMasterItemInventory: "ITEM INVENTORY",
         // cmpHalDashboard1: "DASHBOARD1",
@@ -452,6 +458,11 @@ export default {
           delete: true,
         },
         cmpMasterVsTargetSales: {
+          create: true,
+          update: true,
+          delete: true,
+        },
+        cmpSuggestion: {
           create: true,
           update: true,
           delete: true,
