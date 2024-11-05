@@ -237,7 +237,7 @@
         </div>
 
         <!-- <pre> -->
-        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+        <!-- <vue-csv-import v-model="csv" :fields="dataImportCsv">
           <vue-csv-toggle-headers></vue-csv-toggle-headers>
           <vue-csv-errors></vue-csv-errors>
           <vue-csv-input></vue-csv-input>
@@ -248,11 +248,10 @@
               class: 'table table-bordered table-hover',
             }"
           ></vue-csv-table-map>
-        </vue-csv-import>
+        </vue-csv-import> -->
         <!-- </pre> -->
-        <br />
 
-        <button
+        <!-- <button
           v-if="csv != null"
           @click="saveTodoBulky()"
           type="button"
@@ -264,9 +263,11 @@
         <br />
         <br />
         <br />
-        <br />
+        <br /> -->
 
+        <!-- Export Button -->
         <download-excel
+          v-if="status_table"
           class="button"
           :data="json_data"
           :fields="json_fields"

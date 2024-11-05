@@ -684,37 +684,9 @@
           <strong>{{ csv.length }} </strong> data<br />
         </div>
 
-        <!-- <pre> -->
-        <vue-csv-import v-model="csv" :fields="dataImportCsv">
-          <vue-csv-toggle-headers></vue-csv-toggle-headers>
-          <vue-csv-errors></vue-csv-errors>
-          <vue-csv-input></vue-csv-input>
-          <vue-csv-table-map
-            :auto-match="true"
-            :table-attributes="{
-              id: 'csv-table',
-              class: 'table table-bordered table-hover',
-            }"
-          ></vue-csv-table-map>
-        </vue-csv-import>
-        <!-- </pre> -->
-        <br />
-
-        <button
-          v-if="csv != null"
-          @click="saveTodoBulky()"
-          type="button"
-          class="btn btn-sm btn-primary pull-left"
-        >
-          SAVE DATA BULKY
-        </button>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
+        <!-- Export Button -->
         <download-excel
+          v-if="status_table"
           class="button"
           :data="json_data"
           :fields="json_fields"
@@ -731,7 +703,35 @@
           </button>
         </download-excel>
 
-        
+        <!-- <pre>
+        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+          <vue-csv-toggle-headers></vue-csv-toggle-headers>
+          <vue-csv-errors></vue-csv-errors>
+          <vue-csv-input></vue-csv-input>
+          <vue-csv-table-map
+            :auto-match="true"
+            :table-attributes="{
+              id: 'csv-table',
+              class: 'table table-bordered table-hover',
+            }"
+          ></vue-csv-table-map>
+        </vue-csv-import>
+        <!-- </pre> -->
+
+        <!-- <button
+          v-if="csv != null"
+          @click="saveTodoBulky()"
+          type="button"
+          class="btn btn-sm btn-primary pull-left"
+        >
+          SAVE DATA BULKY
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br /> -->
+
         <!-- <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
@@ -903,9 +903,7 @@ export default {
           };
           try {
             const response = await axios.delete(
-              mythis.$root.apiHost +
-                mythis.$root.prefixApi +
-                "pocustdelete",
+              mythis.$root.apiHost + mythis.$root.prefixApi + "pocustdelete",
               config
             );
             mythis.$root.stopLoading();
@@ -1333,33 +1331,33 @@ export default {
           "Q3", // Kuartal 3 = Jul + Ags + Sep
           "REALIZATION Q3",
           "Q4", // Kuartal 4 = Okt + Nop + Des
-           // Realisasi Kuartal 1 = Realization N1 + N2 + N3
-           // Realisasi Kuartal 2 = Realization N4 + N5 + N6
-           // Realisasi Kuartal 3 = Realization N7 + N8 + N9
+          // Realisasi Kuartal 1 = Realization N1 + N2 + N3
+          // Realisasi Kuartal 2 = Realization N4 + N5 + N6
+          // Realisasi Kuartal 3 = Realization N7 + N8 + N9
           "REALIZATION Q4",
 
-        //   {
-        //     name: "Action",
-        //     formatter: (_, row) =>
-        //       mythis.$root.accessRoles[mythis.access_page].update &&
-        //       mythis.$root.accessRoles[mythis.access_page].delete
-        //         ? html(
-        //             `
-        //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
-        //         &nbsp;&nbsp;&nbsp;
-        //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
-        //       `
-        //           )
-        //         : mythis.$root.accessRoles[mythis.access_page].update
-        //         ? html(
-        //             `
-        //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
-        //           )
-        //         : mythis.$root.accessRoles[mythis.access_page].delete
-        //         ? html(`&nbsp;&nbsp;&nbsp;
-        //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
-        //         : ``,
-        //   },
+          //   {
+          //     name: "Action",
+          //     formatter: (_, row) =>
+          //       mythis.$root.accessRoles[mythis.access_page].update &&
+          //       mythis.$root.accessRoles[mythis.access_page].delete
+          //         ? html(
+          //             `
+          //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
+          //         &nbsp;&nbsp;&nbsp;
+          //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
+          //       `
+          //           )
+          //         : mythis.$root.accessRoles[mythis.access_page].update
+          //         ? html(
+          //             `
+          //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
+          //           )
+          //         : mythis.$root.accessRoles[mythis.access_page].delete
+          //         ? html(`&nbsp;&nbsp;&nbsp;
+          //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
+          //         : ``,
+          //   },
         ],
         style: {
           table: {
@@ -1386,15 +1384,46 @@ export default {
               html(`<span class="pull-left">${card.kodebeban}</span>`),
               // Kuartal 1 (Jan + Feb + Mar)
               // Kuartal 2 (Apr + Mei + Jun)
-              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.q1)}</span>`),  // Kuartal 1 (Jan + Feb + Mar)
-              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationq1)}</span>`), // Realisasi Kuartal 1 (N1 + N2 + N3)
-              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.q2)}</span>`),  // Kuartal 2 (Apr + Mei + Jun)
-              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationq2)}</span>`), // Realisasi Kuartal 2 (N4 + N5 + N6)
-              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.q3)}</span>`),  // Kuartal 3 (Jul + Ags + Sep)
-              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationq3)}</span>`), // Realisasi Kuartal 3 (N7 + N8 + N9)
-              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.q4)}</span>`),  // Kuartal 4 (Okt + Nop + Des)
-              html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationq4)}</span>`), // Realisasi Kuartal 4 (N10 + N11 + N12)
-
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.q1)}</span>`
+              ), // Kuartal 1 (Jan + Feb + Mar)
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationq1)}</span>`
+              ), // Realisasi Kuartal 1 (N1 + N2 + N3)
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.q2)}</span>`
+              ), // Kuartal 2 (Apr + Mei + Jun)
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationq2)}</span>`
+              ), // Realisasi Kuartal 2 (N4 + N5 + N6)
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.q3)}</span>`
+              ), // Kuartal 3 (Jul + Ags + Sep)
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationq3)}</span>`
+              ), // Realisasi Kuartal 3 (N7 + N8 + N9)
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.q4)}</span>`
+              ), // Kuartal 4 (Okt + Nop + Des)
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationq4)}</span>`
+              ), // Realisasi Kuartal 4 (N10 + N11 + N12)
             ]),
           total: (data) => data.count,
           handle: (res) => {

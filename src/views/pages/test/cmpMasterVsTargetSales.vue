@@ -249,7 +249,7 @@
         </div>
 
         <!-- <pre> -->
-        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+        <!-- <vue-csv-import v-model="csv" :fields="dataImportCsv">
           <vue-csv-toggle-headers></vue-csv-toggle-headers>
           <vue-csv-errors></vue-csv-errors>
           <vue-csv-input></vue-csv-input>
@@ -260,20 +260,36 @@
               class: 'table table-bordered table-hover',
             }"
           ></vue-csv-table-map>
-        </vue-csv-import>
+        </vue-csv-import> -->
         <!-- </pre> -->
-        <br />
 
-        <button
+        <!-- <button
           v-if="csv != null"
           @click="saveTodoBulky()"
           type="button"
           class="btn btn-sm btn-primary pull-left"
         >
           SAVE DATA BULKY
-        </button>
-        <br />
-        <br />
+        </button> -->
+        <!-- Export Button -->
+        <download-excel
+          v-if="status_table"
+          class="button"
+          :data="json_data"
+          :fields="json_fields"
+          :worksheet="nama_sheetnya"
+          :name="nama_excelnya"
+          :before-generate="startDownload"
+          :before-finish="finishDownload"
+        >
+          <button
+            class="btn btn-sm btn-success pull-left"
+            @click="download_excel_xyz()"
+          >
+            Export Excel
+          </button>
+        </download-excel>
+
         <br />
         <br />
         <br />
@@ -293,6 +309,15 @@
                         <v-select
                           v-model="dist"
                           :options="distOptions"
+                          :reduce="
+                            (option) => ({
+                              code: option.code,
+
+                              label: option.label,
+                            })
+                          "
+                          label="label"
+                          placeholder="Pilih Distribution"
                         ></v-select>
                       </div>
                     </div>
@@ -354,23 +379,8 @@
             </div>
           </div>
         </div>
-
-        <download-excel
-          class="button"
-          :data="json_data"
-          :fields="json_fields"
-          :worksheet="nama_sheetnya"
-          :name="nama_excelnya"
-          :before-generate="startDownload"
-          :before-finish="finishDownload"
-        >
-          <button
-            class="btn btn-sm btn-success pull-left"
-            @click="download_excel_xyz()"
-          >
-            Export Excel
-          </button>
-        </download-excel>
+        <div id="wrapper2" v-if="status_table"></div>
+        <div id="box"></div>
 
         <!-- <button
           v-if="status_table && $root.accessRoles[access_page].create"
@@ -410,6 +420,22 @@ export default {
   },
   data() {
     return {
+      dist: {
+        code: "",
+        label: "",
+      },
+      brand: {
+        code: "",
+        label: "",
+      },
+      year: {
+        code: "",
+        label: "",
+      },
+      month: {
+        code: "",
+        label: "",
+      },
       distOptions: [],
       brand: "",
       brandOptions: [],
@@ -419,6 +445,7 @@ export default {
       isLogin: localStorage.getItem("token") != null ? 1 : 0,
       activemenu: null,
       grid: new Grid(),
+      status_table: false,
       // grid2: new Grid(),
       errorField: {
         yop: false,
@@ -535,10 +562,54 @@ export default {
   },
   methods: {
     async getsearch() {
-      $("#wrapper2").remove();
-      var e = $('<div id="wrapper2"></div>');
-      $("#box").append(e);
-      this.getTable();
+      // Check if all required fields are selected properly
+      if (
+        !this.dist ||
+        !this.dist.code ||
+        !this.dist.label ||
+        !this.brand ||
+        !this.brand.code ||
+        !this.brand.label ||
+        !this.year ||
+        !this.year.code ||
+        !this.year.label ||
+        !this.month ||
+        !this.month.code ||
+        !this.month.label
+      ) {
+        // Show error message using toast
+        toast.error("Semua opsi harus terisi!", {
+          theme: "colored",
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        return; // Stop execution if validation fails
+      }
+
+      try {
+        // Set `status_table` to true to indicate the table should be displayed
+        this.status_table = true;
+
+        // If validation passes, continue with existing logic
+        $("#wrapper2").remove();
+        var e = $('<div id="wrapper2"></div>');
+        $("#box").append(e);
+
+        // Call getTable to display the table data
+        await this.getTable(); // Add await since getTable is async
+      } catch (error) {
+        // Handle any errors that occur during table generation
+        toast.error("Terjadi kesalahan saat memuat data", {
+          theme: "colored",
+          position: "top-right",
+          autoClose: 3000,
+        });
+        console.error("Error in getsearch:", error);
+      }
     },
 
     async getparamData() {
@@ -713,19 +784,19 @@ export default {
         const reqData = await axios({
           method: "get",
 
-
           url:
             mythis.$root.apiHost +
             //MARIO
             // "api/vstargetsales?offset=" +
-            "api/vstargetsalesmario/" + this.dist.code + "/" +
+            "api/vstargetsalesmario/" +
+            this.dist.code +
+            "/" +
             this.brand.code +
             "/" +
             this.year.code +
             "/" +
-            this.month.code
-            +
-            "?offset="+
+            this.month.code +
+            "?offset=" +
             offsetx +
             "&limit=" +
             limitx,
@@ -1025,6 +1096,9 @@ export default {
       });
     },
     getTable() {
+      if (!this.status_table) {
+        return; // Tidak menampilkan tabel jika `status_table` masih false
+      }
       var mythis = this;
       var distcode = this.dist.code;
       var brandcode = this.brand.code;

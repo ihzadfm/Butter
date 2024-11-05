@@ -812,13 +812,9 @@
         >
           SAVE DATA BULKY
         </button>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
+        <!-- Export Button -->
         <download-excel
+          v-if="status_table"
           class="button"
           :data="json_data"
           :fields="json_fields"
@@ -834,6 +830,12 @@
             Export Excel
           </button>
         </download-excel>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
         <button
           class="btn btn-sm btn-danger custom-file-upload pull-right"
@@ -1786,39 +1788,147 @@ export default {
               card.id,
               data.nomorBaris++ + 1,
               html(`<span class="pull-left">${card.kodebeban}</span>`),
-html(`<span class="pull-left">${card.kodedivisi}</span>`),
-html(`<span class="pull-left">${card.expense}</span>`),
-html(`<span class="pull-left">${card.expensegroup}</span>`),
-html(`<span class="pull-left">${card.groupbeban}</span>`),
-html(`<span class="pull-left">${card.groupcostcenter}</span>`),
-html(`<span class="pull-left">${card.costcenter}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.totalfinal)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.total)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.jan)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.feb)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.mar)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.apr)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.mei)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.jun)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.jul)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.ags)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.sep)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.okt)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.nop)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.des)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn1)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn2)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn3)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn4)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn5)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn6)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn7)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn8)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn9)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn10)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn11)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.realizationn12)}</span>`),
-html(`<span class="pull-left">${new Intl.NumberFormat('en-US').format(card.totalrealization)}</span>`),
+              html(`<span class="pull-left">${card.kodedivisi}</span>`),
+              html(`<span class="pull-left">${card.expense}</span>`),
+              html(`<span class="pull-left">${card.expensegroup}</span>`),
+              html(`<span class="pull-left">${card.groupbeban}</span>`),
+              html(`<span class="pull-left">${card.groupcostcenter}</span>`),
+              html(`<span class="pull-left">${card.costcenter}</span>`),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.totalfinal)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.total)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.jan)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.feb)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.mar)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.apr)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.mei)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.jun)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.jul)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.ags)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.sep)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.okt)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.nop)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.des)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn1)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn2)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn3)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn4)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn5)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn6)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn7)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn8)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn9)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn10)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn11)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.realizationn12)}</span>`
+              ),
+              html(
+                `<span class="pull-left">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.totalrealization)}</span>`
+              ),
 
               html(`<span class="pull-left">${card.year}</span>`),
             ]),

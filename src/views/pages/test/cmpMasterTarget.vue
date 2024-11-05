@@ -272,12 +272,9 @@
         >
           SAVE DATA BULKY
         </button>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+        <!-- Export Button -->
         <download-excel
+          v-if="status_table"
           class="button"
           :data="json_data"
           :fields="json_fields"
@@ -293,6 +290,12 @@
             Export Excel
           </button>
         </download-excel>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
         <button
           class="btn btn-sm btn-danger custom-file-upload pull-right"
@@ -927,8 +930,8 @@ export default {
         style: {
           table: {
             border: "1px solid #ccc",
-            width : "auto",
-            "min-width": "100%"
+            width: "auto",
+            "min-width": "100%",
           },
           th: {
             "background-color": "rgba(0, 55, 255, 0.1)",
@@ -954,7 +957,11 @@ export default {
               html(`<span class="pull-left">${card.itemname}</span>`),
               html(`<span class="pull-left">${card.distcode}</span>`),
               html(`<span class="pull-left">${card.distname}</span>`),
-              html(`<span class="pull-right">${new Intl.NumberFormat('en-US').format(card.target)}</span>`),
+              html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.target)}</span>`
+              ),
             ]),
           total: (data) => data.count,
           handle: (res) => {

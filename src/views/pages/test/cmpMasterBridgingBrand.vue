@@ -153,7 +153,7 @@
         </div>
 
         <!-- <pre> -->
-        <vue-csv-import v-model="csv" :fields="dataImportCsv">
+        <!-- <vue-csv-import v-model="csv" :fields="dataImportCsv">
           <vue-csv-toggle-headers></vue-csv-toggle-headers>
           <vue-csv-errors></vue-csv-errors>
           <vue-csv-input></vue-csv-input>
@@ -164,11 +164,10 @@
               class: 'table table-bordered table-hover',
             }"
           ></vue-csv-table-map>
-        </vue-csv-import>
+        </vue-csv-import> -->
         <!-- </pre> -->
-        <br />
 
-        <button
+        <!-- <button
           v-if="csv != null"
           @click="saveTodoBulky()"
           type="button"
@@ -180,9 +179,11 @@
         <br />
         <br />
         <br />
-        <br />
+        <br /> -->
 
+        <!-- Export Button -->
         <download-excel
+          v-if="status_table"
           class="button"
           :data="json_data"
           :fields="json_fields"
@@ -334,9 +335,7 @@ export default {
           };
           try {
             const response = await axios.delete(
-              mythis.$root.apiHost +
-                mythis.$root.prefixApi +
-                "pocustdelete",
+              mythis.$root.apiHost + mythis.$root.prefixApi + "pocustdelete",
               config
             );
             mythis.$root.stopLoading();
@@ -768,8 +767,8 @@ export default {
         style: {
           table: {
             border: "1px solid #ccc",
-            width : "auto",
-            "min-width": "100%"
+            width: "auto",
+            "min-width": "100%",
           },
           th: {
             "background-color": "rgba(0, 55, 255, 0.1)",

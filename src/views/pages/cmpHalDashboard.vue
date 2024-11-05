@@ -170,19 +170,19 @@ export default defineComponent({
   mounted() {
     // Fetch data for each chart
     this.fetchDataForChart(
-      "http://localhost:8002/api/suggestionparam/ALL/ALL/ALL/1",
+      "http://localhost:8002/api/suggestionparam/ALL/ALL/1",
       this.stackedChartOptions1,
       this.stackedChartSeries1,
       "stackedChart1"
     );
     this.fetchDataForChart(
-      "http://localhost:8002/api/suggestionparam/ALL/ALL/ALL/2",
+      "http://localhost:8002/api/suggestionparam/ALL/ALL/2",
       this.stackedChartOptions2,
       this.stackedChartSeries2,
       "stackedChart2"
     );
     this.fetchDataForChart(
-      "http://localhost:8002/api/suggestionparam/ALL/ALL/ALL/3",
+      "http://localhost:8002/api/suggestionparam/ALL/ALL/3",
       this.stackedChartOptions3,
       this.stackedChartSeries3,
       "stackedChart3"

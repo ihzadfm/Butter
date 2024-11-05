@@ -172,13 +172,9 @@
         >
           SAVE DATA BULKY
         </button>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
+        <!-- Export Button -->
         <download-excel
+          v-if="status_table"
           class="button"
           :data="json_data"
           :fields="json_fields"
@@ -194,6 +190,12 @@
             Export Excel
           </button>
         </download-excel>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
         <button
           class="btn btn-sm btn-danger custom-file-upload pull-right"
