@@ -159,12 +159,30 @@
                   todo.brandcode == '' ||
                   todo.brandname == null ||
                   todo.brandname == '' ||
-                  todo.kodebeban == null ||
-                  todo.kodebeban == '' ||
                   todo.target == null ||
                   todo.target == '' ||
                   todo.sales == null ||
                   todo.sales == '' ||
+                  todo.yop == null ||
+                  todo.yop == '' ||
+                  todo.mop == null ||
+                  todo.mop == '' ||
+                  todo.distcode == null ||
+                  todo.distcode == '' ||
+                  todo.distname == null ||
+                  todo.distname == '' ||
+                  todo.budgetaftera == null ||
+                  todo.budgetaftera == '' ||
+                  todo.budgetafterb == null ||
+                  todo.budgetafterb == '' ||
+                  todo.kodebeban == null ||
+                  todo.kodebeban == '' ||
+                  todo.nowterm == null ||
+                  todo.nowterm == '' ||
+                  todo.nextterm == null ||
+                  todo.nextterm == '' ||
+                  todo.term == null ||
+                  todo.term == '' ||
                   todo.achievement == null ||
                   todo.achievement == ''
                 "
@@ -187,12 +205,30 @@
                   todo.brandcode == '' ||
                   todo.brandname == null ||
                   todo.brandname == '' ||
-                  todo.kodebeban == null ||
-                  todo.kodebeban == '' ||
                   todo.target == null ||
                   todo.target == '' ||
                   todo.sales == null ||
                   todo.sales == '' ||
+                  todo.yop == null ||
+                  todo.yop == '' ||
+                  todo.mop == null ||
+                  todo.mop == '' ||
+                  todo.distcode == null ||
+                  todo.distcode == '' ||
+                  todo.distname == null ||
+                  todo.distname == '' ||
+                  todo.budgetaftera == null ||
+                  todo.budgetaftera == '' ||
+                  todo.budgetafterb == null ||
+                  todo.budgetafterb == '' ||
+                  todo.kodebeban == null ||
+                  todo.kodebeban == '' ||
+                  todo.nowterm == null ||
+                  todo.nowterm == '' ||
+                  todo.nextterm == null ||
+                  todo.nextterm == '' ||
+                  todo.term == null ||
+                  todo.term == '' ||
                   todo.achievement == null ||
                   todo.achievement == ''
                 "
@@ -266,6 +302,91 @@
         <br />
         <br />
 
+        <div class="block-content">
+          <div class="container-fluid">
+            <div class="mb-4">
+              <!-- <iframe hidden width="900px" height="900px" :src="this.exportLink" frameborder="0"></iframe> -->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label for="">Distribution Name</label>
+                      </div>
+                      <div class="col-md-5">
+                        <v-select
+                          v-model="dist"
+                          :options="distOptions"
+                          :reduce="
+                            (option) => ({
+                              code: option.code,
+                              label: option.label,
+                            })
+                          "
+                          label="label"
+                          placeholder="Pilih Distribution"
+                        ></v-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label for="">Kode Brand</label>
+                      </div>
+                      <div class="col-md-5">
+                        <v-select
+                          v-model="brand"
+                          :options="brandOptions"
+                        ></v-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label for="">Year</label>
+                      </div>
+                      <div class="col-md-5">
+                        <v-select
+                          v-model="year"
+                          :options="yearOptions"
+                        ></v-select>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label for="">Term</label>
+                      </div>
+                      <div class="col-md-5">
+                        <v-select
+                          v-model="term"
+                          :options="termOptions"
+                        ></v-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- {{getsearchdata}} -->
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4"></div>
+                      <div class="col-md-6">
+                        <button type="submit" @click="getsearch()">SHOW</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <download-excel
           class="button"
           :data="json_data"
@@ -315,21 +436,49 @@ import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import JsonExcel from "vue-json-excel3";
 
+el: "#app";
+
 export default {
   components: {
     downloadExcel: JsonExcel,
   },
   data() {
     return {
+      dist: {
+        code: "",
+        label: "",
+      },
+      brand: {
+        code: "",
+        label: "",
+      },
+      term: {
+        code: "",
+        label: "",
+      },
+      distOptions: [],
+      brand: "",
+      brandOptions: [],
+      yearOptions: [],
+      termOptions: [],
       access_page: this.$root.decryptData(localStorage.getItem("halaman")),
       isLogin: localStorage.getItem("token") != null ? 1 : 0,
       activemenu: null,
       grid: new Grid(),
       // grid2: new Grid(),
       errorField: {
+        yop: false,
+        mop: false,
+        distcode: false,
+        distname: false,
+        budgetaftera: false,
+        budgetafterb: false,
+        kodebeban: false,
+        nowterm: false,
+        nextterm: false,
+        term: false,
         brandcode: false,
-        brandname: false, // Menambahkan brandname
-        kodebeban: false, // Menambahkan kodebeban
+        brandname: false,
         sales: false,
         target: false,
         achievement: false,
@@ -342,10 +491,19 @@ export default {
 
       todo: {
         brandcode: "",
-        brandname: "", // Menambahkan brandname
-        kodebeban: "", // Menambahkan kodebeban
+        brandname: "",
         sales: "",
         target: "",
+        yop: "",
+        mop: "",
+        distcode: "",
+        distname: "",
+        budgetaftera: "",
+        budgetafterb: "",
+        kodebeban: "",
+        nowterm: "",
+        nextterm: "",
+        term: "",
         achievement: "",
       },
       flagButtonAdd: true,
@@ -356,13 +514,7 @@ export default {
           required: true,
         },
         brandname: {
-          // Menambahkan brandname di dataImportCsv
           label: "brandname",
-          required: true,
-        },
-        kodebeban: {
-          // Menambahkan kodebeban di dataImportCsv
-          label: "kodebeban",
           required: true,
         },
         sales: {
@@ -371,6 +523,46 @@ export default {
         },
         target: {
           label: "target",
+          required: true,
+        },
+        yop: {
+          label: "yop",
+          required: true,
+        },
+        mop: {
+          label: "mop",
+          required: true,
+        },
+        distcode: {
+          label: "distcode",
+          required: true,
+        },
+        distname: {
+          label: "distname",
+          required: true,
+        },
+        budgetaftera: {
+          label: "budgetaftera",
+          required: true,
+        },
+        budgetafterb: {
+          label: "budgetafterb",
+          required: true,
+        },
+        kodebeban: {
+          label: "kodebeban",
+          required: true,
+        },
+        nowterm: {
+          label: "nowterm",
+          required: true,
+        },
+        nextterm: {
+          label: "nextterm",
+          required: true,
+        },
+        term: {
+          label: "term",
           required: true,
         },
         achievement: {
@@ -395,78 +587,241 @@ export default {
       json_data: [],
 
       json_fields: {
+        yop: "yop",
+        mop: "mop",
+        distcode: "distcode",
+        distname: "distname",
+        budgetaftera: "budgetaftera",
+        budgetafterb: "budgetafterb",
+        kodebeban: "kodebeban",
+        nowterm: "nowterm",
+        nextterm: "nextterm",
+        term: "term",
         brandcode: "brandcode",
-        brandname: "brandname", // Menambahkan brandname
-        kodebeban: "kodebeban", // Menambahkan kodebeban
+        brandname: "brandname",
         sales: "sales",
         target: "target",
         achievement: "achievement",
       },
 
-      nama_Worksheet: "Sheet Master BRIDGING TARGET SALES",
+      nama_Worksheet: "Sheet Suggestion Budget",
 
       nama_excelnya: "",
 
       nama_sheetnya: "",
+      year: "",
+      term: "",
     };
   },
   async mounted() {
     // await this.$root.refreshToken(localStorage.getItem("token"));
-    this.getTable();
+    this.getparamData();
+    this.getparamData2();
+    this.getparamData3();
+    this.getparamData4();
+    this.refreshTable();
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
-    async deleteAllData() {
-      var mythis = this;
-      Swal.fire({
-        title: "Delete All Data",
-        text: "Are you sure? This action cannot be undone.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete all",
-        cancelButtonText: "Cancel",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          mythis.$root.presentLoading();
-          const config = {
-            data: {
-              fileUpload: "form satuan",
-              userid: mythis.userid,
-            },
+    async getsearch() {
+      // Check if all required fields are selected properly
+      if (
+        !this.dist ||
+        !this.dist.code ||
+        !this.dist.label ||
+        !this.brand ||
+        !this.brand.code ||
+        !this.brand.label ||
+        !this.term ||
+        !this.term.code ||
+        !this.term.label
+      ) {
+        // Show error message using toast
+        toast.error("Semua opsi harus terisi!", {
+          theme: "colored",
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        return; // Stop execution if validation fails
+      }
+
+      try {
+        // If validation passes, continue with existing logic
+        $("#wrapper2").remove();
+        var e = $('<div id="wrapper2"></div>');
+        $("#box").append(e);
+        await this.getTable(); // Add await since getTable is async
+      } catch (error) {
+        // Handle any errors that occur during table generation
+        toast.error("Terjadi kesalahan saat memuat data", {
+          theme: "colored",
+          position: "top-right",
+          autoClose: 3000,
+        });
+        console.error("Error in getsearch:", error);
+      }
+    },
+
+    // async deleteAllData() {
+    //   var mythis = this;
+    //   Swal.fire({
+    //     title: "Delete All Data",
+    //     text: "Are you sure? This action cannot be undone.",
+    //     icon: "warning",
+    //     showCancelButton: true,
+    //     confirmButtonColor: "#3085d6",
+    //     cancelButtonColor: "#d33",
+    //     confirmButtonText: "Yes, delete all",
+    //     cancelButtonText: "Cancel",
+    //   }).then(async (result) => {
+    //     if (result.isConfirmed) {
+    //       mythis.$root.presentLoading();
+    //       const config = {
+    //         data: {
+    //           fileUpload: "form satuan",
+    //           userid: mythis.userid,
+    //         },
+    //       };
+    //       try {
+    //         const response = await axios.delete(
+    //           mythis.$root.apiHost + mythis.$root.prefixApi + "pocustdelete",
+    //           config
+    //         );
+    //         mythis.$root.stopLoading();
+    //         if (response.data.status) {
+    //           Swal.fire(
+    //             "Deleted!",
+    //             `All data has been deleted. ${response.data.deleted_rows} rows were deleted.`,
+    //             "success"
+    //           );
+    //           mythis.refreshTable();
+    //         } else {
+    //           Swal.fire(
+    //             "Error",
+    //             response.data.message || "Failed to delete all data",
+    //             "error"
+    //           );
+    //         }
+    //       } catch (error) {
+    //         mythis.$root.stopLoading();
+    //         console.error("Error deleting all data:", error);
+    //         let errorMessage = "An error occurred while deleting data";
+    //         if (error.response) {
+    //           errorMessage = error.response.data.message || errorMessage;
+    //         }
+    //         Swal.fire("Error", errorMessage, "error");
+    //       }
+    //     }
+    //   });
+    // },
+
+    async getparamData() {
+      return axios
+        .get(this.$root.apiHost + "api/getdistcodeall", {
+          dataType: "json",
+        })
+        .then((response) => {
+          // Check if the data is correctly received
+          // console.log(response.data.results); // Add this to debug
+          const data = response.data.results;
+          this.brand = {
+            code: data.distcode,
+            label: data.distname,
           };
-          try {
-            const response = await axios.delete(
-              mythis.$root.apiHost + mythis.$root.prefixApi + "pocustdelete",
-              config
-            );
-            mythis.$root.stopLoading();
-            if (response.data.status) {
-              Swal.fire(
-                "Deleted!",
-                `All data has been deleted. ${response.data.deleted_rows} rows were deleted.`,
-                "success"
-              );
-              mythis.refreshTable();
-            } else {
-              Swal.fire(
-                "Error",
-                response.data.message || "Failed to delete all data",
-                "error"
-              );
-            }
-          } catch (error) {
-            mythis.$root.stopLoading();
-            console.error("Error deleting all data:", error);
-            let errorMessage = "An error occurred while deleting data";
-            if (error.response) {
-              errorMessage = error.response.data.message || errorMessage;
-            }
-            Swal.fire("Error", errorMessage, "error");
-          }
-        }
-      });
+          data.forEach((item) => {
+            this.distOptions.push({
+              code: item.distcode,
+              label: item.distname,
+            });
+          });
+        })
+        .catch((e) => {
+          // Log the error
+          console.log(e);
+          toast.error(e.response.data.message);
+        });
+    },
+
+    async getparamData2() {
+      return axios
+        .get(this.$root.apiHost + "api/getdistcodeallbrand", {
+          dataType: "json",
+        })
+        .then((response) => {
+          // binding data
+          const data = response.data.results;
+          this.brand = {
+            code: data.brandcode,
+            label: data.brandname,
+          };
+          data.forEach((item) => {
+            this.brandOptions.push({
+              code: item.brandcode,
+              label: item.brandname,
+            });
+          });
+        })
+        .catch((e) => {
+          // if error / fail then show response
+          const err = e.response.data;
+          toast.error(err.message);
+        });
+    },
+
+    async getparamData3() {
+      return axios
+        .get(this.$root.apiHost + "api/getdistcodeallyear", {
+          dataType: "json",
+        })
+        .then((response) => {
+          // binding data
+          const data = response.data.results;
+          this.year = {
+            code: data.year,
+            label: data.year,
+          };
+          data.forEach((item) => {
+            this.yearOptions.push({
+              code: item.year,
+              label: item.year,
+            });
+          });
+        })
+        .catch((e) => {
+          // if error / fail then show response
+          const err = e.response.data;
+          toast.error(err.message);
+        });
+    },
+
+    async getparamData4() {
+      return axios
+        .get(this.$root.apiHost + "api/suggestion", {
+          dataType: "json",
+        })
+        .then((response) => {
+          // binding data
+          const data = response.data.results;
+          this.term = {
+            code: data.term,
+            label: data.term,
+          };
+          data.forEach((item) => {
+            this.termOptions.push({
+              code: item.term,
+              label: item.term,
+            });
+          });
+        })
+        .catch((e) => {
+          // if error / fail then show response
+          const err = e.response.data;
+          toast.error(err.message);
+        });
     },
 
     padTo2Digits(num) {
@@ -524,6 +879,12 @@ export default {
 
       mythis.data_x_excel = [];
 
+      var mythis = this;
+      var distcode = this.dist.code;
+      var brandcode = this.brand.code;
+      var yop = this.year.code;
+      var term = this.term.code;
+
       while (count > 0) {
         offsetx = limitx * nn;
 
@@ -532,7 +893,15 @@ export default {
 
           url:
             mythis.$root.apiHost +
-            "api/bridgingtargetsales?offset=" +
+            "api/excelsuggestion/" +
+            this.dist.code +
+            "/" +
+            this.brand.code +
+            "/" +
+            this.year.code +
+            "/" +
+            this.term.code +
+            "?offset=" +
             offsetx +
             "&limit=" +
             limitx,
@@ -551,9 +920,19 @@ export default {
         Object.keys(resData.results).forEach(function (key) {
           const countries_x = {
             nomor: nomor_x,
-            kodebeban: resData.results[key].kodebeban, // Menambahkan kodebeban
+
+            yop: resData.results[key].yop,
+            mop: resData.results[key].mop,
+            distcode: resData.results[key].distcode,
+            distname: resData.results[key].distname,
+            budgetaftera: resData.results[key].budgetaftera,
+            budgetafterb: resData.results[key].budgetafterb,
+            kodebeban: resData.results[key].kodebeban,
+            nowterm: resData.results[key].nowterm,
+            nextterm: resData.results[key].nextterm,
+            term: resData.results[key].term,
             brandcode: "'" + resData.results[key].brandcode, // Menambahkan tanda kutip tunggal
-            brandname: resData.results[key].brandname, // Menambahkan brandname
+            brandname: resData.results[key].brandname, // Menambahkan tanda kutip tunggal
             sales: resData.results[key].sales,
             target: resData.results[key].target,
             achievement: resData.results[key].achievement,
@@ -605,7 +984,7 @@ export default {
 
       var a = new Date().toLocaleString("en-GB");
 
-      mythis.nama_excelnya = "MASTER_BRIDGINGTARGETSALES_" + a + ".xls";
+      mythis.nama_excelnya = "MASTER_SuggestionBudget_" + a + ".xls";
 
       mythis.nama_sheetnya = mythis.nama_excelnya;
 
@@ -646,7 +1025,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master Target vs Sales Bulky",
+        title: "Create Suggestion Budget Bulky",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -726,7 +1105,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master BRIDGING TARGET SALES",
+        title: "Create Suggestion Budget",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -751,12 +1130,21 @@ export default {
             .post(
               url,
               {
+                yop: mythis.todo.yop,
+                mop: mythis.todo.mop,
+                distcode: mythis.todo.distcode,
+                distname: mythis.todo.distname,
+                budgetaftera: mythis.todo.budgetaftera,
+                budgetafterb: mythis.todo.budgetafterb,
+                kodebeban: mythis.todo.kodebeban,
+                nowterm: mythis.todo.nowterm,
+                nextterm: mythis.todo.nextterm,
+                term: mythis.todo.term,
                 brandcode: mythis.todo.brandcode,
+                brandname: mythis.todo.brandname,
                 sales: mythis.todo.sales,
                 target: mythis.todo.target,
                 achievement: mythis.todo.achievement,
-                kodebeban: mythis.todo.kodebeban, // Menambahkan kodebeban
-                brandname: mythis.todo.brandname, // Menambahkan brandname
                 userid: mythis.userid,
               },
               config
@@ -816,26 +1204,38 @@ export default {
       const mythis = this;
       $(document).on("click", "#editData", async function () {
         let id = $(this).data("id");
-        await mythis.getData(id);
-        mythis.show_modal();
+        let id2 = $(this).data("id2");
+        // alert(id);
+        // alert(id2);
+        // await mythis.getData(id);
+        // mythis.show_modal();
+        mythis.deleteTodoa(id, id2);
       });
       $(document).on("click", "#deleteData", function () {
         let id = $(this).data("id");
-        mythis.deleteTodo(id);
+        let id2 = $(this).data("id2");
+        let id3 = $(this).data("id3");
+        // alert(id);
+        // alert(id2);
+        // alert(id3);
+        mythis.deleteTodo(id, id2);
       });
     },
     getTable() {
       var mythis = this;
+      var distcode = this.dist.code;
+      var brandcode = this.brand.code;
+      var yop = this.year.code;
+      var term = this.term.code;
       this.grid = new Grid();
       this.grid.updateConfig({
-        // language: idID,
         pagination: {
           limit: mythis.$root.pagingTabel1,
           server: {
             url: (prev, page, limit) =>
               `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
                 page * limit
-              }`,
+              }&distcode=${distcode}&brandcode=${brandcode}&yop=${yop}&term=${term}`,
           },
         },
         search: {
@@ -846,18 +1246,55 @@ export default {
         columns: [
           { id: "id", name: "ID", hidden: true },
           { id: "no", name: "No" },
-          { id: "kodebeban", name: "KODE BEBAN" }, // Menambahkan kodebeban
+          { id: "kodebeban", name: "KODE BEBAN" },
+          { id: "term", name: "TERM" },
+          { id: "yop", name: "YOP" },
+          { id: "mop", name: "MOP" },
           { id: "brandcode", name: "BRAND CODE" },
-          { id: "brandname", name: "BRAND NAME" }, // Menambahkan brandname
+          { id: "brandname", name: "BRAND NAME" },
+          { id: "distcode", name: "DISTRIBUTION CODE" },
+          { id: "distname", name: "DISTRIBUTION NAME" },
           { id: "sales", name: "SALES" },
           { id: "target", name: "TARGET" },
+          { id: "nowterm", name: "CURRENT TERM" },
+          { id: "nextterm", name: "NEXT TERM" },
+          {
+            id: "budgetaftera",
+            name: "BUDGET AFTER A",
+            formatter: (cell) => {
+              const value = cell.props.content;
+              return value === null || value === undefined || value === ""
+                ? html("")
+                : html(`<span class="pull-left">${value}</span>`);
+            },
+          },
+          {
+            id: "budgetafterb",
+            name: "BUDGET AFTER B",
+            formatter: (cell) => {
+              const value = cell.props.content;
+              return value === null || value === undefined || value === ""
+                ? html("")
+                : html(`<span class="pull-left">${value}</span>`);
+            },
+          },
           {
             id: "achievement",
             name: "ACHIEVEMENT",
             formatter: (cell) => {
-              console.log("Achievement value:", cell); // Tambahkan log untuk debugging
-              return html(`${cell.props.content}%`); // Menampilkan dengan simbol persen
+              return html(`${cell.props.content}%`);
             },
+          },
+          {
+            name: "Action",
+            formatter: (_, row) =>
+              html(
+                `<button data-id="${row.cells[2].data}" data-id2="${row.cells[3].data}" data-id3="${row.cells[14].data}" class="btn btn-sm text-white" style="background: #bbe4e9" id="editData" data-toggle="tooltip" title="Edit" >UPDATE BUDGET TERM BERIKUTNYA DENGAN BUDGET AFTER A</button>
+                &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
+                <button data-id="${row.cells[2].data}" data-id2="${row.cells[3].data}" data-id3="${row.cells[15].data}" class="btn btn-sm text-white" style="background: #bbe4e9" id="deleteData" data-toggle="tooltip" title="Delete" >UPDATE BUDGET TERM BERIKUTNYA DENGAN BUDGET AFTER B</button>`
+              ),
           },
         ],
         style: {
@@ -877,14 +1314,28 @@ export default {
           },
         },
         server: {
-          url: this.$root.apiHost + "api/bridgingtargetsales",
+          url:
+            this.$root.apiHost +
+            "api/suggestionparam/" +
+            this.dist.code +
+            "/" +
+            this.brand.code +
+            "/" +
+            // this.year.code +
+            // "/" +
+            this.term.code,
           then: (data) =>
             data.results.map((card) => [
               card.id,
               data.nomorBaris++ + 1,
-              html(`<span class="pull-left">${card.kodebeban}</span>`), // Menambahkan kodebeban
-              html(`<span class="pull-left">${card.brandname}</span>`), // Menambahkan brandname
+              card.kodebeban,
+              card.term,
+              html(`<span class="pull-left">${card.yop}</span>`),
+              html(`<span class="pull-left">${card.mop}</span>`),
               html(`<span class="pull-left">${card.brandcode}</span>`),
+              html(`<span class="pull-left">${card.brandname}</span>`),
+              html(`<span class="pull-left">${card.distcode}</span>`),
+              html(`<span class="pull-left">${card.distname}</span>`),
               html(
                 `<span class="pull-right">${new Intl.NumberFormat(
                   "en-US"
@@ -895,11 +1346,30 @@ export default {
                   "en-US"
                 ).format(card.target)}</span>`
               ),
+              html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.nowterm)}</span>`
+              ),
+              html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.nextterm)}</span>`
+              ),
+              html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.budgetaftera)}</span>`
+              ),
+              html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.budgetafterb)}</span>`
+              ),
               html(`<span class="pull-left">${card.achievement}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {
-            // no matching records found
             if (res.status === 404) return { data: [] };
             if (res.ok) return res.json();
 
@@ -907,7 +1377,7 @@ export default {
           },
         },
       });
-      // DOM instead of vue selector because we are using vanilla JS
+      // Render the table using vanilla JS
       this.grid.render(document.getElementById("wrapper2"));
       this.number = 0;
 
@@ -916,10 +1386,11 @@ export default {
       mythis.jqueryDelEdit();
       this.status_table = true;
     },
-    deleteTodo(id) {
+
+    deleteTodo(id, id2) {
       var mythis = this;
       Swal.fire({
-        title: "Delete Data",
+        title: "Update Budget Term Budget After B",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -942,11 +1413,56 @@ export default {
             },
           };
           axios
-            .delete(mythis.$root.apiHost + `api/targetpenjualan/${id}`, config)
+            .put(
+              mythis.$root.apiHost + `api/putbudgetafter/${id}/${id2}`,
+              config
+            )
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
-              Swal.fire("Deleted!", "Data has been deleted", "success");
+              Swal.fire("Updated!", "Data has been updated", "success");
+
+              mythis.$root.stopLoading();
+              mythis.refreshTable();
+              mythis.resetForm();
+            });
+        }
+      });
+    },
+    deleteTodoa(id, id2) {
+      var mythis = this;
+      Swal.fire({
+        title: "Update Budget Term Budget After A",
+        text: "Are you sure?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "Cancel",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          mythis.$root.presentLoading();
+          const config = {
+            // const AuthStr = "bearer " + localStorage.getItem("token");
+            // const config = {
+            //   headers: {
+            //     Authorization: AuthStr,
+            //   },
+            data: {
+              fileUpload: "form satuan",
+              userid: mythis.userid,
+            },
+          };
+          axios
+            .put(
+              mythis.$root.apiHost + `api/putbudgetaftera/${id}/${id2}`,
+              config
+            )
+            .then((res) => {
+              //console.log(res.data.data);
+              // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
+              Swal.fire("Updated!", "Data has been updated", "success");
 
               mythis.$root.stopLoading();
               mythis.refreshTable();
@@ -970,10 +1486,19 @@ export default {
           mythis.$root.apiHost + "api/targetpenjualan/" + mythis.todo.id,
           {
             brandcode: mythis.todo.brandcode,
-            brandname: mythis.todo.brandname, // Menambahkan brandname
-            kodebeban: mythis.todo.kodebeban, // Menambahkan kodebeban
+            brandname: mythis.todo.brandname,
             sales: mythis.todo.sales,
             target: mythis.todo.target,
+            yop: mythis.todo.yop,
+            mop: mythis.todo.mop,
+            distcode: mythis.todo.distcode,
+            distname: mythis.todo.distname,
+            budgetaftera: mythis.todo.budgetaftera,
+            budgetafterb: mythis.todo.budgetafterb,
+            kodebeban: mythis.todo.kodebeban,
+            nowterm: mythis.todo.nowterm,
+            nextterm: mythis.todo.nextterm,
+            term: mythis.todo.term,
             achievement: mythis.todo.achievement,
 
             userid: mythis.userid,
@@ -1041,10 +1566,19 @@ export default {
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
           mythis.todo.brandcode = res.data.data.brandcode;
-          mythis.todo.brandname = res.data.data.brandname; // Menambahkan brandname
-          mythis.todo.kodebeban = res.data.data.kodebeban; // Menambahkan kodebeban
+          mythis.todo.brandname = res.data.data.brandname;
           mythis.todo.sales = res.data.data.sales;
           mythis.todo.target = res.data.data.target;
+          mythis.todo.yop = res.data.data.yop;
+          mythis.todo.mop = res.data.data.mop;
+          mythis.todo.distcode = res.data.data.distcode;
+          mythis.todo.distname = res.data.data.distname;
+          mythis.todo.budgetaftera = res.data.data.budgetaftera;
+          mythis.todo.budgetafterb = res.data.data.budgetafterb;
+          mythis.todo.kodebeban = res.data.data.kodebeban;
+          mythis.todo.nowterm = res.data.data.nowterm;
+          mythis.todo.nextterm = res.data.data.nextterm;
+          mythis.todo.term = res.data.data.term;
           mythis.todo.achievement = res.data.data.achievement;
 
           document.getElementById("inputA").focus(); // sets the focus on the input

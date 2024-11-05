@@ -291,8 +291,8 @@
                       </div>
                       <div class="col-md-5">
                         <v-select
-                          v-model="departement"
-                          :options="departemenOptions"
+                          v-model="dist"
+                          :options="distOptions"
                         ></v-select>
                       </div>
                     </div>
@@ -345,9 +345,7 @@
                     <div class="row">
                       <div class="col-md-4"></div>
                       <div class="col-md-6">
-                        <button type="submit" @click="getsearch()">
-                          SHOW
-                        </button>
+                        <button type="submit" @click="getsearch()">SHOW</button>
                       </div>
                     </div>
                   </div>
@@ -399,9 +397,7 @@ import { markRaw } from "vue";
 import { Grid, h, html } from "gridjs";
 import "gridjs/dist/theme/mermaid.css";
 import { idID } from "gridjs/l10n";
-
 import loadingBar from "@/assets/img/Moving_train.gif";
-
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import JsonExcel from "vue-json-excel3";
@@ -414,8 +410,7 @@ export default {
   },
   data() {
     return {
-      departement: "",
-      departemenOptions: [],
+      distOptions: [],
       brand: "",
       brandOptions: [],
       yearOptions: [],
@@ -526,146 +521,26 @@ export default {
       nama_excelnya: "",
 
       nama_sheetnya: "",
+      year: "",
+      month: "",
     };
   },
   async mounted() {
-    // await this.$root.refreshToken(localStorage.getItem("token"));
     this.getparamData();
     this.getparamData2();
     this.getparamData3();
     this.getparamData4();
-    this.getTable();
+    this.refreshTable();
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
     async getsearch() {
-    // Ambil nilai parameter dari form input
-    const params = {
-        distcode: this.departement ? this.departement.code : 'ALL',
-        brandcode: this.brand ? this.brand.code : 'ALL',
-        yop: this.year ? this.year.code : 'ALL',
-        mop: this.month ? this.month.code : 'ALL',
-    };
+      $("#wrapper2").remove();
+      var e = $('<div id="wrapper2"></div>');
+      $("#box").append(e);
+      this.getTable();
+    },
 
-    // Lakukan request ke API Laravel
-    axios
-      .get(this.$root.apiHost + `api/getsearchtargetsales/${params.distcode}/${params.brandcode}/${params.yop}/${params.mop}`)
-      .then((response) => {
-        console.log(response); // Debug untuk melihat struktur data response
-        if(response.data.results.length ===0){
-          console.log('Data kosong');  // Jika tidak ada data, log pesan ini
-          this.data_x_tabel = [];  // Kosongkan tabel
-        } else {
-            // Jika ada data, masukkan ke dalam tabel
-            this.data_x_tabel = response.data.results;
-            console.log(this.data_x_tabel)
-        }
-        // Update konfigurasi tabel
-        this.grid.updateConfig({
-          data: this.data_x_tabel.map((item) => {
-            console.log(item)
-            return [
-            // item.id,
-            item.yop,
-            item.mop,
-            item.brandcode,
-            item.brandname,
-            item.distcode,
-            item.distname,
-            new Intl.NumberFormat("en-US").format(item.sales),
-            new Intl.NumberFormat("en-US").format(item.target),
-            item.achievement + '%',
-          ]}),
-          pagination: {
-            limit: 10,  // Batasi data per halaman
-          },
-        }).forceRender();  // Render ulang tabel dengan data baru
-      })
-      .catch((e) => {
-        console.log(e);  // Log error jika ada masalah saat request
-        toast.error(e.response.data.message);
-      });
-},
-
-
-    // async deleteAllData() {
-    //   var mythis = this;
-    //   Swal.fire({
-    //     title: "Delete All Data",
-    //     text: "Are you sure? This action cannot be undone.",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Yes, delete all",
-    //     cancelButtonText: "Cancel",
-    //   }).then(async (result) => {
-    //     if (result.isConfirmed) {
-    //       mythis.$root.presentLoading();
-    //       const config = {
-    //         data: {
-    //           fileUpload: "form satuan",
-    //           userid: mythis.userid,
-    //         },
-    //       };
-    //       try {
-    //         const response = await axios.delete(
-    //           mythis.$root.apiHost + mythis.$root.prefixApi + "pocustdelete",
-    //           config
-    //         );
-    //         mythis.$root.stopLoading();
-    //         if (response.data.status) {
-    //           Swal.fire(
-    //             "Deleted!",
-    //             `All data has been deleted. ${response.data.deleted_rows} rows were deleted.`,
-    //             "success"
-    //           );
-    //           mythis.refreshTable();
-    //         } else {
-    //           Swal.fire(
-    //             "Error",
-    //             response.data.message || "Failed to delete all data",
-    //             "error"
-    //           );
-    //         }
-    //       } catch (error) {
-    //         mythis.$root.stopLoading();
-    //         console.error("Error deleting all data:", error);
-    //         let errorMessage = "An error occurred while deleting data";
-    //         if (error.response) {
-    //           errorMessage = error.response.data.message || errorMessage;
-    //         }
-    //         Swal.fire("Error", errorMessage, "error");
-    //       }
-    //     }
-    //   });
-    // },
-
-    // async getparamData() {
-    //   return axios
-    //     .get(this.$root.apiHost+"api/getdistcodeall", {
-    //       dataType: "json",
-    //     })
-    //     .then((response) => {
-    //       // binding data
-    //       const data = response.data.results;
-    //       this.brand = {
-    //         code: data.distcode,
-    //         label: data.distname,
-    //       };
-    //       data.forEach((item) => {
-    //         this.departemenOptions.push({
-    //           code: item.distcode,
-    //           label: item.distname,
-    //         });
-    //       });
-    //     })
-    //     .catch((e) => {
-    //       // if error / fail then show response
-    //       const err = e.response.data;
-    //       toast.error(err.message);
-    //     });
-    // },
     async getparamData() {
       return axios
         .get(this.$root.apiHost + "api/getdistcodeall", {
@@ -680,7 +555,7 @@ export default {
             label: data.distname,
           };
           data.forEach((item) => {
-            this.departemenOptions.push({
+            this.distOptions.push({
               code: item.distcode,
               label: item.distname,
             });
@@ -701,7 +576,7 @@ export default {
         .then((response) => {
           // binding data
           const data = response.data.results;
-          this.departemen = {
+          this.brand = {
             code: data.brandcode,
             label: data.brandname,
           };
@@ -727,7 +602,7 @@ export default {
         .then((response) => {
           // binding data
           const data = response.data.results;
-          this.departemen = {
+          this.year = {
             code: data.year,
             label: data.year,
           };
@@ -753,7 +628,7 @@ export default {
         .then((response) => {
           // binding data
           const data = response.data.results;
-          this.departemen = {
+          this.month = {
             code: data.month,
             label: data.month,
           };
@@ -826,15 +701,31 @@ export default {
 
       mythis.data_x_excel = [];
 
+      var mythis = this;
+      var distcode = this.dist.code;
+      var brandcode = this.brand.code;
+      var yop = this.year.code;
+      var mop = this.month.code;
+
       while (count > 0) {
         offsetx = limitx * nn;
 
         const reqData = await axios({
           method: "get",
 
+
           url:
             mythis.$root.apiHost +
-            "api/vstargetsales?offset=" +
+            //MARIO
+            // "api/vstargetsales?offset=" +
+            "api/vstargetsalesmario/" + this.dist.code + "/" +
+            this.brand.code +
+            "/" +
+            this.year.code +
+            "/" +
+            this.month.code
+            +
+            "?offset="+
             offsetx +
             "&limit=" +
             limitx,
@@ -1135,6 +1026,10 @@ export default {
     },
     getTable() {
       var mythis = this;
+      var distcode = this.dist.code;
+      var brandcode = this.brand.code;
+      var yop = this.year.code;
+      var mop = this.month.code;
       this.grid = new Grid();
       this.grid.updateConfig({
         // language: idID,
@@ -1144,7 +1039,7 @@ export default {
             url: (prev, page, limit) =>
               `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
                 page * limit
-              }?distcode=${this.departement.code}?brandcode=${this.brand.code}?yop=${this.yop.code}?mop=${this.mop.code}`,
+              }&distcode=${distcode}&brandcode=${brandcode}&yop=${yop}&mop=${mop}`,
           },
         },
         search: {
@@ -1190,7 +1085,16 @@ export default {
           },
         },
         server: {
-          url: this.$root.apiHost + "api/vstargetsales",
+          url:
+            this.$root.apiHost +
+            "api/targetpenjualanparam/" +
+            this.dist.code +
+            "/" +
+            this.brand.code +
+            "/" +
+            this.year.code +
+            "/" +
+            this.month.code,
           then: (data) =>
             data.results.map((card) => [
               card.id,
@@ -1274,12 +1178,6 @@ export default {
     editTodo() {
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
-      // const AuthStr = "bearer " + localStorage.getItem("token");
-
-      //   headers: {
-      //     Authorization: AuthStr,
-      //   },
-      // };
       const config = "";
       axios
         .put(
