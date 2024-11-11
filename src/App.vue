@@ -74,6 +74,7 @@ import cmpMasterBudgetTerm from "./views/pages/test/cmpMasterBudgetTerm.vue";
 import CmpMasterBrand from "./views/pages/test/cmpMasterBrand.vue";
 import cmpMasterBridgingBrand from "./views/pages/test/cmpMasterBridgingBrand.vue";
 import cmpMasterProduct from "./views/pages/test/cmpMasterProduct.vue";
+import cmpMasterAccrued from "./views/pages/test/cmpMasterAccrued.vue";
 import cmpMasterBridging from "./views/pages/test/cmpMasterBridging.vue";
 import cmpMasterSales from "./views/pages/test/cmpMasterSales.vue";
 import cmpMasterTarget from "./views/pages/test/cmpMasterTarget.vue";
@@ -119,6 +120,7 @@ const routeComponent = {
   cmpMasterBudgetTerm: markRaw(cmpMasterBudgetTerm),
   CmpMasterBrand: markRaw(CmpMasterBrand),
   cmpMasterProduct: markRaw(cmpMasterProduct),
+  cmpMasterAccrued: markRaw(cmpMasterAccrued),
   cmpMasterBridgingBrand: markRaw(cmpMasterBridgingBrand),
   cmpMasterBridging: markRaw(cmpMasterBridging),
   cmpMasterBridgingTargetSales: markRaw(cmpMasterBridgingTargetSales),
@@ -357,6 +359,7 @@ export default {
             cmpMasterBudgetTerm: "BUDGET TERM",
             CmpMasterBrand: "BRAND",
             cmpMasterProduct: "PRODUCT",
+            cmpMasterAccrued: "ACCRUED",
             cmpMasterBridgingBrand: "BRIDGING BRAND",
             cmpMasterBridging: "BRIDGING BUDGET",
             cmpMasterBridgingTargetSales: "BRIDGING TARGET SALES",
@@ -381,6 +384,7 @@ export default {
         cmpMasterBudgetTerm: "BUDGET TERM",
         CmpMasterBrand: "BRAND",
         cmpMasterProduct: "PRODUCT",
+        cmpMasterAccrued: "ACCRUED",
         cmpMasterBridgingBrand: "BRIDGING BRAND",
         cmpMasterBridging: "BRIDGING BUDGET",
         cmpMasterBridgingTargetSales: "BRIDGING TARGET SALES",
@@ -428,6 +432,11 @@ export default {
           delete: true,
         },
         cmpMasterProduct: {
+          create: true,
+          update: true,
+          delete: true,
+        },
+        cmpMasterAccrued: {
           create: true,
           update: true,
           delete: true,
