@@ -171,10 +171,12 @@
                   todo.distcode == '' ||
                   todo.distname == null ||
                   todo.distname == '' ||
-                  todo.budgetaftera == null ||
-                  todo.budgetaftera == '' ||
-                  todo.budgetafterb == null ||
-                  todo.budgetafterb == '' ||
+                  todo.budgetafterq1 == null ||
+                  todo.budgetafterq1 == '' ||
+                  todo.budgetafterq2 == null ||
+                  todo.budgetafterq2 == '' ||
+                  todo.budgetafterq3 == null ||
+                  todo.budgetafterq3 == '' ||
                   todo.kodebeban == null ||
                   todo.kodebeban == '' ||
                   todo.nowterm == null ||
@@ -217,10 +219,12 @@
                   todo.distcode == '' ||
                   todo.distname == null ||
                   todo.distname == '' ||
-                  todo.budgetaftera == null ||
-                  todo.budgetaftera == '' ||
-                  todo.budgetafterb == null ||
-                  todo.budgetafterb == '' ||
+                  todo.budgetafterq1 == null ||
+                  todo.budgetafterq1 == '' ||
+                  todo.budgetafterq2 == null ||
+                  todo.budgetafterq2 == '' ||
+                  todo.budgetafterq3 == null ||
+                  todo.budgetafterq3 == '' ||
                   todo.kodebeban == null ||
                   todo.kodebeban == '' ||
                   todo.nowterm == null ||
@@ -445,6 +449,7 @@ export default {
   },
   data() {
     return {
+      selectedRowData: [],
       dist: {
         code: "",
         label: "",
@@ -473,8 +478,9 @@ export default {
         mop: false,
         distcode: false,
         distname: false,
-        budgetaftera: false,
-        budgetafterb: false,
+        budgetafterq1: false,
+        budgetafterq2: false,
+        budgetafterq3: false,
         kodebeban: false,
         nowterm: false,
         nextterm: false,
@@ -500,8 +506,9 @@ export default {
         mop: "",
         distcode: "",
         distname: "",
-        budgetaftera: "",
-        budgetafterb: "",
+        budgetafterq1: "",
+        budgetafterq2: "",
+        budgetafterq3: "",
         kodebeban: "",
         nowterm: "",
         nextterm: "",
@@ -543,12 +550,16 @@ export default {
           label: "distname",
           required: true,
         },
-        budgetaftera: {
-          label: "budgetaftera",
+        budgetafterq1: {
+          label: "budgetafterq1",
           required: true,
         },
-        budgetafterb: {
-          label: "budgetafterb",
+        budgetafterq2: {
+          label: "budgetafterq2",
+          required: true,
+        },
+        budgetafterq3: {
+          label: "budgetafterq3",
           required: true,
         },
         kodebeban: {
@@ -593,8 +604,9 @@ export default {
         mop: "mop",
         distcode: "distcode",
         distname: "distname",
-        budgetaftera: "budgetaftera",
-        budgetafterb: "budgetafterb",
+        budgetafterq1: "budgetafterq1",
+        budgetafterq2: "budgetafterq2",
+        budgetafterq3: "budgetafterq3",
         kodebeban: "kodebeban",
         nowterm: "nowterm",
         nextterm: "nextterm",
@@ -606,7 +618,7 @@ export default {
         achievement: "achievement",
       },
 
-      nama_Worksheet: "Sheet Suggestion Budget",
+      nama_Worksheet: "Sheet Suggestion Penampungan",
 
       nama_excelnya: "",
 
@@ -974,8 +986,9 @@ export default {
             mop: resData.results[key].mop,
             distcode: resData.results[key].distcode,
             distname: resData.results[key].distname,
-            budgetaftera: resData.results[key].budgetaftera,
-            budgetafterb: resData.results[key].budgetafterb,
+            budgetafterq1: resData.results[key].budgetafterq1,
+            budgetafterq2: resData.results[key].budgetafterq2,
+            budgetafterq3: resData.results[key].budgetafterq3,
             kodebeban: resData.results[key].kodebeban,
             nowterm: resData.results[key].nowterm,
             nextterm: resData.results[key].nextterm,
@@ -1033,7 +1046,7 @@ export default {
 
       var a = new Date().toLocaleString("en-GB");
 
-      mythis.nama_excelnya = "MASTER_SuggestionBudget_" + a + ".xls";
+      mythis.nama_excelnya = "MASTER_SuggestionPenampungan_" + a + ".xls";
 
       mythis.nama_sheetnya = mythis.nama_excelnya;
 
@@ -1074,7 +1087,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Suggestion Budget Bulky",
+        title: "Create Suggestion Penampungan Bulky",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -1154,7 +1167,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Suggestion Budget",
+        title: "Create Suggestion Penampungan",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -1183,8 +1196,9 @@ export default {
                 mop: mythis.todo.mop,
                 distcode: mythis.todo.distcode,
                 distname: mythis.todo.distname,
-                budgetaftera: mythis.todo.budgetaftera,
-                budgetafterb: mythis.todo.budgetafterb,
+                budgetafterq1: mythis.todo.budgetafterq1,
+                budgetafterq2: mythis.todo.budgetafterq2,
+                budgetafterq3: mythis.todo.budgetafterq3,
                 kodebeban: mythis.todo.kodebeban,
                 nowterm: mythis.todo.nowterm,
                 nextterm: mythis.todo.nextterm,
@@ -1270,6 +1284,12 @@ export default {
         mythis.deleteTodo(id, id2);
       });
     },
+    data() {
+      return {
+        selectedRowData: null, // Variabel untuk menyimpan data baris yang dipilih
+        // Variabel lain
+      };
+    },
     getTable() {
       if (!this.status_table) {
         return; // Tidak menampilkan tabel jika `status_table` masih false
@@ -1280,22 +1300,7 @@ export default {
       var yop = this.year.code;
       var term = this.term.code;
       this.grid = new Grid();
-      this.grid.updateConfig({
-        pagination: {
-          limit: mythis.$root.pagingTabel1,
-          server: {
-            url: (prev, page, limit) =>
-              `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
-                page * limit
-              }&distcode=${distcode}&brandcode=${brandcode}&yop=${yop}&term=${term}`,
-          },
-        },
-        search: {
-          server: {
-            url: (prev, keyword) => `${prev}?search=${keyword}`,
-          },
-        },
-        columns: [
+      let colls =[
           { id: "id", name: "ID", hidden: true },
           { id: "no", name: "No" },
           { id: "kodebeban", name: "KODE BEBAN" },
@@ -1310,9 +1315,56 @@ export default {
           { id: "target", name: "TARGET" },
           { id: "nowterm", name: "CURRENT TERM" },
           { id: "nextterm", name: "NEXT TERM" },
-          {
-            id: "budgetaftera",
-            name: "BUDGET AFTER A",
+        ]
+      console.log(this.term,'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww') 
+      
+      switch (this.term.label) {
+        case '1':
+          colls.push(
+            {
+            id: "budgetafterq1",
+            name: "BUDGET AFTER Q1",
+            formatter: (cell) => {
+              const value = cell.props.content;
+              return value === null || value === undefined || value === ""
+                ? html("")
+                : html(`<span class="pull-left">${value}</span>`);
+            },
+          }
+          )
+          break;
+        case '2':
+          colls.push(
+            {
+            id: "budgetafterq2",
+            name: "BUDGET AFTER Q2",
+            formatter: (cell) => {
+              const value = cell.props.content;
+              return value === null || value === undefined || value === ""
+                ? html("")
+                : html(`<span class="pull-left">${value}</span>`);
+            },
+          }
+          )
+          break;
+        case '3':
+          colls.push(
+            {
+            id: "budgetafterq3",
+            name: "BUDGET AFTER Q3",
+            formatter: (cell) => {
+              const value = cell.props.content;
+              return value === null || value === undefined || value === ""
+                ? html("")
+                : html(`<span class="pull-left">${value}</span>`);
+            },
+          }
+          )
+          break;
+        default:
+          colls.push({
+            id: "budgetafterq1",
+            name: "BUDGET AFTER Q1",
             formatter: (cell) => {
               const value = cell.props.content;
               return value === null || value === undefined || value === ""
@@ -1321,8 +1373,8 @@ export default {
             },
           },
           {
-            id: "budgetafterb",
-            name: "BUDGET AFTER B",
+            id: "budgetafterq2",
+            name: "BUDGET AFTER Q2",
             formatter: (cell) => {
               const value = cell.props.content;
               return value === null || value === undefined || value === ""
@@ -1331,6 +1383,18 @@ export default {
             },
           },
           {
+            id: "budgetafterq3",
+            name: "BUDGET AFTER Q3",
+            formatter: (cell) => {
+              const value = cell.props.content;
+              return value === null || value === undefined || value === ""
+                ? html("")
+                : html(`<span class="pull-left">${value}</span>`);
+            },
+          })
+          break;
+      }
+      colls.push({
             id: "achievement",
             name: "ACHIEVEMENT",
             formatter: (cell) => {
@@ -1341,14 +1405,27 @@ export default {
             name: "Action",
             formatter: (_, row) =>
               html(
-                `<button data-id="${row.cells[2].data}" data-id2="${row.cells[3].data}" data-id3="${row.cells[14].data}" class="btn btn-sm text-white" style="background: #bbe4e9" id="editData" data-toggle="tooltip" title="Edit" >UPDATE BUDGET TERM BERIKUTNYA DENGAN BUDGET AFTER A</button>
-                &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[2].data}" data-id2="${row.cells[3].data}" data-id3="${row.cells[15].data}" class="btn btn-sm text-white" style="background: #bbe4e9" id="deleteData" data-toggle="tooltip" title="Delete" >UPDATE BUDGET TERM BERIKUTNYA DENGAN BUDGET AFTER B</button>`
+                `
+                <button data-id="${row.cells[2].data}" data-id2="${row.cells[3].data}" class="btn btn-sm text-white" style="background: #bbe4e9" id="saveData" data-toggle="tooltip" title="Save Data" >INSERT REALIZATION</button>`
               ),
+          })
+      this.grid.updateConfig({
+        pagination: {
+          limit: mythis.$root.pagingTabel1,
+          server: {
+            url: (prev, page, limit) =>
+              `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
+                page * limit
+              }&distcode=${distcode}&brandcode=${brandcode}&term=${term}`,
           },
-        ],
+        },
+        search: {
+          server: {
+            url: (prev, keyword) => `${prev}?search=${keyword}`,
+          },
+        },
+        columns: colls,
+        // Tambahkan event listener untuk button "saveData" setelah render tabel
         style: {
           table: {
             border: "1px solid #ccc",
@@ -1368,16 +1445,19 @@ export default {
         server: {
           url:
             this.$root.apiHost +
-            "api/suggestionparam/" +
+            "api/suggestionpenampung/" +
             this.dist.code +
             "/" +
             this.brand.code +
             "/" +
-            // this.year.code +
-            // "/" +
-            this.term.code,
+            this.term.code +
+            "?offset=" +
+            0 +
+            "&limit=" +
+            1000,
           then: (data) =>
-            data.results.map((card) => [
+            data.results.map((card) => {
+              let dataRes = [
               card.id,
               data.nomorBaris++ + 1,
               card.kodebeban,
@@ -1408,83 +1488,119 @@ export default {
                   "en-US"
                 ).format(card.nextterm)}</span>`
               ),
-              html(
+              
+            ]
+
+            switch (this.term.label) {
+              case '1':
+                dataRes.push(
+                  html(
                 `<span class="pull-right">${new Intl.NumberFormat(
                   "en-US"
-                ).format(card.budgetaftera)}</span>`
+                ).format(card.budgetafterq1)}</span>`
+              )
+                )
+                break;
+              case '2':
+                dataRes.push(
+                  html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.budgetafterq2)}</span>`
+              )
+                )
+                break;
+              case '3':
+                dataRes.push(
+                  html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.budgetafterq3)}</span>`
+              )
+                )
+                break;
+            
+              default:
+                dataRes.push(
+                  html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.budgetafterq1)}</span>`
               ),
               html(
                 `<span class="pull-right">${new Intl.NumberFormat(
                   "en-US"
-                ).format(card.budgetafterb)}</span>`
+                ).format(card.budgetafterq2)}</span>`
               ),
+              html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
+                ).format(card.budgetafterq3)}</span>`
+              ),
+                )
+                break;
+            }
+            dataRes.push(
               html(`<span class="pull-left">${card.achievement}</span>`),
-            ]),
+            )
+            return dataRes
+          }),
           total: (data) => data.count,
           handle: (res) => {
             if (res.status === 404) return { data: [] };
             if (res.ok) return res.json();
-
             throw Error("oh no :(");
           },
         },
       });
-      // Render the table using vanilla JS
       this.grid.render(document.getElementById("wrapper2"));
-      this.number = 0;
+      $(document).off("click", "#saveData");
+$(document).on("click", "#saveData", function () {
+  var kodebeban = $(this).attr("data-id");
+  var term = $(this).attr("data-id2");
+  var budgetafterq1 = $(this).closest("tr").find("[data-column-id='budgetafterq1']").text().trim();
+  var budgetafterq2 = $(this).closest("tr").find("[data-column-id='budgetafterq2']").text().trim();
+  var budgetafterq3 = $(this).closest("tr").find("[data-column-id='budgetafterq3']").text().trim();
 
-      $(document).off("click", "#editData");
-      $(document).off("click", "#deleteData");
-      mythis.jqueryDelEdit();
+  // Simpan data ke dalam variabel
+  mythis.selectedRowData = { kodebeban, term };
+console.log(mythis.term.code);
+let realizationterm;
+
+if (mythis.term.code == 1) {
+    mythis.selectedRowData.realizationterm = budgetafterq1;
+    realizationterm =  budgetafterq1
+  }
+  if (mythis.term.code == 2) {
+    mythis.selectedRowData.realizationterm = budgetafterq2;
+    realizationterm =  budgetafterq2
+  }
+  if (mythis.term.code == 3) {
+    mythis.selectedRowData.realizationterm = budgetafterq3;
+    realizationterm =  budgetafterq3
+  }
+
+  let realizationtermToInteger = mythis.selectedRowData.realizationterm
+  realizationtermToInteger = Number(realizationtermToInteger.replace(/,/g, ''));
+
+  console.log("Data disimpan:", mythis.selectedRowData);
+  const response = axios.post(`${mythis.$root.apiHost}api/insertrealizationterm`, {
+    kodebeban: mythis.selectedRowData.kodebeban,
+    term: mythis.selectedRowData.term,
+    realizationterm: realizationtermToInteger,
+    created_by: 1,
+    
+
+  })
+});
+
       this.status_table = true;
     },
 
-    deleteTodo(id, id2) {
-      var mythis = this;
-      Swal.fire({
-        title: "Update Budget Term Budget After B",
-        text: "Are you sure?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes",
-        cancelButtonText: "Cancel",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          mythis.$root.presentLoading();
-          const config = {
-            // const AuthStr = "bearer " + localStorage.getItem("token");
-            // const config = {
-            //   headers: {
-            //     Authorization: AuthStr,
-            //   },
-            data: {
-              fileUpload: "form satuan",
-              userid: mythis.userid,
-            },
-          };
-          axios
-            .put(
-              mythis.$root.apiHost + `api/putbudgetafter/${id}/${id2}?offset=0&limit=10000`,
-              config
-            )
-            .then((res) => {
-              //console.log(res.data.data);
-              // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
-              Swal.fire("Updated!", "Data has been updated", "success");
-
-              mythis.$root.stopLoading();
-              mythis.refreshTable();
-              mythis.resetForm();
-            });
-        }
-      });
-    },
     deleteTodoa(id, id2) {
       var mythis = this;
       Swal.fire({
-        title: "Update Budget Term Budget After A",
+        title: "Insert Realization Term?",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -1508,7 +1624,8 @@ export default {
           };
           axios
             .put(
-              mythis.$root.apiHost + `api/putbudgetaftera/${id}/${id2}?offset=0&limit=10000`,
+              mythis.$root.apiHost +
+                `api/updatepenampung/${id}/${id2}?offset=0&limit=10000`,
               config
             )
             .then((res) => {
@@ -1523,6 +1640,7 @@ export default {
         }
       });
     },
+
     editTodo() {
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
@@ -1545,8 +1663,9 @@ export default {
             mop: mythis.todo.mop,
             distcode: mythis.todo.distcode,
             distname: mythis.todo.distname,
-            budgetaftera: mythis.todo.budgetaftera,
-            budgetafterb: mythis.todo.budgetafterb,
+            budgetafterq1: mythis.todo.budgetafterq1,
+            budgetafterq2: mythis.todo.budgetafterq2,
+            budgetafterq3: mythis.todo.budgetafterq3,
             kodebeban: mythis.todo.kodebeban,
             nowterm: mythis.todo.nowterm,
             nextterm: mythis.todo.nextterm,
@@ -1625,8 +1744,9 @@ export default {
           mythis.todo.mop = res.data.data.mop;
           mythis.todo.distcode = res.data.data.distcode;
           mythis.todo.distname = res.data.data.distname;
-          mythis.todo.budgetaftera = res.data.data.budgetaftera;
-          mythis.todo.budgetafterb = res.data.data.budgetafterb;
+          mythis.todo.budgetafterq1 = res.data.data.budgetafterq1;
+          mythis.todo.budgetafterq2 = res.data.data.budgetafterq2;
+          mythis.todo.budgetafterq3 = res.data.data.budgetafterq3;
           mythis.todo.kodebeban = res.data.data.kodebeban;
           mythis.todo.nowterm = res.data.data.nowterm;
           mythis.todo.nextterm = res.data.data.nextterm;

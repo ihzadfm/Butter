@@ -71,6 +71,7 @@ import cmpMasterItem from "./views/pages/test/cmpMasterItem.vue";
 import cmpMasterItemInventory from "./views/pages/test/cmpMasterItemInventory.vue";
 import CmpMasterBudgetMonitoring from "./views/pages/test/cmpMasterBudgetMonitoring.vue";
 import cmpMasterBudgetTerm from "./views/pages/test/cmpMasterBudgetTerm.vue";
+import cmpMasterAccruedTerm from "./views/pages/test/cmpMasterAccruedTerm.vue";
 import CmpMasterBrand from "./views/pages/test/cmpMasterBrand.vue";
 import cmpMasterBridgingBrand from "./views/pages/test/cmpMasterBridgingBrand.vue";
 import cmpMasterProduct from "./views/pages/test/cmpMasterProduct.vue";
@@ -80,6 +81,8 @@ import cmpMasterSales from "./views/pages/test/cmpMasterSales.vue";
 import cmpMasterTarget from "./views/pages/test/cmpMasterTarget.vue";
 import cmpMasterVsTargetSales from "./views/pages/test/cmpMasterVsTargetSales.vue";
 import cmpSuggestion from "./views/pages/test/cmpSuggestion.vue";
+import cmpSuggestionPenampungan from "./views/pages/test/cmpSuggestionPenampungan.vue";
+import cmpMasterPenampungan from "./views/pages/test/cmpMasterPenampungan.vue";
 import cmpMasterBridgingTargetSales from "./views/pages/test/cmpMasterBridgingTargetSales.vue";
 
 //MENU DINAMIS GET DARI FOLDER - START
@@ -118,6 +121,7 @@ const routeComponent = {
   cmpMasterItemInventory: markRaw(cmpMasterItemInventory),
   CmpMasterBudgetMonitoring: markRaw(CmpMasterBudgetMonitoring),
   cmpMasterBudgetTerm: markRaw(cmpMasterBudgetTerm),
+  cmpMasterAccruedTerm: markRaw(cmpMasterAccruedTerm),
   CmpMasterBrand: markRaw(CmpMasterBrand),
   cmpMasterProduct: markRaw(cmpMasterProduct),
   cmpMasterAccrued: markRaw(cmpMasterAccrued),
@@ -128,6 +132,8 @@ const routeComponent = {
   cmpMasterTarget: markRaw(cmpMasterTarget),
   cmpMasterVsTargetSales: markRaw(cmpMasterVsTargetSales),
   cmpSuggestion: markRaw(cmpSuggestion),
+  cmpSuggestionPenampungan: markRaw(cmpSuggestionPenampungan),
+  cmpMasterPenampungan: markRaw(cmpMasterPenampungan),
   Login: markRaw(_Login),
   _logout: markRaw(_logout),
   _header: markRaw(_header),
@@ -357,6 +363,7 @@ export default {
             // cmpMasterUser: "USER",
             CmpMasterBudgetMonitoring: "BUDGET",
             cmpMasterBudgetTerm: "BUDGET TERM",
+            cmpMasterAccruedTerm: "ACCRUED TERM",
             CmpMasterBrand: "BRAND",
             cmpMasterProduct: "PRODUCT",
             cmpMasterAccrued: "ACCRUED",
@@ -367,6 +374,8 @@ export default {
             cmpMasterTarget: "TARGET",
             cmpMasterVsTargetSales: "TARGET VS SALES",
             cmpSuggestion: "SUGGESTION BUDGET",
+            cmpSuggestionPenampungan: "SUGGESTION REALIZATION",
+            cmpMasterPenampungan: "PENAMPUNGAN REALIZATION",
             // cmpMasterItem: "ITEM",
             // cmpMasterItemInventory: "ITEM INVENTORY",
             // "SUB MENU": {
@@ -382,6 +391,7 @@ export default {
         // cmpMasterUser: "USER",
         CmpMasterBudgetMonitoring: "BUDGET",
         cmpMasterBudgetTerm: "BUDGET TERM",
+        cmpMasterAccruedTerm: "ACCRUED TERM",
         CmpMasterBrand: "BRAND",
         cmpMasterProduct: "PRODUCT",
         cmpMasterAccrued: "ACCRUED",
@@ -392,6 +402,8 @@ export default {
         cmpMasterTarget: "TARGET",
         cmpMasterVsTargetSales: "TARGET VS SALES",
         cmpSuggestion: "SUGGESTION BUDGET",
+        cmpSuggestionPenampungan: "SUGGESTION REALIZATION",
+        cmpMasterPenampungan: "PENAMPUNGAN REALIZATION",
         // cmpMasterItem: "ITEM",
         // cmpMasterItemInventory: "ITEM INVENTORY",
         // cmpHalDashboard1: "DASHBOARD1",
@@ -422,6 +434,11 @@ export default {
           delete: true,
         },
         cmpMasterBudgetTerm: {
+          create: true,
+          update: true,
+          delete: true,
+        },
+        cmpMasterAccruedTerm: {
           create: true,
           update: true,
           delete: true,
@@ -472,6 +489,16 @@ export default {
           delete: true,
         },
         cmpSuggestion: {
+          create: true,
+          update: true,
+          delete: true,
+        },
+        cmpSuggestionPenampungan: {
+          create: true,
+          update: true,
+          delete: true,
+        },
+        cmpMasterPenampungan: {
           create: true,
           update: true,
           delete: true,

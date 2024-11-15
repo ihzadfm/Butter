@@ -28,8 +28,9 @@
           </button>
         </div>
         <div class="modal-body">
-          <pre>{{ budgetData }}</pre>
+          <!-- <pre>{{ budgetData }}</pre> -->
 
+          <!-- Wizards Row -->
           <!-- Wizards Row -->
           <div class="row">
             <div class="col-md-12">
@@ -69,77 +70,7 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="example-nf-email">Item Code</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="item code"
-                    v-model="todo.itemcode"
-                    :class="
-                      errorField.itemcode
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="example-nf-email">MTG Code</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="mtg code"
-                    v-model="todo.mtgcode"
-                    :class="
-                      errorField.mtgcode
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="example-nf-email">Parent Code</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="parent code"
-                    v-model="todo.parentcode"
-                    :class="
-                      errorField.parentcode
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="example-nf-email">Item Name</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="item name"
-                    v-model="todo.itemname"
-                    :class="
-                      errorField.itemname
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- END Wizards Row -->
         </div>
 
         <div class="modal-footer">
@@ -152,40 +83,12 @@
                 class="btn btn-sm btn-primary pull-left"
                 :disabled="
                   $root.flagButtonLoading ||
-                  todo.no_pp == null ||
-                  todo.no_pp == '' ||
-                  todo.id_detail == null ||
-                  todo.id_detail == '' ||
                   todo.kodebeban == null ||
                   todo.kodebeban == '' ||
-                  todo.nilai_pp == null ||
-                  todo.nilai_pp == '' ||
-                  todo.bulan == null ||
-                  todo.bulan == '' ||
-                  todo.tahun == null ||
-                  todo.tahun == '' ||
-                  todo.jenis_realisasi == null ||
-                  todo.jenis_realisasi == '' ||
-                  todo.no_realisasi == null ||
-                  todo.no_realisasi == '' ||
-                  todo.tgl_realisasi == null ||
-                  todo.tgl_realisasi == '' ||
-                  todo.nilai_realisasi == null ||
-                  todo.nilai_realisasi == '' ||
-                  todo.status_pp == null ||
-                  todo.status_pp == '' ||
-                  todo.divisi == null ||
-                  todo.divisi == '' ||
-                  todo.nama_pp == null ||
-                  todo.nama_pp == '' ||
-                  todo.jenis_accrued == null ||
-                  todo.jenis_accrued == '' ||
-                  todo.status_approved == null ||
-                  todo.status_approved == '' ||
-                  todo.status_closed == null ||
-                  todo.status_closed == '' ||
-                  todo.tgl_input == null ||
-                  todo.tgl_input == ''
+                  todo.term == null ||
+                  todo.term == '' ||
+                  todo.realizationterm == null ||
+                  todo.realizationterm == ''
                 "
               >
                 <i
@@ -202,40 +105,12 @@
                 class="btn btn-sm btn-primary pull-left"
                 :disabled="
                   $root.flagButtonLoading ||
-                  todo.no_pp == null ||
-                  todo.no_pp == '' ||
-                  todo.id_detail == null ||
-                  todo.id_detail == '' ||
                   todo.kodebeban == null ||
                   todo.kodebeban == '' ||
-                  todo.nilai_pp == null ||
-                  todo.nilai_pp == '' ||
-                  todo.bulan == null ||
-                  todo.bulan == '' ||
-                  todo.tahun == null ||
-                  todo.tahun == '' ||
-                  todo.jenis_realisasi == null ||
-                  todo.jenis_realisasi == '' ||
-                  todo.no_realisasi == null ||
-                  todo.no_realisasi == '' ||
-                  todo.tgl_realisasi == null ||
-                  todo.tgl_realisasi == '' ||
-                  todo.nilai_realisasi == null ||
-                  todo.nilai_realisasi == '' ||
-                  todo.status_pp == null ||
-                  todo.status_pp == '' ||
-                  todo.divisi == null ||
-                  todo.divisi == '' ||
-                  todo.nama_pp == null ||
-                  todo.nama_pp == '' ||
-                  todo.jenis_accrued == null ||
-                  todo.jenis_accrued == '' ||
-                  todo.status_approved == null ||
-                  todo.status_approved == '' ||
-                  todo.status_closed == null ||
-                  todo.status_closed == '' ||
-                  todo.tgl_input == null ||
-                  todo.tgl_input == ''
+                  todo.term == null ||
+                  todo.term == '' ||
+                  todo.realizationterm == null ||
+                  todo.realizationterm == ''
                 "
               >
                 <i
@@ -277,7 +152,7 @@
           <strong>{{ csv.length }} </strong> data<br />
         </div>
 
-        <!-- <pre> -->
+        <!-- <pre>
         <vue-csv-import v-model="csv" :fields="dataImportCsv">
           <vue-csv-toggle-headers></vue-csv-toggle-headers>
           <vue-csv-errors></vue-csv-errors>
@@ -290,8 +165,8 @@
             }"
           ></vue-csv-table-map>
         </vue-csv-import>
-        <!-- </pre> -->
-        <br />
+        </pre> -->
+        <!-- <br />
 
         <button
           v-if="csv != null"
@@ -300,8 +175,7 @@
           class="btn btn-sm btn-primary pull-left"
         >
           SAVE DATA BULKY
-        </button>
-        
+        </button> -->
         <!-- Export Button -->
         <download-excel
           v-if="status_table"
@@ -320,6 +194,7 @@
             Export Excel
           </button>
         </download-excel>
+
         <br />
         <br />
         <br />
@@ -333,20 +208,21 @@
           DELETE ALL DATA
         </button>
 
-        <!-- <button
+        <button
           <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
         >
           ADD DATA
-        </button> -->
+        </button>
 
         <!------------------------>
         <div id="wrapper2"></div>
         <div id="box"></div>
       </div>
       <!-- Block Content -->
+
       <!-- END Block Content -->
     </div>
     <!-- END Block -->
@@ -378,23 +254,10 @@ export default {
       grid: new Grid(),
       // grid2: new Grid(),
       errorField: {
-        no_pp: false,
-        id_detail: false,
+        id: false,
         kodebeban: false,
-        nilai_pp: false,
-        bulan: false,
-        tahun: false,
-        jenis_realisasi: false,
-        no_realisasi: false,
-        tgl_realisasi: false,
-        nilai_realisasi: false,
-        status_pp: false,
-        divisi: false,
-        nama_pp: false,
-        jenis_accrued: false,
-        status_approved: false,
-        status_closed: false,
-        tgl_input: false,
+        term: false,
+        realizationterm: false,
       },
 
       userid: 0,
@@ -403,93 +266,24 @@ export default {
       modal: false,
 
       todo: {
-        no_pp: "",
-        id_detail: "",
+        id: "",
         kodebeban: "",
-        nilai_pp: "",
-        bulan: "",
-        tahun: "",
-        jenis_realisasi: "",
-        no_realisasi: "",
-        tgl_realisasi: "",
-        nilai_realisasi: "",
-        status_pp: "",
-        divisi: "",
-        nama_pp: "",
-        jenis_accrued: "",
-        status_approved: "",
-        status_closed: "",
-        tgl_input: "",
+        term: "",
+        realizationterm: "",
       },
       flagButtonAdd: true,
       csv: null,
       dataImportCsv: {
-        no_pp: {
-          label: "no_pp",
-          required: true,
-        },
-        id_detail: {
-          label: "id_detail",
-          required: true,
-        },
         kodebeban: {
           label: "kodebeban",
           required: true,
         },
-        nilai_pp: {
-          label: "nilai_pp",
+        term: {
+          label: "term",
           required: true,
         },
-        bulan: {
-          label: "bulan",
-          required: true,
-        },
-        tahun: {
-          label: "tahun",
-          required: true,
-        },
-        jenis_realisasi: {
-          label: "jenis_realisasi",
-          required: true,
-        },
-        no_realisasi: {
-          label: "no_realisasi",
-          required: true,
-        },
-        tgl_realisasi: {
-          label: "tgl_realisasi",
-          required: true,
-        },
-        nilai_realisasi: {
-          label: "nilai_realisasi",
-          required: true,
-        },
-        status_pp: {
-          label: "status_pp",
-          required: true,
-        },
-        divisi: {
-          label: "divisi",
-          required: true,
-        },
-        nama_pp: {
-          label: "nama_pp",
-          required: true,
-        },
-        jenis_accrued: {
-          label: "jenis_accrued",
-          required: true,
-        },
-        status_approved: {
-          label: "status_approved",
-          required: true,
-        },
-        status_closed: {
-          label: "status_closed",
-          required: true,
-        },
-        tgl_input: {
-          label: "tgl_input",
+        realizationterm: {
+          label: "realizationterm",
           required: true,
         },
       },
@@ -510,26 +304,12 @@ export default {
       json_data: [],
 
       json_fields: {
-        no_pp: "no_pp", // Nomor PP
-        id_detail: "id_detail", // ID detail
-        kodebeban: "kodebeban", // Kode beban
-        nilai_pp: "nilai_pp", // Nilai PP
-        bulan: "bulan", // Bulan
-        tahun: "tahun", // Tahun
-        jenis_realisasi: "jenis_realisasi", // Jenis realisasi
-        no_realisasi: "no_realisasi", // Nomor realisasi
-        tgl_realisasi: "tgl_realisasi", // Tanggal realisasi
-        nilai_realisasi: "nilai_realisasi", // Nilai realisasi
-        status_pp: "status_pp", // Status PP
-        divisi: "divisi", // Divisi
-        nama_pp: "nama_pp", // Nama PP
-        jenis_accrued: "jenis_accrued", // Jenis accrued
-        status_approved: "status_approved", // Status approved
-        status_closed: "status_closed", // Status closed
-        tgl_input: "tgl_input", // Tanggal input
+        kodebeban: "kodebeban",
+        term: "term",
+        realizationterm: "realizationterm",
       },
 
-      nama_Worksheet: "Sheet Master Accrued",
+      nama_Worksheet: "Sheet Master Penampung",
 
       nama_excelnya: "",
 
@@ -564,7 +344,7 @@ export default {
           };
           try {
             const response = await axios.delete(
-              mythis.$root.apiHost + "api/accrueddelete",
+              mythis.$root.apiHost + "api/penampungdelete",
               config
             );
             mythis.$root.stopLoading();
@@ -602,13 +382,17 @@ export default {
       return (
         [
           date.getFullYear(),
+
           this.padTo2Digits(date.getMonth() + 1),
+
           this.padTo2Digits(date.getDate()),
         ].join("-") +
         " " +
         [
           this.padTo2Digits(date.getHours()),
+
           this.padTo2Digits(date.getMinutes()),
+
           this.padTo2Digits(date.getSeconds()),
         ].join(":")
       );
@@ -620,12 +404,17 @@ export default {
       mythis.$root.presentLoading();
 
       var nn = 0;
+
       var count = 1;
+
       var limitx = 100;
+
       var offsetx = 0;
+
       var baris = 0;
 
       var nomor_x = 1;
+
       var br_pdf = 0;
 
       var br_flag = 0;
@@ -636,6 +425,8 @@ export default {
 
       var baris_excel = 0;
 
+      // mythis.json_data = [];
+
       mythis.data_x_excel = [];
 
       while (count > 0) {
@@ -643,13 +434,15 @@ export default {
 
         const reqData = await axios({
           method: "get",
+
           url:
             mythis.$root.apiHost +
-            "api/accrued?offset=" +
+            "api/penampung?offset=" +
             offsetx +
             "&limit=" +
             limitx,
         });
+
         console.log(reqData);
 
         const resData = reqData.data;
@@ -663,23 +456,10 @@ export default {
         Object.keys(resData.results).forEach(function (key) {
           const countries_x = {
             nomor: nomor_x,
-            no_pp: "'" + resData.results[key].no_pp,
-            id_detail: resData.results[key].id_detail,
-            kodebeban: resData.results[key].kodebeban,
-            nilai_pp: resData.results[key].nilai_pp,
-            bulan: resData.results[key].bulan,
-            tahun: resData.results[key].tahun,
-            jenis_realisasi: resData.results[key].jenis_realisasi,
-            no_realisasi: resData.results[key].no_realisasi,
-            tgl_realisasi: resData.results[key].tgl_realisasi,
-            nilai_realisasi: resData.results[key].nilai_realisasi,
-            status_pp: resData.results[key].status_pp,
-            divisi: resData.results[key].divisi,
-            nama_pp: resData.results[key].nama_pp,
-            jenis_accrued: resData.results[key].jenis_accrued,
-            status_approved: resData.results[key].status_approved,
-            status_closed: resData.results[key].status_closed,
-            tgl_input: resData.results[key].tgl_input,
+            kodebeban: "'" + resData.results[key].kodebeban,
+
+            term: resData.results[key].term,
+            realizationterm: resData.results[key].realizationterm,
           };
 
           mythis.data_x_excel[baris_excel] = countries_x;
@@ -728,7 +508,7 @@ export default {
 
       var a = new Date().toLocaleString("en-GB");
 
-      mythis.nama_excelnya = "MASTER_ACCRUED_" + a + ".xls";
+      mythis.nama_excelnya = "MASTER_PENAMPUNG_" + a + ".xls";
 
       mythis.nama_sheetnya = mythis.nama_excelnya;
 
@@ -769,7 +549,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master Accrued Bulky",
+        title: "Create Master Penamping Bulky",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -779,8 +559,17 @@ export default {
         cancelButtonText: "Cancel",
       }).then((result) => {
         if (result.isConfirmed) {
+          /////////////////////////////////////////////////////////////////////
+          // mythis.$root.presentLoading();
+          // mythis.$root.flagButtonLoading = true;
+          // const AuthStr = "bearer " + localStorage.getItem("token");
+          // const config = {
+          //   headers: {
+          //     Authorization: AuthStr,
+          //   },
+          // };
           const config = "";
-          var url = mythis.$root.apiHost + "api/accruedBulky";
+          var url = mythis.$root.apiHost + "api/penampungBulky";
           axios
             .post(
               url,
@@ -840,7 +629,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master Accrued",
+        title: "Create Master Penampung",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -860,28 +649,14 @@ export default {
           //   },
           // };
           const config = "";
-          var url = mythis.$root.apiHost + "api/accrued";
+          var url = mythis.$root.apiHost + "api/penampung";
           axios
             .post(
               url,
               {
-                no_pp: mythis.todo.no_pp,
-                id_detail: mythis.todo.id_detail,
                 kodebeban: mythis.todo.kodebeban,
-                nilai_pp: mythis.todo.nilai_pp,
-                bulan: mythis.todo.bulan,
-                tahun: mythis.todo.tahun,
-                jenis_realisasi: mythis.todo.jenis_realisasi,
-                no_realisasi: mythis.todo.no_realisasi,
-                tgl_realisasi: mythis.todo.tgl_realisasi,
-                nilai_realisasi: mythis.todo.nilai_realisasi,
-                status_pp: mythis.todo.status_pp,
-                divisi: mythis.todo.divisi,
-                nama_pp: mythis.todo.nama_pp,
-                jenis_accrued: mythis.todo.jenis_accrued,
-                status_approved: mythis.todo.status_approved,
-                status_closed: mythis.todo.status_closed,
-                tgl_input: mythis.todo.tgl_input,
+                term: mythis.todo.term,
+                realizationterm: mythis.todo.realizationterm,
                 userid: mythis.userid,
               },
               config
@@ -970,24 +745,10 @@ export default {
         },
         columns: [
           { name: "ID", hidden: true },
-          "No",
-          "NO PP",
-          "ID DETAIL",
+          "NO",
           "KODE BEBAN",
-          "NILAI PP",
-          "BULAN",
-          "TAHUN",
-          "JENIS REALISASI",
-          "NO REALISASI",
-          "TANGGAL REALISASI",
-          "NILAI REALISASI",
-          "STATUS PP",
-          "DIVISI",
-          "NAMA PP",
-          "JENIS ACCRUED",
-          "STATUS APPROVED",
-          "STATUS CLOSED",
-          "TANGGAL INPUT",
+          "TERM",
+          "REALIZATION TERM",
 
           // {
           //   name: "Action",
@@ -1029,36 +790,18 @@ export default {
           },
         },
         server: {
-          url: this.$root.apiHost + "api/accrued",
+          url: this.$root.apiHost + "api/penampung",
           then: (data) =>
             data.results.map((card) => [
               card.id,
               data.nomorBaris++ + 1,
-              html(`<span class="pull-left">${card.no_pp}</span>`),
-              html(`<span class="pull-left">${card.id_detail}</span>`),
               html(`<span class="pull-left">${card.kodebeban}</span>`),
+              html(`<span class="pull-left">${card.term}</span>`),
               html(
-                `<span class="pull-left">${new Intl.NumberFormat(
+                `<span class="pull-right">${new Intl.NumberFormat(
                   "en-US"
-                ).format(card.nilai_pp)}</span>`
+                ).format(Number(card.realizationterm))}</span>`
               ),
-              html(`<span class="pull-left">${card.bulan}</span>`),
-              html(`<span class="pull-left">${card.tahun}</span>`),
-              html(`<span class="pull-left">${card.jenis_realisasi}</span>`),
-              html(`<span class="pull-left">${card.no_realisasi}</span>`),
-              html(`<span class="pull-left">${card.tgl_realisasi}</span>`),
-              html(
-                `<span class="pull-left">${new Intl.NumberFormat(
-                  "en-US"
-                ).format(card.nilai_realisasi)}</span>`
-              ),
-              html(`<span class="pull-left">${card.status_pp}</span>`),
-              html(`<span class="pull-left">${card.divisi}</span>`),
-              html(`<span class="pull-left">${card.nama_pp}</span>`),
-              html(`<span class="pull-left">${card.jenis_accrued}</span>`),
-              html(`<span class="pull-left">${card.status_approved}</span>`),
-              html(`<span class="pull-left">${card.status_closed}</span>`),
-              html(`<span class="pull-left">${card.tgl_input}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -1105,7 +848,7 @@ export default {
             },
           };
           axios
-            .delete(mythis.$root.apiHost + `api/accrued/${id}`, config)
+            .delete(mythis.$root.apiHost + `api/penampung/${id}`, config)
             .then((res) => {
               //console.log(res.data.data);
               // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
@@ -1130,26 +873,11 @@ export default {
       const config = "";
       axios
         .put(
-          mythis.$root.apiHost + "api/accrued/" + mythis.todo.id,
+          mythis.$root.apiHost + "api/penampung/" + mythis.todo.id,
           {
-            no_pp: mythis.todo.no_pp,
-            id_detail: mythis.todo.id_detail,
             kodebeban: mythis.todo.kodebeban,
-            nilai_pp: mythis.todo.nilai_pp,
-            bulan: mythis.todo.bulan,
-            tahun: mythis.todo.tahun,
-            jenis_realisasi: mythis.todo.jenis_realisasi,
-            no_realisasi: mythis.todo.no_realisasi,
-            tgl_realisasi: mythis.todo.tgl_realisasi,
-            nilai_realisasi: mythis.todo.nilai_realisasi,
-            status_pp: mythis.todo.status_pp,
-            divisi: mythis.todo.divisi,
-            nama_pp: mythis.todo.nama_pp,
-            jenis_accrued: mythis.todo.jenis_accrued,
-            status_approved: mythis.todo.status_approved,
-            status_closed: mythis.todo.status_closed,
-            tgl_input: mythis.todo.tgl_input,
-
+            term: mythis.todo.term,
+            realizationterm: mythis.todo.realizationterm,
             userid: mythis.userid,
           },
           config
@@ -1208,30 +936,18 @@ export default {
         // },
       };
       await axios
-        .get(mythis.$root.apiHost + `api/accrued/${id}`, config)
+        .get(mythis.$root.apiHost + `api/penampung/${id}`, config)
         .then(async (res) => {
-          //console.log(res.data.data);
+          console.log(res.data.data);
           //mythis.acuanEdit = id;
           //mythis.todo = res.data.data;
           mythis.todo.id = id;
-          mythis.todo.no_pp = res.data.data.no_pp;
-          mythis.todo.id_detail = res.data.data.id_detail;
           mythis.todo.kodebeban = res.data.data.kodebeban;
-          mythis.todo.nilai_pp = res.data.data.nilai_pp;
-          mythis.todo.bulan = res.data.data.bulan;
-          mythis.todo.tahun = res.data.data.tahun;
-          mythis.todo.jenis_realisasi = res.data.data.jenis_realisasi;
-          mythis.todo.no_realisasi = res.data.data.no_realisasi;
-          mythis.todo.tgl_realisasi = res.data.data.tgl_realisasi;
-          mythis.todo.nilai_realisasi = res.data.data.nilai_realisasi;
-          mythis.todo.status_pp = res.data.data.status_pp;
-          mythis.todo.divisi = res.data.data.divisi;
-          mythis.todo.nama_pp = res.data.data.nama_pp;
-          mythis.todo.jenis_accrued = res.data.data.jenis_accrued;
-          mythis.todo.status_approved = res.data.data.status_approved;
-          mythis.todo.status_closed = res.data.data.status_closed;
-          mythis.todo.tgl_input = res.data.data.tgl_input;
-          // document.getElementById("inputA").focus(); // sets the focus on the input
+          mythis.todo.term = res.data.data.term;
+          mythis.todo.realizationterm = res.data.data.realizationterm;
+
+          // document.getElementById("inputA").focus();
+          // sets the focus on the input
 
           mythis.$root.stopLoading();
         });
