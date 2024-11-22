@@ -89,7 +89,7 @@
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="example-nf-email">target</label>
+                  <label for="example-nf-email">Target</label>
                   <CmpInputText
                     type="text"
                     placeholder="target"
@@ -159,12 +159,10 @@
                   todo.brandcode == '' ||
                   todo.brandname == null ||
                   todo.brandname == '' ||
-                  todo.itemcode == null ||
-                  todo.itemcode == '' ||
-                  todo.itemname == null ||
-                  todo.itemname == '' ||
                   todo.target == null ||
                   todo.target == '' ||
+                  todo.sales == null ||
+                  todo.sales == '' ||
                   todo.yop == null ||
                   todo.yop == '' ||
                   todo.mop == null ||
@@ -172,7 +170,9 @@
                   todo.distcode == null ||
                   todo.distcode == '' ||
                   todo.distname == null ||
-                  todo.distname == ''
+                  todo.distname == '' ||
+                  todo.achievement == null ||
+                  todo.achievement == ''
                 "
               >
                 <i
@@ -193,12 +193,10 @@
                   todo.brandcode == '' ||
                   todo.brandname == null ||
                   todo.brandname == '' ||
-                  todo.itemcode == null ||
-                  todo.itemcode == '' ||
-                  todo.itemname == null ||
-                  todo.itemname == '' ||
                   todo.target == null ||
                   todo.target == '' ||
+                  todo.sales == null ||
+                  todo.sales == '' ||
                   todo.yop == null ||
                   todo.yop == '' ||
                   todo.mop == null ||
@@ -206,7 +204,9 @@
                   todo.distcode == null ||
                   todo.distcode == '' ||
                   todo.distname == null ||
-                  todo.distname == ''
+                  todo.distname == '' ||
+                  todo.achievement == null ||
+                  todo.achievement == ''
                 "
               >
                 <i
@@ -240,39 +240,10 @@
       <!-- END Block Title -->
 
       <div class="block-content">
-        <!------------------------>
-        <!-- Button trigger modal -->
-        <!-- <pre>{{ csv}}</pre> -->
-
         <div v-if="csv != null">
           <strong>{{ csv.length }} </strong> data<br />
         </div>
 
-        <!-- <pre> -->
-        <vue-csv-import v-model="csv" :fields="dataImportCsv">
-          <vue-csv-toggle-headers></vue-csv-toggle-headers>
-          <vue-csv-errors></vue-csv-errors>
-          <vue-csv-input></vue-csv-input>
-          <vue-csv-table-map
-            :auto-match="true"
-            :table-attributes="{
-              id: 'csv-table',
-              class: 'table table-bordered table-hover',
-            }"
-          ></vue-csv-table-map>
-        </vue-csv-import>
-        <!-- </pre> -->
-        <br />
-
-        <button
-          v-if="csv != null"
-          @click="saveTodoBulky()"
-          type="button"
-          class="btn btn-sm btn-primary pull-left"
-        >
-          SAVE DATA BULKY
-        </button>
-        <!-- Export Button -->
         <download-excel
           v-if="status_table"
           class="button"
@@ -294,24 +265,125 @@
         <br />
         <br />
         <br />
-        <br />
-        <br />
 
-        <button
-          class="btn btn-sm btn-danger custom-file-upload pull-right"
-          @click="deleteAll"
-        >
-          DELETE ALL DATA
-        </button>
+        <div class="block-content">
+          <div class="container">
+            <div class="row">
+              <!-- Kiri -->
+              <div class="col-md-6">
+                <!-- Kode Beban 1 -->
+                <div class="form-group">
+                  <label for="">Kode Beban 1</label>
+                  <v-select
+                    v-model="kodebebanbaru.kodebeban1"
+                    :options="kodebebanbudget"
+                    label="kodebeban"
+                    placeholder="Pilih Kode Beban"
+                  ></v-select>
+                </div>
 
-        <button
-          <button
+                <!-- Bulan 1 -->
+                <div class="form-group">
+                  <label for="">Bulan 1</label>
+                  <select
+                    @change="cetakAmount"
+                    id="bulan1"
+                    class="form-control"
+                    v-model="kodebebanbaru.month1"
+                  >
+                    <option v-for="bulan in monthOptions" :value="bulan.code">
+                      {{ bulan.label }}
+                    </option>
+                  </select>
+                </div>
+
+                <!-- Amount Bulan 1 -->
+                <div class="form-group">
+                  <label for="">Amount Bulan 1</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    :value="amountBulan1"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <!-- Kanan -->
+              <div class="col-md-6">
+                <!-- Kode Beban 2 -->
+                <div class="form-group">
+                  <label for="">Kode Beban 2</label>
+                  <v-select
+                    v-model="kodebebanbaru.kodebeban2"
+                    :options="kodebebanbudget"
+                    label="kodebeban"
+                    placeholder="Pilih Kode Beban"
+                  ></v-select>
+                </div>
+
+                <!-- Bulan 2 -->
+                <div class="form-group">
+                  <label for="">Bulan 2</label>
+                  <select
+                    @change="cetakAmount"
+                    id="bulan2"
+                    class="form-control"
+                    v-model="kodebebanbaru.month2"
+                  >
+                    <option v-for="bulan in monthOptions" :value="bulan.code">
+                      {{ bulan.label }}
+                    </option>
+                  </select>
+                </div>
+
+                <!-- Amount Bulan 2 -->
+                <div class="form-group">
+                  <label for="">Amount Bulan 2</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    :value="amountBulan2"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Tengah: Amount -->
+            <div class="row mt-3">
+              <div class="col-md-12 text-center">
+                <div class="form-group">
+                  <label for="">Amount</label>
+                  <input
+                    type="number"
+                    v-model="kodebebanbaru.amount"
+                    class="form-control"
+                    placeholder="Masukkan jumlah"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- Tombol -->
+            <div class="row mt-3">
+              <div class="col-md-12 text-center">
+                <button class="btn btn-primary" @click="postbudgetmonitoring">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="wrapper2" v-if="status_table"></div>
+        <div id="box"></div>
+
+        <!-- <button
           v-if="status_table && $root.accessRoles[access_page].create"
           class="btn btn-sm btn-primary pull-right"
           @click="show_modal()"
         >
           ADD DATA
-        </button>
+        </button> -->
 
         <!------------------------>
         <div id="wrapper2"></div>
@@ -325,17 +397,18 @@
 </template>
 
 <script>
+import apiService from "../../../services/apiService";
 import axios from "axios";
 import { markRaw } from "vue";
 import { Grid, h, html } from "gridjs";
 import "gridjs/dist/theme/mermaid.css";
 import { idID } from "gridjs/l10n";
-
 import loadingBar from "@/assets/img/Moving_train.gif";
-
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import JsonExcel from "vue-json-excel3";
+
+el: "#app";
 
 export default {
   components: {
@@ -343,22 +416,67 @@ export default {
   },
   data() {
     return {
+      amountBulan1: 0,
+      amountBulan2: 0,
+      months: [
+        "jan",
+        "feb",
+        "mar",
+        "apr",
+        "mei",
+        "jun",
+        "jul",
+        "ags",
+        "sep",
+        "okt",
+        "nop",
+        "des",
+      ],
+      kodebebanbudget: [],
+      kodebebanbaru: {
+        kodebeban1: null,
+        kodebeban2: null,
+        month1: null,
+        month2: null,
+        amount: 0,
+      },
+      kodebeban1: { code: "", label: "" },
+      kodebeban2: { code: "", label: "" },
+      month1: { code: "", label: "" },
+      month2: { code: "", label: "" },
+      amount: null,
+      kodebebanOptions: [], // Untuk opsi kode beban
+      monthOptions: [
+        { code: 1, label: "Januari" },
+        { code: 2, label: "Februari" },
+        { code: 3, label: "Maret" },
+        { code: 4, label: "April" },
+        { code: 5, label: "Mei" },
+        { code: 6, label: "Juni" },
+        { code: 7, label: "Juli" },
+        { code: 8, label: "Agustus" },
+        { code: 9, label: "September" },
+        { code: 10, label: "Oktober" },
+        { code: 11, label: "November" },
+        { code: 12, label: "Desember" },
+      ], // Opsi bulan
+
       access_page: this.$root.decryptData(localStorage.getItem("halaman")),
       isLogin: localStorage.getItem("token") != null ? 1 : 0,
       activemenu: null,
       grid: new Grid(),
+      status_table: false,
       // grid2: new Grid(),
       errorField: {
-        BrandCode: false,
-        BrandName: false,
-        BrandName: false,
-        ItemCode: false,
-        ItemName: false,
-        target: false,
-        Yop: false,
-        Mop: false,
+        yop: false,
+        mop: false,
         distcode: false,
         distname: false,
+        brandcode: false,
+        brandname: false,
+        sales: false,
+        target: false,
+        achievement: false,
       },
 
       userid: 0,
@@ -369,13 +487,13 @@ export default {
       todo: {
         brandcode: "",
         brandname: "",
-        itemcode: "",
-        itemname: "",
+        sales: "",
         target: "",
         yop: "",
         mop: "",
         distcode: "",
         distname: "",
+        achievement: "",
       },
       flagButtonAdd: true,
       csv: null,
@@ -388,12 +506,8 @@ export default {
           label: "brandname",
           required: true,
         },
-        itemcode: {
-          label: "itemcode",
-          required: true,
-        },
-        itemname: {
-          label: "itemname",
+        sales: {
+          label: "sales",
           required: true,
         },
         target: {
@@ -416,6 +530,10 @@ export default {
           label: "distname",
           required: true,
         },
+        achievement: {
+          label: "achievement",
+          required: true,
+        },
       },
       data_x_tabel: [],
 
@@ -434,83 +552,281 @@ export default {
       json_data: [],
 
       json_fields: {
-        brandcode: "brandcode",
-        brandname: "brandname",
-        itemcode: "itemcode",
-        itemname: "itemname",
-        target: "target",
-        yop: "yop", // Year of Production
-        mop: "mop", // Month of Production
+        yop: "yop",
+        mop: "mop",
         distcode: "distcode",
         distname: "distname",
+        brandcode: "brandcode",
+        brandname: "brandname",
+        sales: "sales",
+        target: "target",
+        achievement: "achievement",
       },
 
-      nama_Worksheet: "Sheet Master target",
+      nama_Worksheet: "Sheet Master Reclass",
 
       nama_excelnya: "",
 
       nama_sheetnya: "",
+      month: "",
     };
   },
   async mounted() {
-    // await this.$root.refreshToken(localStorage.getItem("token"));
-    this.getTable();
+    this.getparamDatakodebeban();
+    // this.getparamDatabulan();
+    this.getbudgetmonitoring();
+    this.refreshTable();
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
   },
   methods: {
-    async deleteAll() {
-      var mythis = this;
+    async getbudgetmonitoring() {
+      try {
+        const response = await apiService.makeGet(`reclassbudgetmonitoring`);
+        this.kodebebanbudget = response.data;
+      } catch (error) {}
+    },
+
+    cetakAmount() {
+      const month1 = this.months[parseInt(this.kodebebanbaru.month1)- 1];
+      const month2 = this.months[parseInt(this.kodebebanbaru.month2)- 1];
+      const monthData1 = this.kodebebanbaru.kodebeban1[month1];
+      const monthData2 = this.kodebebanbaru.kodebeban2[month2];
+      this.amountBulan1 = monthData1;
+      this.amountBulan2 = monthData2;
+      console.log(month1);
+      console.log(monthData2);
+      
+    },
+
+    getalert(icon, title, message) {
       Swal.fire({
-        title: "Delete All Data",
-        text: "Are you sure? This action cannot be undone.",
-        icon: "warning",
+        title: title,
+        text: message,
+        icon: icon,
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete all",
-        cancelButtonText: "Cancel",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          mythis.$root.presentLoading();
-          const config = {
-            data: {
-              fileUpload: "form satuan",
-              userid: mythis.userid,
-            },
-          };
-          try {
-            const response = await axios.delete(
-              mythis.$root.apiHost + "api/targetpenjualandelete",
-              config
-            );
-            mythis.$root.stopLoading();
-            if (response.data.status) {
-              Swal.fire(
-                "Deleted!",
-                `All data has been deleted. ${response.data.deleted_rows} rows were deleted.`,
-                "success"
-              );
-              mythis.refreshTable();
-            } else {
-              Swal.fire(
-                "Error",
-                response.data.message || "Failed to delete all data",
-                "error"
-              );
-            }
-          } catch (error) {
-            mythis.$root.stopLoading();
-            console.error("Error deleting all data:", error);
-            let errorMessage = "An error occurred while deleting data";
-            if (error.response) {
-              errorMessage = error.response.data.message || errorMessage;
-            }
-            Swal.fire("Error", errorMessage, "error");
-          }
-        }
+        showConfirmButton: false,
+        cancelButtonText: "OKE",
       });
     },
-    
+
+    async postbudgetmonitoring() {
+      if (
+        this.kodebebanbaru.month1 &&
+        this.kodebebanbaru.month2 &&
+        this.kodebebanbaru.kodebeban1 &&
+        this.kodebebanbaru.kodebeban2
+      ) {
+        const month1 = this.months[this.kodebebanbaru.month1];
+        const month2 = this.months[this.kodebebanbaru.month2];
+        const monthData1 = this.kodebebanbaru.kodebeban1[month1];
+        // const monthData2 = this.kodebebanbaru.kodebeban2[month2];
+        if (monthData1 < this.kodebebanbaru.amount) {
+          this.getalert("warning", "WARNING", "AMOUNT > BUDGET");
+          return;
+        }
+        if (this.kodebebanbaru.kodebeban1 == this.kodebebanbaru.kodebeban2) {
+          this.getalert("error", "ERROR", "KODEBEBAN TIDAK BOLEH SAMA!");
+          return;
+        }
+        if (this.kodebebanbaru.kodebeban1)
+          this.kodebebanbaru.kodebeban1 =
+            this.kodebebanbaru.kodebeban1.kodebeban;
+        if (this.kodebebanbaru.kodebeban2)
+          this.kodebebanbaru.kodebeban2 =
+            this.kodebebanbaru.kodebeban2.kodebeban;
+        try {
+          this.$root.presentLoading();
+          const response = await apiService.makePost(
+            `reclassupdate`,
+            this.kodebebanbaru
+          );
+          this.$root.stopLoading();
+          this.getalert("success", "success", "SUKSES INPUT");
+        } catch (error) {
+          this.$root.stopLoading();
+          this.getalert("error", "Error", "Ada yang salah dengan inputan!");
+        }
+      } else {
+        this.getalert("warning", "Peringatan", "Semua data harus diiisi!");
+        return;
+      }
+    },
+
+    async submitForm() {
+      // Validasi data input
+      if (
+        !this.kodebeban1.code ||
+        !this.kodebeban2.code ||
+        !this.month1.code ||
+        !this.month2.code ||
+        !this.amount
+      ) {
+        toast.error("Semua field harus diisi!", {
+          theme: "colored",
+          position: "top-right",
+          autoClose: 3000,
+        });
+        return;
+      }
+
+      // Data yang akan dikirim ke API
+      const requestData = {
+        kodebeban1: this.kodebeban1.code,
+        kodebeban2: this.kodebeban2.code,
+        month1: this.month1.code,
+        month2: this.month2.code,
+        amount: this.amount,
+      };
+
+      try {
+        // Kirim data ke API
+        const response = await axios.post(
+          this.$root.apiHost + "/reclassupdate",
+          requestData
+        );
+        toast.success(response.data.message, {
+          theme: "colored",
+          position: "top-right",
+          autoClose: 3000,
+        });
+
+        // Reset form setelah berhasil
+        this.resetForm();
+      } catch (error) {
+        // Tangani error
+        toast.error(
+          error.response?.data?.error ||
+            "Terjadi kesalahan saat menyimpan data.",
+          {
+            theme: "colored",
+            position: "top-right",
+            autoClose: 3000,
+          }
+        );
+      }
+    },
+
+    // Fungsi untuk mereset form
+    resetForm() {
+      this.kodebeban1 = { code: "", label: "" };
+      this.kodebeban2 = { code: "", label: "" };
+      this.month1 = { code: "", label: "" };
+      this.month2 = { code: "", label: "" };
+      this.amount = null;
+    },
+    // async getparamDatakodebeban() {
+    //   return axios
+    //     .get(this.$root.apiHost + "api/reclasskodebeban", {
+    //       dataType: "json",
+    //     })
+    //     .then((response) => {
+    //       const data = response.data.results;
+    //       this.brand = {
+    //         code: data.kodebeban,
+    //         label: data.kodebeban,
+    //       };
+    //       data.forEach((item) => {
+    //         this.kodebebanOptions.push({
+    //           code: item.kodebeban,
+    //           label: item.kodebeban,
+    //         });
+    //       });
+    //     })
+    //     .catch((e) => {
+    //       // Log the error
+    //       console.log(e);
+    //       toast.error(e.response.data.message);
+    //     });
+    // },
+
+    async getparamDatakodebeban() {
+      try {
+        const response = await axios.get(
+          this.$root.apiHost + "/api/reclasskodebeban"
+        );
+        this.kodebebanOptions = response.data.results.map((item) => ({
+          code: item.kodebeban,
+          label: item.kodebeban,
+        }));
+      } catch (error) {
+        toast.error("Gagal memuat data kode beban.", {
+          theme: "colored",
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
+    },
+    async getsearch() {
+      // Check if all required fields are selected properly
+      if (
+        !this.kodebeban ||
+        !this.kodebeban.code ||
+        !this.kodebeban.label ||
+        !this.month ||
+        !this.month.code ||
+        !this.month.label
+      ) {
+        // Show error message using toast
+        toast.error("Semua opsi harus terisi!", {
+          theme: "colored",
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        return; // Stop execution if validation fails
+      }
+
+      try {
+        // Set `status_table` to true to indicate the table should be displayed
+        this.status_table = true;
+
+        // If validation passes, continue with existing logic
+        $("#wrapper2").remove();
+        var e = $('<div id="wrapper2"></div>');
+        $("#box").append(e);
+
+        // Call getTable to display the table data
+        await this.getTable(); // Add await since getTable is async
+      } catch (error) {
+        // Handle any errors that occur during table generation
+        toast.error("Terjadi kesalahan saat memuat data", {
+          theme: "colored",
+          position: "top-right",
+          autoClose: 3000,
+        });
+        console.error("Error in getsearch:", error);
+      }
+    },
+
+    // async getparamDatabulan() {
+    //   return axios
+    //     .get(this.$root.apiHost + "api/reclassbulan", {
+    //       dataType: "json",
+    //     })
+    //     .then((response) => {
+    //       // binding data
+    //       const data = response.data.results;
+    //       this.month = {
+    //         code: data.month,
+    //         label: data.month,
+    //       };
+    //       data.forEach((item) => {
+    //         this.monthOptions.push({
+    //           code: item.month,
+    //           label: item.month,
+    //         });
+    //       });
+    //     })
+    //     .catch((e) => {
+    //       // if error / fail then show response
+    //       const err = e.response.data;
+    //       toast.error(err.message);
+    //     });
+    // },
+
     padTo2Digits(num) {
       return num.toString().padStart(2, "0");
     },
@@ -566,6 +882,10 @@ export default {
 
       mythis.data_x_excel = [];
 
+      var mythis = this;
+      var kodebeban = this.kodebeban.code;
+      var mop = this.month.code;
+
       while (count > 0) {
         offsetx = limitx * nn;
 
@@ -574,7 +894,17 @@ export default {
 
           url:
             mythis.$root.apiHost +
-            "api/targetpenjualan?offset=" +
+            //MARIO
+            // "api/vstargetsales?offset=" +
+            "api/vstargetsalesmario/" +
+            this.kodebeban.code +
+            "/" +
+            this.brand.code +
+            "/" +
+            this.budget.code +
+            "/" +
+            this.month.code +
+            "?offset=" +
             offsetx +
             "&limit=" +
             limitx,
@@ -589,20 +919,20 @@ export default {
         if (resData.results.length == 0) {
           count = 0;
         }
-
+        console.log(resData, "wow");
         Object.keys(resData.results).forEach(function (key) {
           const countries_x = {
             nomor: nomor_x,
 
-            brandcode: "'" + resData.results[key].brandcode,
-            brandname: resData.results[key].brandname,
-            itemcode: resData.results[key].itemcode,
-            itemname: resData.results[key].itemname,
-            target: resData.results[key].target,
             yop: resData.results[key].yop,
             mop: resData.results[key].mop,
             distcode: resData.results[key].distcode,
             distname: resData.results[key].distname,
+            brandcode: "'" + resData.results[key].brandcode, // Menambahkan tanda kutip tunggal
+            brandname: resData.results[key].brandname, // Menambahkan tanda kutip tunggal
+            sales: resData.results[key].sales,
+            target: resData.results[key].target,
+            achievement: resData.results[key].achievement,
           };
 
           mythis.data_x_excel[baris_excel] = countries_x;
@@ -651,7 +981,7 @@ export default {
 
       var a = new Date().toLocaleString("en-GB");
 
-      mythis.nama_excelnya = "MASTER_TARGET_" + a + ".xls";
+      mythis.nama_excelnya = "MASTER_VSTARGETSALES_" + a + ".xls";
 
       mythis.nama_sheetnya = mythis.nama_excelnya;
 
@@ -692,7 +1022,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master target Bulky",
+        title: "Create Master Target vs Sales Bulky",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -702,15 +1032,6 @@ export default {
         cancelButtonText: "Cancel",
       }).then((result) => {
         if (result.isConfirmed) {
-          /////////////////////////////////////////////////////////////////////
-          // mythis.$root.presentLoading();
-          // mythis.$root.flagButtonLoading = true;
-          // const AuthStr = "bearer " + localStorage.getItem("token");
-          // const config = {
-          //   headers: {
-          //     Authorization: AuthStr,
-          //   },
-          // };
           const config = "";
           var url = mythis.$root.apiHost + "api/targetpenjualanBulky";
           axios
@@ -727,11 +1048,6 @@ export default {
               mythis.resetForm();
               mythis.csv = null;
               location.reload();
-              // mythis.$root.stopLoading();
-              // mythis.$root.flagButtonLoading = false;
-              // mythis.resetForm();
-              // mythis.show_modal();
-              // mythis.refreshTable();
             })
             .catch(function (error) {
               mythis.$root.flagButtonLoading = false;
@@ -772,7 +1088,7 @@ export default {
       var mythis = this;
 
       Swal.fire({
-        title: "Create Master User",
+        title: "Create Master TARGET VS SALES",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -782,30 +1098,22 @@ export default {
         cancelButtonText: "Cancel",
       }).then((result) => {
         if (result.isConfirmed) {
-          /////////////////////////////////////////////////////////////////////
-          // mythis.$root.presentLoading();
           mythis.$root.flagButtonLoading = true;
-          // const AuthStr = "bearer " + localStorage.getItem("token");
-          // const config = {
-          //   headers: {
-          //     Authorization: AuthStr,
-          //   },
-          // };
           const config = "";
           var url = mythis.$root.apiHost + "api/targetpenjualan";
           axios
             .post(
               url,
               {
-                brandcode: mythis.todo.brandcode,
-                brandname: mythis.todo.brandname,
-                itemcode: mythis.todo.itemcode,
-                itemname: mythis.todo.itemname,
-                target: mythis.todo.target,
                 yop: mythis.todo.yop,
                 mop: mythis.todo.mop,
                 distcode: mythis.todo.distcode,
                 distname: mythis.todo.distname,
+                brandcode: mythis.todo.brandcode,
+                brandname: mythis.todo.brandname,
+                sales: mythis.todo.sales,
+                target: mythis.todo.target,
+                achievement: mythis.todo.achievement,
                 userid: mythis.userid,
               },
               config
@@ -874,7 +1182,14 @@ export default {
       });
     },
     getTable() {
+      if (!this.status_table) {
+        return; // Tidak menampilkan tabel jika `status_table` masih false
+      }
       var mythis = this;
+      var kodebeban = this.kodebeban.code;
+      var brandcode = this.brand.code;
+      var yop = this.year.code;
+      var mop = this.month.code;
       this.grid = new Grid();
       this.grid.updateConfig({
         // language: idID,
@@ -884,7 +1199,7 @@ export default {
             url: (prev, page, limit) =>
               `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
                 page * limit
-              }`,
+              }&distcode=${distcode}&brandcode=${brandcode}&yop=${yop}&mop=${mop}`,
           },
         },
         search: {
@@ -893,40 +1208,25 @@ export default {
           },
         },
         columns: [
-          { name: "ID", hidden: true },
-          "No",
-          "YOP",
-          "MOP",
-          "BRAND CODE",
-          "BRAND NAME",
-          "ITEM CODE",
-          "ITEM NAME",
-          "DISTRIBUTION CODE",
-          "DISTRIBUTION NAME",
-          "TARGET",
+          { id: "id", name: "ID", hidden: true },
+          { id: "no", name: "No" },
+          { id: "yop", name: "YOP" },
+          { id: "mop", name: "MOP" },
+          { id: "brandcode", name: "BRAND CODE" },
+          { id: "brandname", name: "BRAND NAME" },
+          { id: "distcode", name: "DISTRIBUTION CODE" },
+          { id: "distname", name: "DISTRIBUTION NAME" },
+          { id: "sales", name: "SALES" },
+          { id: "target", name: "TARGET" },
 
-          // {
-          //   name: "Action",
-          //   formatter: (_, row) =>
-          //     mythis.$root.accessRoles[mythis.access_page].update &&
-          //     mythis.$root.accessRoles[mythis.access_page].delete
-          //       ? html(
-          //           `
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>
-          //       &nbsp;&nbsp;&nbsp;
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>
-          //     `
-          //         )
-          //       : mythis.$root.accessRoles[mythis.access_page].update
-          //       ? html(
-          //           `
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil-square-o"></i></button>`
-          //         )
-          //       : mythis.$root.accessRoles[mythis.access_page].delete
-          //       ? html(`&nbsp;&nbsp;&nbsp;
-          //       <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa fa-trash-o"></i></button>`)
-          //       : ``,
-          // },
+          {
+            id: "achievement",
+            name: "ACHIEVEMENT",
+            formatter: (cell) => {
+              // console.log("Achievement value:", cell); // Tambahkan log untuk debugging
+              return html(`${cell.props.content}%`); // Menampilkan dengan simbol persen
+            },
+          },
         ],
         style: {
           table: {
@@ -945,7 +1245,16 @@ export default {
           },
         },
         server: {
-          url: this.$root.apiHost + "api/targetpenjualan",
+          url:
+            this.$root.apiHost +
+            "api/targetpenjualanparam/" +
+            this.kodebeban.code +
+            "/" +
+            this.brand.code +
+            "/" +
+            this.year.code +
+            "/" +
+            this.month.code,
           then: (data) =>
             data.results.map((card) => [
               card.id,
@@ -954,15 +1263,19 @@ export default {
               html(`<span class="pull-left">${card.mop}</span>`),
               html(`<span class="pull-left">${card.brandcode}</span>`),
               html(`<span class="pull-left">${card.brandname}</span>`),
-              html(`<span class="pull-left">${card.itemcode}</span>`),
-              html(`<span class="pull-left">${card.itemname}</span>`),
               html(`<span class="pull-left">${card.distcode}</span>`),
               html(`<span class="pull-left">${card.distname}</span>`),
               html(
                 `<span class="pull-right">${new Intl.NumberFormat(
                   "en-US"
+                ).format(card.sales)}</span>`
+              ),
+              html(
+                `<span class="pull-right">${new Intl.NumberFormat(
+                  "en-US"
                 ).format(card.target)}</span>`
               ),
+              html(`<span class="pull-left">${card.achievement}</span>`),
             ]),
           total: (data) => data.count,
           handle: (res) => {
@@ -998,11 +1311,6 @@ export default {
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-            // const AuthStr = "bearer " + localStorage.getItem("token");
-            // const config = {
-            //   headers: {
-            //     Authorization: AuthStr,
-            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
@@ -1025,12 +1333,6 @@ export default {
     editTodo() {
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
-      // const AuthStr = "bearer " + localStorage.getItem("token");
-
-      //   headers: {
-      //     Authorization: AuthStr,
-      //   },
-      // };
       const config = "";
       axios
         .put(
@@ -1038,13 +1340,13 @@ export default {
           {
             brandcode: mythis.todo.brandcode,
             brandname: mythis.todo.brandname,
-            itemcode: mythis.todo.itemcode,
-            itemname: mythis.todo.itemname,
+            sales: mythis.todo.sales,
             target: mythis.todo.target,
             yop: mythis.todo.yop,
             mop: mythis.todo.mop,
             distcode: mythis.todo.distcode,
             distname: mythis.todo.distname,
+            achievement: mythis.todo.achievement,
 
             userid: mythis.userid,
           },
@@ -1112,13 +1414,13 @@ export default {
           mythis.todo.id = id;
           mythis.todo.brandcode = res.data.data.brandcode;
           mythis.todo.brandname = res.data.data.brandname;
-          mythis.todo.itemcode = res.data.data.itemcode;
-          mythis.todo.itemname = res.data.data.itemname;
+          mythis.todo.sales = res.data.data.sales;
           mythis.todo.target = res.data.data.target;
           mythis.todo.yop = res.data.data.yop;
           mythis.todo.mop = res.data.data.mop;
           mythis.todo.distcode = res.data.data.distcode;
           mythis.todo.distname = res.data.data.distname;
+          mythis.todo.achievement = res.data.data.achievement;
 
           document.getElementById("inputA").focus(); // sets the focus on the input
 

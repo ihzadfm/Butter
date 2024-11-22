@@ -82,6 +82,8 @@ import cmpMasterTarget from "./views/pages/test/cmpMasterTarget.vue";
 import cmpMasterVsTargetSales from "./views/pages/test/cmpMasterVsTargetSales.vue";
 import cmpSuggestion from "./views/pages/test/cmpSuggestion.vue";
 import cmpSuggestionPenampungan from "./views/pages/test/cmpSuggestionPenampungan.vue";
+import cmpReclass from "./views/pages/test/cmpReclass.vue";
+import cmpHistory from "./views/pages/test/cmpHistory.vue";
 import cmpMasterPenampungan from "./views/pages/test/cmpMasterPenampungan.vue";
 import cmpMasterBridgingTargetSales from "./views/pages/test/cmpMasterBridgingTargetSales.vue";
 
@@ -131,9 +133,11 @@ const routeComponent = {
   cmpMasterSales: markRaw(cmpMasterSales),
   cmpMasterTarget: markRaw(cmpMasterTarget),
   cmpMasterVsTargetSales: markRaw(cmpMasterVsTargetSales),
+  cmpMasterPenampungan: markRaw(cmpMasterPenampungan),
   cmpSuggestion: markRaw(cmpSuggestion),
   cmpSuggestionPenampungan: markRaw(cmpSuggestionPenampungan),
-  cmpMasterPenampungan: markRaw(cmpMasterPenampungan),
+  cmpReclass: markRaw(cmpReclass),
+  cmpHistory: markRaw(cmpHistory),
   Login: markRaw(_Login),
   _logout: markRaw(_logout),
   _header: markRaw(_header),
@@ -373,9 +377,12 @@ export default {
             cmpMasterSales: "SALES",
             cmpMasterTarget: "TARGET",
             cmpMasterVsTargetSales: "TARGET VS SALES",
+            cmpMasterPenampungan: "PENAMPUNGAN REALIZATION",
             cmpSuggestion: "SUGGESTION BUDGET",
             cmpSuggestionPenampungan: "SUGGESTION REALIZATION",
-            cmpMasterPenampungan: "PENAMPUNGAN REALIZATION",
+            cmpReclass: "RECLASS",
+            cmpHistory: "HISTORY BUDGET RECLASS",
+            
             // cmpMasterItem: "ITEM",
             // cmpMasterItemInventory: "ITEM INVENTORY",
             // "SUB MENU": {
@@ -401,9 +408,12 @@ export default {
         cmpMasterSales: "SALES",
         cmpMasterTarget: "TARGET",
         cmpMasterVsTargetSales: "TARGET VS SALES",
+        cmpMasterPenampungan: "PENAMPUNGAN REALIZATION",
         cmpSuggestion: "SUGGESTION BUDGET",
         cmpSuggestionPenampungan: "SUGGESTION REALIZATION",
-        cmpMasterPenampungan: "PENAMPUNGAN REALIZATION",
+        cmpReclass: "RECLASS",
+        cmpHistory: "HISTORY BUDGET RECLASS",
+        
         // cmpMasterItem: "ITEM",
         // cmpMasterItemInventory: "ITEM INVENTORY",
         // cmpHalDashboard1: "DASHBOARD1",
@@ -494,6 +504,16 @@ export default {
           delete: true,
         },
         cmpSuggestionPenampungan: {
+          create: true,
+          update: true,
+          delete: true,
+        },
+        cmpReclass: {
+          create: true,
+          update: true,
+          delete: true,
+        },
+        cmpHistory: {
           create: true,
           update: true,
           delete: true,
