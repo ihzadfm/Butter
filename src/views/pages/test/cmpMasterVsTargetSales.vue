@@ -553,12 +553,14 @@ export default {
     };
   },
   async mounted() {
-    this.getparamData();
-    this.getparamData2();
-    this.getparamData3();
-    this.getparamData4();
-    this.refreshTable();
+    this.$root.presentLoading();
+    await this.getparamData();
+    await this.getparamData2();
+    await this.getparamData3();
+    await this.getparamData4();
+    await this.refreshTable();
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
+    this.$root.stopLoading();
   },
   methods: {
     async getsearch() {

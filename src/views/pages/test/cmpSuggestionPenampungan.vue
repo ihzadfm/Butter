@@ -628,13 +628,14 @@ export default {
     };
   },
   async mounted() {
-    // await this.$root.refreshToken(localStorage.getItem("token"));
-    this.getparamData();
-    this.getparamData2();
-    this.getparamData3();
-    this.getparamData4();
-    this.refreshTable();
+    this.$root.presentLoading();
+    await this.getparamData();
+    await this.getparamData2();
+    // await this.getparamData3();
+    await this.getparamData4();
+    await this.refreshTable();
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
+    this.$root.stopLoading();
   },
   methods: {
     // async getsearch() {
@@ -833,31 +834,31 @@ export default {
         });
     },
 
-    async getparamData3() {
-      return axios
-        .get(this.$root.apiHost + "api/getdistcodeallyear", {
-          dataType: "json",
-        })
-        .then((response) => {
-          // binding data
-          const data = response.data.results;
-          this.year = {
-            code: data.year,
-            label: data.year,
-          };
-          data.forEach((item) => {
-            this.yearOptions.push({
-              code: item.year,
-              label: item.year,
-            });
-          });
-        })
-        .catch((e) => {
-          // if error / fail then show response
-          const err = e.response.data;
-          toast.error(err.message);
-        });
-    },
+    // async getparamData3() {
+    //   return axios
+    //     .get(this.$root.apiHost + "api/getdistcodeallyear", {
+    //       dataType: "json",
+    //     })
+    //     .then((response) => {
+    //       // binding data
+    //       const data = response.data.results;
+    //       this.year = {
+    //         code: data.year,
+    //         label: data.year,
+    //       };
+    //       data.forEach((item) => {
+    //         this.yearOptions.push({
+    //           code: item.year,
+    //           label: item.year,
+    //         });
+    //       });
+    //     })
+    //     .catch((e) => {
+    //       // if error / fail then show response
+    //       const err = e.response.data;
+    //       toast.error(err.message);
+    //     });
+    // },
 
     async getparamData4() {
       return axios

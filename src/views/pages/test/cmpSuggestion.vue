@@ -1,34 +1,16 @@
 <template>
   <!---------------------------- Modal -->
-  <div
-    :class="modal ? 'modal fade in' : 'modal fade'"
-    id="exampleModalCenter"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true"
-    data-keyboard="false"
-    data-backdrop="true"
-    :style="modal ? 'display: block;' : 'display: none;'"
-  >
+  <div :class="modal ? 'modal fade in' : 'modal fade'" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="true" :style="modal ? 'display: block;' : 'display: none;'">
     <div class="modal-dialog2 modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           {{ flagButtonAdd ? "ADD" : "UPDATE" }} DATA {{ $root.judulHalaman }}
-          <button
-            id="closeModal"
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-            :disabled="$root.flagButtonLoading"
-            @click="show_modal()"
-          >
+          <button id="closeModal" type="button" class="close" data-dismiss="modal" aria-label="Close" :disabled="$root.flagButtonLoading" @click="show_modal()">
             <span aria-hidden="true">X</span>
           </button>
         </div>
         <div class="modal-body">
-          <pre>{{ budgetData }}</pre>
+          <!-- <pre>{{ budgetData }}</pre> -->
 
           <!-- Wizards Row -->
           <div class="row">
@@ -36,34 +18,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="example">Brand Code</label>
-                  <CmpInputText
-                    id="inputA"
-                    type="text"
-                    placeholder="brand code"
-                    v-model="todo.brandcode"
-                    :class="
-                      errorField.brandcode
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                    :disabled="!flagButtonAdd"
-                  />
+                  <CmpInputText id="inputA" type="text" placeholder="brand code" v-model="todo.brandcode" :class="errorField.brandcode ? 'form-control input-lg input-error' : 'form-control input-lg'" :disabled="!flagButtonAdd" />
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="example-nf-email">Item Name</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="item name"
-                    v-model="todo.itemname"
-                    :class="
-                      errorField.itemname
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
+                  <CmpInputText type="text" placeholder="item name" v-model="todo.itemname" :class="errorField.itemname ? 'form-control input-lg input-error' : 'form-control input-lg'" />
                 </div>
               </div>
             </div>
@@ -74,32 +36,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="example-nf-email">Item Code</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="item code"
-                    v-model="todo.itemcode"
-                    :class="
-                      errorField.itemcode
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
+                  <CmpInputText type="text" placeholder="item code" v-model="todo.itemcode" :class="errorField.itemcode ? 'form-control input-lg input-error' : 'form-control input-lg'" />
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="example-nf-email">Target</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="target"
-                    v-model="todo.target"
-                    :class="
-                      errorField.target
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
+                  <CmpInputText type="text" placeholder="target" v-model="todo.target" :class="errorField.target ? 'form-control input-lg input-error' : 'form-control input-lg'" />
                 </div>
               </div>
             </div>
@@ -110,34 +54,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="example-nf-email">Year of Production (YOP)</label>
-                  <CmpInputText
-                    type="text"
-                    placeholder="yop"
-                    v-model="todo.yop"
-                    :class="
-                      errorField.yop
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
+                  <CmpInputText type="text" placeholder="yop" v-model="todo.yop" :class="errorField.yop ? 'form-control input-lg input-error' : 'form-control input-lg'" />
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="example-nf-email"
-                    >Month of Production (MOP)</label
-                  >
-                  <CmpInputText
-                    type="text"
-                    placeholder="mop"
-                    v-model="todo.mop"
-                    :class="
-                      errorField.mop
-                        ? 'form-control input-lg input-error'
-                        : 'form-control input-lg'
-                    "
-                  />
+                  <label for="example-nf-email">Month of Production (MOP)</label>
+                  <CmpInputText type="text" placeholder="mop" v-model="todo.mop" :class="errorField.mop ? 'form-control input-lg input-error' : 'form-control input-lg'" />
                 </div>
               </div>
             </div>
@@ -171,8 +95,6 @@
                   todo.distcode == '' ||
                   todo.distname == null ||
                   todo.distname == '' ||
-                  todo.budgetaftera == null ||
-                  todo.budgetaftera == '' ||
                   todo.budgetafterb == null ||
                   todo.budgetafterb == '' ||
                   todo.kodebeban == null ||
@@ -187,10 +109,7 @@
                   todo.achievement == ''
                 "
               >
-                <i
-                  v-if="$root.flagButtonLoading"
-                  class="fa fa-spinner fa-spin text-default"
-                ></i>
+                <i v-if="$root.flagButtonLoading" class="fa fa-spinner fa-spin text-default"></i>
                 SAVE DATA
               </button>
 
@@ -217,8 +136,6 @@
                   todo.distcode == '' ||
                   todo.distname == null ||
                   todo.distname == '' ||
-                  todo.budgetaftera == null ||
-                  todo.budgetaftera == '' ||
                   todo.budgetafterb == null ||
                   todo.budgetafterb == '' ||
                   todo.kodebeban == null ||
@@ -233,10 +150,7 @@
                   todo.achievement == ''
                 "
               >
-                <i
-                  v-if="$root.flagButtonLoading"
-                  class="fa fa-spinner fa-spin text-default"
-                ></i>
+                <i v-if="$root.flagButtonLoading" class="fa fa-spinner fa-spin text-default"></i>
                 UPDATE DATA
               </button>
             </div>
@@ -295,23 +209,10 @@
         >
           SAVE DATA BULKY
         </button> -->
+
         <!-- Export Button -->
-        <download-excel
-          v-if="status_table"
-          class="button"
-          :data="json_data"
-          :fields="json_fields"
-          :worksheet="nama_sheetnya"
-          :name="nama_excelnya"
-          :before-generate="startDownload"
-          :before-finish="finishDownload"
-        >
-          <button
-            class="btn btn-sm btn-success pull-left"
-            @click="download_excel_xyz()"
-          >
-            Export Excel
-          </button>
+        <download-excel v-if="status_table" class="button" :data="json_data" :fields="json_fields" :worksheet="nama_sheetnya" :name="nama_excelnya" :before-generate="startDownload" :before-finish="finishDownload">
+          <button class="btn btn-sm btn-success pull-left" @click="download_excel_xyz()">Export Excel</button>
         </download-excel>
 
         <br />
@@ -352,10 +253,7 @@
                         <label for="">Kode Brand</label>
                       </div>
                       <div class="col-md-5">
-                        <v-select
-                          v-model="brand"
-                          :options="brandOptions"
-                        ></v-select>
+                        <v-select v-model="brand" :options="brandOptions" @change="console.log(brand)"></v-select>
                       </div>
                     </div>
                   </div>
@@ -380,10 +278,7 @@
                         <label for="">Term</label>
                       </div>
                       <div class="col-md-5">
-                        <v-select
-                          v-model="term"
-                          :options="termOptions"
-                        ></v-select>
+                        <v-select v-model="term" :options="termOptions"></v-select>
                       </div>
                     </div>
                   </div>
@@ -393,7 +288,10 @@
                     <div class="row">
                       <div class="col-md-4"></div>
                       <div class="col-md-6">
-                        <button type="submit" @click="getsearch()">SHOW</button>
+                        <button type="button" @click="getDataSuggestion()" :disabled="loading">
+                          <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          <span v-else>SHOW</span>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -402,7 +300,93 @@
             </div>
           </div>
         </div>
-        <div id="wrapper2" v-if="status_table"></div>
+        <!-- <div id="wrapper2" v-if="status_table"></div> -->
+        <table class="table table-striped table-bordered table-hover table-vcenter" style="margin-top: 20px">
+          <thead>
+            <tr>
+              <td class="text-center">No</td>
+              <td class="text-center">KODE BEBAN</td>
+              <td class="text-center">TERM</td>
+              <td class="text-center">YOP</td>
+              <td class="text-center">MOP</td>
+              <td class="text-center">BRAND CODE</td>
+              <td class="text-center">BRAND NAME</td>
+              <td class="text-center">DISTRIBUTION CODE</td>
+              <td class="text-center">DISTRIBUTION NAME</td>
+              <td class="text-center">SALES</td>
+              <td class="text-center">TARGET</td>
+              <td class="text-center">CURRENT TERM</td>
+              <td class="text-center">NEXT TERM</td>
+              <td class="text-center">ACHIEVEMENT</td>
+              <td class="text-center">ACTION</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-if="dataTable.suggestion && dataTable.suggestion.length > 0" v-for="(item, index) in dataTable.suggestion" :key="item.id">
+              <td class="text-center">
+                {{ index + 1 }}
+              </td>
+              <td>{{ item.kodebeban }}</td>
+              <td>{{ item.term }}</td>
+              <td>{{ item.yop }}</td>
+              <td>{{ item.mop }}</td>
+              <td>{{ item.brandcode }}</td>
+              <td>{{ item.brandname }}</td>
+              <td>{{ item.distcode }}</td>
+              <td>{{ item.distname }}</td>
+              <td>{{ formatRupiah(item.sales) }}</td>
+              <td>{{ formatRupiah(item.target) }}</td>
+              <td>{{ formatRupiah(item.nowterm) }}</td>
+              <td>{{ formatRupiah(item.nextterm) }}</td>
+              <td>{{ formatPersen(item.achievement) }}</td>
+              <td class="text-center">
+                <div class="btn-group" role="group">
+                  <div class="btn-group" role="group">
+                    <div class="text-center">
+                      <!-- Tombol pertama -->
+                      <button class="btn btn-sm text-white" style="background: #bbe4e9" id="editData" data-toggle="tooltip" title="Edit" @click="getaccruedrealisasi(item)">ADJUSTMENT BUDGET WITH ACCRUED</button>
+
+                      <!-- Tombol kedua -->
+                      <button class="btn btn-sm text-white" style="background: #bbe4e9" id="editData2" data-toggle="tooltip" title="Edit Again" @click="getadjusmentrealisasi(item)">ADJUSTMENT BUDGET WITH REALISASI</button>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <nav v-if="dataTable.suggestion.data && dataTable.suggestion.data.length > 0" class="mt-2">
+          <ul class="pagination">
+            <li v-if="dataTable.suggestion.current_page !== 1">
+              <a href="#" @click="getDataSuggestion(1)" aria-label="First">
+                <span aria-hidden="true">« First</span>
+              </a>
+            </li>
+            <li v-if="dataTable.suggestion.current_page !== 1">
+              <a href="#" @click="getDataSuggestion(dataTable.suggestion.current_page - 1)" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+              </a>
+            </li>
+            <template v-for="page in calculatePages()">
+              <li :class="{ active: page === dataTable.suggestion.current_page }">
+                <a href="#" @click="getDataSuggestion(page)">{{ page }}</a>
+              </li>
+            </template>
+            <li v-if="dataTable.suggestion.current_page !== dataTable.suggestion.last_page">
+              <a href="#" @click="getDataSuggestion(dataTable.suggestion.current_page + 1)" aria-label="Next">
+                <span aria-hidden="true">&gt;</span>
+              </a>
+            </li>
+            <li v-if="dataTable.suggestion.current_page !== dataTable.suggestion.last_page">
+              <a href="#" @click="getDataSuggestion(dataTable.suggestion.last_page)" aria-label="Last">
+                <span aria-hidden="true">Last »</span>
+              </a>
+            </li>
+          </ul>
+          <div class="pagination-info">
+            <span>Showing {{ dataTable.suggestion.from }} to {{ dataTable.suggestion.to }} of {{ dataTable.suggestion.total }} records</span>
+          </div>
+        </nav> -->
         <div id="box"></div>
 
         <!-- <button
@@ -436,6 +420,7 @@ import loadingBar from "@/assets/img/Moving_train.gif";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import JsonExcel from "vue-json-excel3";
+import apiService from "../../../services/apiService";
 
 el: "#app";
 
@@ -445,6 +430,9 @@ export default {
   },
   data() {
     return {
+      dataTable: {
+        suggestion: [],
+      },
       dist: {
         code: "",
         label: "",
@@ -473,8 +461,8 @@ export default {
         mop: false,
         distcode: false,
         distname: false,
-        budgetaftera: false,
-        budgetafterb: false,
+        // budgetaftera: false,
+        // budgetafterb: false,
         kodebeban: false,
         nowterm: false,
         nextterm: false,
@@ -500,8 +488,8 @@ export default {
         mop: "",
         distcode: "",
         distname: "",
-        budgetaftera: "",
-        budgetafterb: "",
+        // budgetaftera: "",
+        // budgetafterb: "",
         kodebeban: "",
         nowterm: "",
         nextterm: "",
@@ -543,14 +531,14 @@ export default {
           label: "distname",
           required: true,
         },
-        budgetaftera: {
-          label: "budgetaftera",
-          required: true,
-        },
-        budgetafterb: {
-          label: "budgetafterb",
-          required: true,
-        },
+        // budgetaftera: {
+        //   label: "budgetaftera",
+        //   required: true,
+        // },
+        // budgetafterb: {
+        //   label: "budgetafterb",
+        //   required: true,
+        // },
         kodebeban: {
           label: "kodebeban",
           required: true,
@@ -593,8 +581,8 @@ export default {
         mop: "mop",
         distcode: "distcode",
         distname: "distname",
-        budgetaftera: "budgetaftera",
-        budgetafterb: "budgetafterb",
+        // budgetaftera: "budgetaftera",
+        // budgetafterb: "budgetafterb",
         kodebeban: "kodebeban",
         nowterm: "nowterm",
         nextterm: "nextterm",
@@ -616,70 +604,129 @@ export default {
     };
   },
   async mounted() {
-    // await this.$root.refreshToken(localStorage.getItem("token"));
-    this.getparamData();
-    this.getparamData2();
-    this.getparamData3();
-    this.getparamData4();
-    this.refreshTable();
+    this.$root.presentLoading();
+    await this.getparamData();
+    await this.getparamData2();
+    // await this.getparamData3();
+    await this.getparamData4();
+    await this.refreshTable();
     this.userid = this.$root.get_id_user(localStorage.getItem("unique"));
+    this.$root.stopLoading();
   },
-  methods: {
-    // async getsearch() {
-    //   // Check if all required fields are selected properly
-    //   if (
-    //     !this.dist ||
-    //     !this.dist.code ||
-    //     !this.dist.label ||
-    //     !this.brand ||
-    //     !this.brand.code ||
-    //     !this.brand.label ||
-    //     !this.term ||
-    //     !this.term.code ||
-    //     !this.term.label
-    //   ) {
-    //     // Show error message using toast
-    //     toast.error("Semua opsi harus terisi!", {
-    //       theme: "colored",
-    //       position: "top-right",
-    //       autoClose: 3000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //     });
-    //     return; // Stop execution if validation fails
-    //   }
 
-    //   try {
-    //     // If validation passes, continue with existing logic
-    //     $("#wrapper2").remove();
-    //     var e = $('<div id="wrapper2"></div>');
-    //     $("#box").append(e);
-    //     await this.getTable(); // Add await since getTable is async
-    //   } catch (error) {
-    //     // Handle any errors that occur during table generation
-    //     toast.error("Terjadi kesalahan saat memuat data", {
-    //       theme: "colored",
-    //       position: "top-right",
-    //       autoClose: 3000,
-    //     });
-    //     console.error("Error in getsearch:", error);
-    //   }
-    // },
+  methods: {
+    formatRupiah(value) {
+      if (value == null || isNaN(value)) return "-"; // Menampilkan tanda '-' jika nilai null atau bukan angka
+      return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(value);
+    },
+    formatPersen(value) {
+      if (value == null || isNaN(value)) return "-"; // Menampilkan tanda '-' jika nilai null atau bukan angka
+      return `${new Intl.NumberFormat("id-ID", {
+        minimumFractionDigits: 2, // Jumlah desimal
+        maximumFractionDigits: 2, // Jumlah desimal
+      }).format(value)}%`;
+    },
+    async getaccruedrealisasi(item) {
+      Swal.fire({
+        title: "Get Adjustment Accrued?",
+        text: "Are you sure you want to proceed?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "Cancel",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            // Mengaktifkan loading
+            this.$root.presentLoading();
+            this.loading = true;
+
+            // Memanggil API untuk data accrued realisasi
+            const response = await apiService.makeGet(`adjusmentaccrued?kodebeban=${item.kodebeban}&ach=${item.achievement}`);
+
+            // Memanggil fungsi untuk mendapatkan data suggestion
+            await this.getDataSuggestion();
+
+            // Menampilkan hasil
+            this.result = response.data; // Simpan hasil yang diterima untuk ditampilkan di UI
+            Swal.fire("Success", "Data has been successfully fetched.", "success");
+          } catch (error) {
+            console.error(error, "Failed to fetch data.");
+            Swal.fire("Error", "Failed to fetch accrued realisasi data.", "error");
+          } finally {
+            // Menonaktifkan loading setelah proses selesai
+            this.$root.stopLoading();
+            this.loading = false;
+          }
+        }
+      });
+    },
+    async getadjusmentrealisasi(item) {
+      Swal.fire({
+        title: "Get Adjustment Realisasi",
+        text: "Are you sure you want to proceed?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "Cancel",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            // Mengaktifkan loading
+            this.$root.presentLoading();
+            this.loading = true;
+
+            // Memanggil API untuk data accrued realisasi
+            const response = await apiService.makeGet(`adjusmentrealisasi?kodebeban=${item.kodebeban}&ach=${item.achievement}`);
+
+            // Memanggil fungsi untuk mendapatkan data suggestion
+            await this.getDataSuggestion();
+
+            // Menampilkan hasil
+            this.result = response.data; // Simpan hasil yang diterima untuk ditampilkan di UI
+            Swal.fire("Success", "Data has been successfully fetched.", "success");
+          } catch (error) {
+            console.error(error, "Failed to fetch data.");
+            Swal.fire("Error", "Failed to fetch accrued realisasi data.", "error");
+          } finally {
+            // Menonaktifkan loading setelah proses selesai
+            this.$root.stopLoading();
+            this.loading = false;
+          }
+        }
+      });
+    },
+
+    async getDataSuggestion() {
+      try {
+        this.$root.presentLoading();
+        // Mengaktifkan loading
+        this.loading = true;
+
+        // Memanggil API untuk data suggestion
+        const response = await apiService.makeGet(`suggestionparam/${this.dist.code}/${this.brand.code}/${this.term.code}?limit=10&offset=0`);
+
+        // Menyimpan hasil suggestion ke dalam dataTable
+        this.dataTable.suggestion = response.results;
+      } catch (error) {
+        console.error(error, "Gagal mengambil data satuan.");
+      } finally {
+        // Menonaktifkan loading
+        this.loading = false;
+        this.$root.stopLoading();
+      }
+    },
+
     async getsearch() {
       // Check if all required fields are selected properly
-      if (
-        !this.dist ||
-        !this.dist.code ||
-        !this.dist.label ||
-        !this.brand ||
-        !this.brand.code ||
-        !this.brand.label ||
-        !this.term ||
-        !this.term.code ||
-        !this.term.label
-      ) {
+      if (!this.dist || !this.dist.code || !this.dist.label || !this.brand || !this.brand.code || !this.brand.label || !this.term || !this.term.code || !this.term.label) {
         // Show error message using toast
         toast.error("Semua opsi harus terisi!", {
           theme: "colored",
@@ -714,59 +761,6 @@ export default {
         console.error("Error in getsearch:", error);
       }
     },
-
-    // async deleteAllData() {
-    //   var mythis = this;
-    //   Swal.fire({
-    //     title: "Delete All Data",
-    //     text: "Are you sure? This action cannot be undone.",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Yes, delete all",
-    //     cancelButtonText: "Cancel",
-    //   }).then(async (result) => {
-    //     if (result.isConfirmed) {
-    //       mythis.$root.presentLoading();
-    //       const config = {
-    //         data: {
-    //           fileUpload: "form satuan",
-    //           userid: mythis.userid,
-    //         },
-    //       };
-    //       try {
-    //         const response = await axios.delete(
-    //           mythis.$root.apiHost + mythis.$root.prefixApi + "pocustdelete",
-    //           config
-    //         );
-    //         mythis.$root.stopLoading();
-    //         if (response.data.status) {
-    //           Swal.fire(
-    //             "Deleted!",
-    //             `All data has been deleted. ${response.data.deleted_rows} rows were deleted.`,
-    //             "success"
-    //           );
-    //           mythis.refreshTable();
-    //         } else {
-    //           Swal.fire(
-    //             "Error",
-    //             response.data.message || "Failed to delete all data",
-    //             "error"
-    //           );
-    //         }
-    //       } catch (error) {
-    //         mythis.$root.stopLoading();
-    //         console.error("Error deleting all data:", error);
-    //         let errorMessage = "An error occurred while deleting data";
-    //         if (error.response) {
-    //           errorMessage = error.response.data.message || errorMessage;
-    //         }
-    //         Swal.fire("Error", errorMessage, "error");
-    //       }
-    //     }
-    //   });
-    // },
 
     async getparamData() {
       return axios
@@ -821,31 +815,31 @@ export default {
         });
     },
 
-    async getparamData3() {
-      return axios
-        .get(this.$root.apiHost + "api/getdistcodeallyear", {
-          dataType: "json",
-        })
-        .then((response) => {
-          // binding data
-          const data = response.data.results;
-          this.year = {
-            code: data.year,
-            label: data.year,
-          };
-          data.forEach((item) => {
-            this.yearOptions.push({
-              code: item.year,
-              label: item.year,
-            });
-          });
-        })
-        .catch((e) => {
-          // if error / fail then show response
-          const err = e.response.data;
-          toast.error(err.message);
-        });
-    },
+    // async getparamData3() {
+    //   return axios
+    //     .get(this.$root.apiHost + "api/getdistcodeallyear", {
+    //       dataType: "json",
+    //     })
+    //     .then((response) => {
+    //       // binding data
+    //       const data = response.data.results;
+    //       this.year = {
+    //         code: data.year,
+    //         label: data.year,
+    //       };
+    //       data.forEach((item) => {
+    //         this.yearOptions.push({
+    //           code: item.year,
+    //           label: item.year,
+    //         });
+    //       });
+    //     })
+    //     .catch((e) => {
+    //       // if error / fail then show response
+    //       const err = e.response.data;
+    //       toast.error(err.message);
+    //     });
+    // },
 
     async getparamData4() {
       return axios
@@ -878,23 +872,7 @@ export default {
     },
 
     formatDate(date) {
-      return (
-        [
-          date.getFullYear(),
-
-          this.padTo2Digits(date.getMonth() + 1),
-
-          this.padTo2Digits(date.getDate()),
-        ].join("-") +
-        " " +
-        [
-          this.padTo2Digits(date.getHours()),
-
-          this.padTo2Digits(date.getMinutes()),
-
-          this.padTo2Digits(date.getSeconds()),
-        ].join(":")
-      );
+      return [date.getFullYear(), this.padTo2Digits(date.getMonth() + 1), this.padTo2Digits(date.getDate())].join("-") + " " + [this.padTo2Digits(date.getHours()), this.padTo2Digits(date.getMinutes()), this.padTo2Digits(date.getSeconds())].join(":");
     },
 
     async getDataExportExcel() {
@@ -974,8 +952,8 @@ export default {
             mop: resData.results[key].mop,
             distcode: resData.results[key].distcode,
             distname: resData.results[key].distname,
-            budgetaftera: resData.results[key].budgetaftera,
-            budgetafterb: resData.results[key].budgetafterb,
+            // budgetaftera: resData.results[key].budgetaftera,
+            // budgetafterb: resData.results[key].budgetafterb,
             kodebeban: resData.results[key].kodebeban,
             nowterm: resData.results[key].nowterm,
             nextterm: resData.results[key].nextterm,
@@ -1069,7 +1047,6 @@ export default {
       this.getTable();
       //////////////////////////////
     },
-
     saveTodoBulky() {
       var mythis = this;
 
@@ -1183,8 +1160,8 @@ export default {
                 mop: mythis.todo.mop,
                 distcode: mythis.todo.distcode,
                 distname: mythis.todo.distname,
-                budgetaftera: mythis.todo.budgetaftera,
-                budgetafterb: mythis.todo.budgetafterb,
+                // budgetaftera: mythis.todo.budgetaftera,
+                // budgetafterb: mythis.todo.budgetafterb,
                 kodebeban: mythis.todo.kodebeban,
                 nowterm: mythis.todo.nowterm,
                 nextterm: mythis.todo.nextterm,
@@ -1254,23 +1231,21 @@ export default {
       $(document).on("click", "#editData", async function () {
         let id = $(this).data("id");
         let id2 = $(this).data("id2");
-        // alert(id);
-        // alert(id2);
-        // await mythis.getData(id);
-        // mythis.show_modal();
-        mythis.deleteTodoa(id, id2);
+        let id4 = $(this).data("id4"); // Menambahkan id4
+        mythis.deleteTodoa(id, id2, id4); // Memanggil deleteTodoa dengan id, id2, dan id4
       });
+
       $(document).on("click", "#deleteData", function () {
         let id = $(this).data("id");
         let id2 = $(this).data("id2");
         let id3 = $(this).data("id3");
-        // alert(id);
-        // alert(id2);
-        // alert(id3);
-        mythis.deleteTodo(id, id2);
+        mythis.deleteTodo(id, id2); // Tetap panggil deleteTodo dengan id dan id2
       });
     },
     getTable() {
+      console.log(this.brand);
+      console.log(this.dist);
+      console.log(this.term);
       if (!this.status_table) {
         return; // Tidak menampilkan tabel jika `status_table` masih false
       }
@@ -1284,10 +1259,7 @@ export default {
         pagination: {
           limit: mythis.$root.pagingTabel1,
           server: {
-            url: (prev, page, limit) =>
-              `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
-                page * limit
-              }&distcode=${distcode}&brandcode=${brandcode}&yop=${yop}&term=${term}`,
+            url: (prev, page, limit) => `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit}&distcode=${distcode}&brandcode=${brandcode}&yop=${yop}&term=${term}`,
           },
         },
         search: {
@@ -1310,26 +1282,26 @@ export default {
           { id: "target", name: "TARGET" },
           { id: "nowterm", name: "CURRENT TERM" },
           { id: "nextterm", name: "NEXT TERM" },
-          {
-            id: "budgetaftera",
-            name: "BUDGET AFTER A",
-            formatter: (cell) => {
-              const value = cell.props.content;
-              return value === null || value === undefined || value === ""
-                ? html("")
-                : html(`<span class="pull-left">${value}</span>`);
-            },
-          },
-          {
-            id: "budgetafterb",
-            name: "BUDGET AFTER B",
-            formatter: (cell) => {
-              const value = cell.props.content;
-              return value === null || value === undefined || value === ""
-                ? html("")
-                : html(`<span class="pull-left">${value}</span>`);
-            },
-          },
+          // {
+          //   id: "budgetaftera",
+          //   name: "BUDGET AFTER A",
+          //   formatter: (cell) => {
+          //     const value = cell.props.content;
+          //     return value === null || value === undefined || value === ""
+          //       ? html("")
+          //       : html(`<span class="pull-left">${value}</span>`);
+          //   },
+          // },
+          // {
+          //   id: "budgetafterb",
+          //   name: "BUDGET AFTER B",
+          //   formatter: (cell) => {
+          //     const value = cell.props.content;
+          //     return value === null || value === undefined || value === ""
+          //       ? html("")
+          //       : html(`<span class="pull-left">${value}</span>`);
+          //   },
+          // },
           {
             id: "achievement",
             name: "ACHIEVEMENT",
@@ -1341,11 +1313,29 @@ export default {
             name: "Action",
             formatter: (_, row) =>
               html(
-                `<button data-id="${row.cells[2].data}" data-id2="${row.cells[3].data}" data-id3="${row.cells[14].data}" class="btn btn-sm text-white" style="background: #bbe4e9" id="editData" data-toggle="tooltip" title="Edit" >UPDATE BUDGET TERM BERIKUTNYA DENGAN BUDGET AFTER A</button>
-                &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[2].data}" data-id2="${row.cells[3].data}" data-id3="${row.cells[15].data}" class="btn btn-sm text-white" style="background: #bbe4e9" id="deleteData" data-toggle="tooltip" title="Delete" >UPDATE BUDGET TERM BERIKUTNYA DENGAN BUDGET AFTER B</button>`
+                `<button 
+        data-id="${row.cells[2].data}" 
+        data-id2="${row.cells[3].data}" 
+        data-id4="${row.cells[14].data}"  // Parameter tambahan untuk id4
+        class="btn btn-sm text-white" 
+        style="background: #bbe4e9" 
+        id="editData" 
+        data-toggle="tooltip" 
+        title="Edit">
+        ADJUSTMENT BUDGET WITH REALISASI
+      </button>
+      &nbsp;&nbsp;&nbsp;
+      <button 
+        data-id="${row.cells[2].data}" 
+        data-id2="${row.cells[3].data}" 
+        data-id3="${row.cells[14].data}" 
+        class="btn btn-sm text-white" 
+        style="background: #bbe4e9" 
+        id="deleteData" 
+        data-toggle="tooltip" 
+        title="Delete">
+        ADJUSTMENT BUDGET WITH ACCRUED
+      </button>`
               ),
           },
         ],
@@ -1388,36 +1378,20 @@ export default {
               html(`<span class="pull-left">${card.brandname}</span>`),
               html(`<span class="pull-left">${card.distcode}</span>`),
               html(`<span class="pull-left">${card.distname}</span>`),
-              html(
-                `<span class="pull-right">${new Intl.NumberFormat(
-                  "en-US"
-                ).format(card.sales)}</span>`
-              ),
-              html(
-                `<span class="pull-right">${new Intl.NumberFormat(
-                  "en-US"
-                ).format(card.target)}</span>`
-              ),
-              html(
-                `<span class="pull-right">${new Intl.NumberFormat(
-                  "en-US"
-                ).format(card.nowterm)}</span>`
-              ),
-              html(
-                `<span class="pull-right">${new Intl.NumberFormat(
-                  "en-US"
-                ).format(card.nextterm)}</span>`
-              ),
-              html(
-                `<span class="pull-right">${new Intl.NumberFormat(
-                  "en-US"
-                ).format(card.budgetaftera)}</span>`
-              ),
-              html(
-                `<span class="pull-right">${new Intl.NumberFormat(
-                  "en-US"
-                ).format(card.budgetafterb)}</span>`
-              ),
+              html(`<span class="pull-right">${new Intl.NumberFormat("en-US").format(card.sales)}</span>`),
+              html(`<span class="pull-right">${new Intl.NumberFormat("en-US").format(card.target)}</span>`),
+              html(`<span class="pull-right">${new Intl.NumberFormat("en-US").format(card.nowterm)}</span>`),
+              html(`<span class="pull-right">${new Intl.NumberFormat("en-US").format(card.nextterm)}</span>`),
+              // html(
+              //   `<span class="pull-right">${new Intl.NumberFormat(
+              //     "en-US"
+              //   ).format(card.budgetaftera)}</span>`
+              // ),
+              // html(
+              //   `<span class="pull-right">${new Intl.NumberFormat(
+              //     "en-US"
+              //   ).format(card.budgetafterb)}</span>`
+              // ),
               html(`<span class="pull-left">${card.achievement}</span>`),
             ]),
           total: (data) => data.count,
@@ -1454,37 +1428,27 @@ export default {
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-            // const AuthStr = "bearer " + localStorage.getItem("token");
-            // const config = {
-            //   headers: {
-            //     Authorization: AuthStr,
-            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
             },
           };
-          axios
-            .put(
-              mythis.$root.apiHost + `api/putbudgetafter/${id}/${id2}?offset=0&limit=10000`,
-              config
-            )
-            .then((res) => {
-              //console.log(res.data.data);
-              // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
-              Swal.fire("Updated!", "Data has been updated", "success");
+          axios.put(mythis.$root.apiHost + `api/putbudgetafter/${id}/${id2}?offset=0&limit=10000`, config).then((res) => {
+            //console.log(res.data.data);
+            // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
+            Swal.fire("Updated!", "Data has been updated", "success");
 
-              mythis.$root.stopLoading();
-              mythis.refreshTable();
-              mythis.resetForm();
-            });
+            mythis.$root.stopLoading();
+            mythis.refreshTable();
+            mythis.resetForm();
+          });
         }
       });
     },
-    deleteTodoa(id, id2) {
+    deleteTodoa(id, id2, id4) {
       var mythis = this;
       Swal.fire({
-        title: "Update Budget Term Budget After A",
+        title: "Adjustment Realisasi",
         text: "Are you sure?",
         icon: "warning",
         showCancelButton: true,
@@ -1496,11 +1460,6 @@ export default {
         if (result.isConfirmed) {
           mythis.$root.presentLoading();
           const config = {
-            // const AuthStr = "bearer " + localStorage.getItem("token");
-            // const config = {
-            //   headers: {
-            //     Authorization: AuthStr,
-            //   },
             data: {
               fileUpload: "form satuan",
               userid: mythis.userid,
@@ -1508,21 +1467,24 @@ export default {
           };
           axios
             .put(
-              mythis.$root.apiHost + `api/putbudgetaftera/${id}/${id2}?offset=0&limit=10000`,
-              config
+              `${mythis.$root.apiHost}api/adjusmentaccrued/${id}/${ach}`, // Menggunakan id dan id4
+              config.data // Kirimkan data jika diperlukan
             )
             .then((res) => {
-              //console.log(res.data.data);
-              // /Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
               Swal.fire("Updated!", "Data has been updated", "success");
-
               mythis.$root.stopLoading();
               mythis.refreshTable();
               mythis.resetForm();
+            })
+            .catch((error) => {
+              console.error("Error updating data:", error);
+              Swal.fire("Error!", "Failed to update data", "error");
+              mythis.$root.stopLoading();
             });
         }
       });
     },
+
     editTodo() {
       var mythis = this;
       mythis.$root.flagButtonLoading = true;
@@ -1545,8 +1507,8 @@ export default {
             mop: mythis.todo.mop,
             distcode: mythis.todo.distcode,
             distname: mythis.todo.distname,
-            budgetaftera: mythis.todo.budgetaftera,
-            budgetafterb: mythis.todo.budgetafterb,
+            // budgetaftera: mythis.todo.budgetaftera,
+            // budgetafterb: mythis.todo.budgetafterb,
             kodebeban: mythis.todo.kodebeban,
             nowterm: mythis.todo.nowterm,
             nextterm: mythis.todo.nextterm,
@@ -1610,33 +1572,31 @@ export default {
         //   Authorization: AuthStr,
         // },
       };
-      await axios
-        .get(mythis.$root.apiHost + `api/targetpenjualan/${id}`, config)
-        .then(async (res) => {
-          //console.log(res.data.data);
-          //mythis.acuanEdit = id;
-          //mythis.todo = res.data.data;
-          mythis.todo.id = id;
-          mythis.todo.brandcode = res.data.data.brandcode;
-          mythis.todo.brandname = res.data.data.brandname;
-          mythis.todo.sales = res.data.data.sales;
-          mythis.todo.target = res.data.data.target;
-          mythis.todo.yop = res.data.data.yop;
-          mythis.todo.mop = res.data.data.mop;
-          mythis.todo.distcode = res.data.data.distcode;
-          mythis.todo.distname = res.data.data.distname;
-          mythis.todo.budgetaftera = res.data.data.budgetaftera;
-          mythis.todo.budgetafterb = res.data.data.budgetafterb;
-          mythis.todo.kodebeban = res.data.data.kodebeban;
-          mythis.todo.nowterm = res.data.data.nowterm;
-          mythis.todo.nextterm = res.data.data.nextterm;
-          mythis.todo.term = res.data.data.term;
-          mythis.todo.achievement = res.data.data.achievement;
+      await axios.get(mythis.$root.apiHost + `api/targetpenjualan/${id}`, config).then(async (res) => {
+        //console.log(res.data.data);
+        //mythis.acuanEdit = id;
+        //mythis.todo = res.data.data;
+        mythis.todo.id = id;
+        mythis.todo.brandcode = res.data.data.brandcode;
+        mythis.todo.brandname = res.data.data.brandname;
+        mythis.todo.sales = res.data.data.sales;
+        mythis.todo.target = res.data.data.target;
+        mythis.todo.yop = res.data.data.yop;
+        mythis.todo.mop = res.data.data.mop;
+        mythis.todo.distcode = res.data.data.distcode;
+        mythis.todo.distname = res.data.data.distname;
+        // mythis.todo.budgetaftera = res.data.data.budgetaftera;
+        // mythis.todo.budgetafterb = res.data.data.budgetafterb;
+        mythis.todo.kodebeban = res.data.data.kodebeban;
+        mythis.todo.nowterm = res.data.data.nowterm;
+        mythis.todo.nextterm = res.data.data.nextterm;
+        mythis.todo.term = res.data.data.term;
+        mythis.todo.achievement = res.data.data.achievement;
 
-          document.getElementById("inputA").focus(); // sets the focus on the input
+        document.getElementById("inputA").focus(); // sets the focus on the input
 
-          mythis.$root.stopLoading();
-        });
+        mythis.$root.stopLoading();
+      });
     },
   },
 };
