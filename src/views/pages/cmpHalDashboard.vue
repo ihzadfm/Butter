@@ -169,24 +169,26 @@ export default defineComponent({
   },
   mounted() {
     // Fetch data for each chart
+    this.$root.presentLoading();
     this.fetchDataForChart(
-      "http://localhost:8002/api/suggestionparam/ALL/ALL/1",
+      this.$root.apiHost + "api/suggestionparam/ALL/ALL/1",
       this.stackedChartOptions1,
       this.stackedChartSeries1,
       "stackedChart1"
     );
     this.fetchDataForChart(
-      "http://localhost:8002/api/suggestionparam/ALL/ALL/2",
+      this.$root.apiHost + "api/suggestionparam/ALL/ALL/2",
       this.stackedChartOptions2,
       this.stackedChartSeries2,
       "stackedChart2"
     );
     this.fetchDataForChart(
-      "http://localhost:8002/api/suggestionparam/ALL/ALL/3",
+      this.$root.apiHost + "api/suggestionparam/ALL/ALL/3",
       this.stackedChartOptions3,
       this.stackedChartSeries3,
       "stackedChart3"
     );
+    this.$root.stopLoading();
   },
 });
 </script>

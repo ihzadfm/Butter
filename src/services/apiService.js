@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:8002/api/";
+const apiUrl = import.meta.env.VITE_API_HOST+"/api/";
 const timeout = 50000;
 
 const api = axios.create({
