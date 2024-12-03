@@ -1556,7 +1556,7 @@ export default {
       });
       this.grid.render(document.getElementById("wrapper2"));
       $(document).off("click", "#saveData");
-$(document).on("click", "#saveData", function () {
+      $(document).on("click", "#saveData", function () {
   var kodebeban = $(this).attr("data-id");
   var term = $(this).attr("data-id2");
   var budgetafterq1 = $(this).closest("tr").find("[data-column-id='budgetafterq1']").text().trim();
@@ -1565,36 +1565,53 @@ $(document).on("click", "#saveData", function () {
 
   // Simpan data ke dalam variabel
   mythis.selectedRowData = { kodebeban, term };
-console.log(mythis.term.code);
-let realizationterm;
+  console.log(mythis.term.code);
+  let realizationterm;
 
-if (mythis.term.code == 1) {
+  if (mythis.term.code == 1) {
     mythis.selectedRowData.realizationterm = budgetafterq1;
-    realizationterm =  budgetafterq1
+    realizationterm = budgetafterq1;
   }
   if (mythis.term.code == 2) {
     mythis.selectedRowData.realizationterm = budgetafterq2;
-    realizationterm =  budgetafterq2
+    realizationterm = budgetafterq2;
   }
   if (mythis.term.code == 3) {
     mythis.selectedRowData.realizationterm = budgetafterq3;
-    realizationterm =  budgetafterq3
+    realizationterm = budgetafterq3;
   }
 
-  let realizationtermToInteger = mythis.selectedRowData.realizationterm
+  let realizationtermToInteger = mythis.selectedRowData.realizationterm;
   realizationtermToInteger = Number(realizationtermToInteger.replace(/,/g, ''));
 
-  console.log("Data disimpan:", mythis.selectedRowData);
-  const response = axios.post(`${mythis.$root.apiHost}api/insertrealizationterm`, {
-    kodebeban: mythis.selectedRowData.kodebeban,
-    term: mythis.selectedRowData.term,
-    realizationterm: realizationtermToInteger,
-    created_by: 1,
-    
+  Swal.fire({
+    title: "Konfirmasi",
+    text: "Apakah Anda yakin?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Ya",
+    cancelButtonText: "Batal",
+  }).then((result) => {
+    if (!result.isConfirmed) {
+      return;
+    }
 
-  })
+    // Proses data dengan axios
+    axios.post(`${mythis.$root.apiHost}api/insertrealizationterm`, {
+      kodebeban: mythis.selectedRowData.kodebeban,
+      term: mythis.selectedRowData.term,
+      realizationterm: realizationtermToInteger,
+      created_by: 1,
+    })
+    .then((res) => {
+      Swal.fire("Berhasil!", res.data.message, "success");
+    })
+    .catch((error) => {
+      Swal.fire("Gagal!", "Terjadi kesalahan saat menyimpan data.", "error");
+      console.error("Error saat menyimpan data:", error);
+    });
+  });
 });
-
       this.status_table = true;
     },
 
