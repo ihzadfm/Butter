@@ -344,10 +344,10 @@
                   <div class="btn-group" role="group">
                     <div class="text-center">
                       <!-- Tombol pertama -->
-                      <button class="btn btn-sm text-white" style="background: #bbe4e9" id="editData" data-toggle="tooltip" title="Edit" @click="getaccruedrealisasi(item)">ADJUSTMENT BUDGET WITH ACCRUED</button>
+                      <button class="btn btn-sm text-white" style="background: #bbe4e9" id="adjustmentrealisasi" data-toggle="tooltip" title="Edit" @click="getaccruedrealisasi(item)">ADJUSTMENT BUDGET WITH ACCRUED</button>
 
                       <!-- Tombol kedua -->
-                      <button class="btn btn-sm text-white" style="background: #bbe4e9" id="editData2" data-toggle="tooltip" title="Edit Again" @click="getadjusmentrealisasi(item)">ADJUSTMENT BUDGET WITH REALISASI</button>
+                      <button class="btn btn-sm text-white" style="background: #bbe4e9" id="adjustmentaccrued" data-toggle="tooltip" title="Edit Again" @click="getadjusmentrealisasi(item)">ADJUSTMENT BUDGET WITH REALISASI</button>
                     </div>
                   </div>
                 </div>
@@ -355,38 +355,6 @@
             </tr>
           </tbody>
         </table>
-        <!-- <nav v-if="dataTable.suggestion.data && dataTable.suggestion.data.length > 0" class="mt-2">
-          <ul class="pagination">
-            <li v-if="dataTable.suggestion.current_page !== 1">
-              <a href="#" @click="getDataSuggestion(1)" aria-label="First">
-                <span aria-hidden="true">« First</span>
-              </a>
-            </li>
-            <li v-if="dataTable.suggestion.current_page !== 1">
-              <a href="#" @click="getDataSuggestion(dataTable.suggestion.current_page - 1)" aria-label="Previous">
-                <span aria-hidden="true">&lt;</span>
-              </a>
-            </li>
-            <template v-for="page in calculatePages()">
-              <li :class="{ active: page === dataTable.suggestion.current_page }">
-                <a href="#" @click="getDataSuggestion(page)">{{ page }}</a>
-              </li>
-            </template>
-            <li v-if="dataTable.suggestion.current_page !== dataTable.suggestion.last_page">
-              <a href="#" @click="getDataSuggestion(dataTable.suggestion.current_page + 1)" aria-label="Next">
-                <span aria-hidden="true">&gt;</span>
-              </a>
-            </li>
-            <li v-if="dataTable.suggestion.current_page !== dataTable.suggestion.last_page">
-              <a href="#" @click="getDataSuggestion(dataTable.suggestion.last_page)" aria-label="Last">
-                <span aria-hidden="true">Last »</span>
-              </a>
-            </li>
-          </ul>
-          <div class="pagination-info">
-            <span>Showing {{ dataTable.suggestion.from }} to {{ dataTable.suggestion.to }} of {{ dataTable.suggestion.total }} records</span>
-          </div>
-        </nav> -->
         <div id="box"></div>
 
         <!-- <button
@@ -1228,14 +1196,14 @@ export default {
     },
     async jqueryDelEdit() {
       const mythis = this;
-      $(document).on("click", "#editData", async function () {
+      $(document).on("click", "#adjustmentrealisasi", async function () {
         let id = $(this).data("id");
         let id2 = $(this).data("id2");
         let id4 = $(this).data("id4"); // Menambahkan id4
         mythis.deleteTodoa(id, id2, id4); // Memanggil deleteTodoa dengan id, id2, dan id4
       });
 
-      $(document).on("click", "#deleteData", function () {
+      $(document).on("click", "#adjustmentaccrued", function () {
         let id = $(this).data("id");
         let id2 = $(this).data("id2");
         let id3 = $(this).data("id3");
@@ -1319,7 +1287,7 @@ export default {
         data-id4="${row.cells[14].data}"  // Parameter tambahan untuk id4
         class="btn btn-sm text-white" 
         style="background: #bbe4e9" 
-        id="editData" 
+        id="adjustmentrealisasi" 
         data-toggle="tooltip" 
         title="Edit">
         ADJUSTMENT BUDGET WITH REALISASI
@@ -1331,7 +1299,7 @@ export default {
         data-id3="${row.cells[14].data}" 
         class="btn btn-sm text-white" 
         style="background: #bbe4e9" 
-        id="deleteData" 
+        id="adjustmentaccrued" 
         data-toggle="tooltip" 
         title="Delete">
         ADJUSTMENT BUDGET WITH ACCRUED
@@ -1407,8 +1375,8 @@ export default {
       this.grid.render(document.getElementById("wrapper2"));
       this.number = 0;
 
-      $(document).off("click", "#editData");
-      $(document).off("click", "#deleteData");
+      $(document).off("click", "#adjustmentrealisasi");
+      $(document).off("click", "#adjustmentaccrued");
       mythis.jqueryDelEdit();
       this.status_table = true;
     },
